@@ -21,25 +21,54 @@ function yarbar_theme_setup() {
     register_nav_menus( array(
         'primary' => __( 'Primary Menu', 'yarbar' ),
     ) );
+
+    // Custom image sizes matching real card and hero dimensions.
+    add_image_size( 'yarbar-card', 500, 320, true );
+    add_image_size( 'yarbar-hero', 1600, 900, true );
 }
 add_action( 'after_setup_theme', 'yarbar_theme_setup' );
 
 function yarbar_enqueue_assets() {
     wp_enqueue_style(
+        'yarbar-fonts',
+        get_template_directory_uri() . '/assets/css/fonts.css',
+        array(),
+        '1.0.5'
+    );
+
+    wp_enqueue_style(
         'yarbar-style',
         get_stylesheet_uri(),
         array(),
-        '1.0.4'
+        '1.0.5'
     );
 
     wp_enqueue_style(
         'yarbar-base',
         get_template_directory_uri() . '/assets/css/base.css',
-        array(),
-        '1.0.4'
+        array( 'yarbar-fonts' ),
+        '1.0.5'
     );
 }
 add_action( 'wp_enqueue_scripts', 'yarbar_enqueue_assets' );
 
 require get_template_directory() . '/inc/breadcrumbs.php';
 require get_template_directory() . '/inc/template-tags.php';
+
+require get_template_directory() . '/inc/performance.php';
+
+function yarbar_script_loading_strategy( $strategy, $handle, $src ) {
+    if ( strpos( $handle, 'yarbar-' ) === 0 ) {
+        return 'defer';
+    }
+    return $strategy;
+}
+add_filter( 'wp_script_attributes', function( $attributes ) {
+    return $attributes;
+} );
+add_filter( 'script_loader_tag', function( $tag, $handle ) {
+    if ( strpos( $handle, 'yarbar-' ) === 0 && strpos( $tag, 'defer' ) === false ) {
+        $tag = str_replace( ' src=', ' defer src=', $tag );
+    }
+    return $tag;
+}, 10, 2 );
