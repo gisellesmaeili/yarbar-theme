@@ -75,3 +75,4 @@ add_filter( 'script_loader_tag', function( $tag, $handle ) {
 
 require get_template_directory() . '/inc/helpers.php';
 require get_template_directory() . '/inc/business-settings.php';
+require get_template_directory() . '/inc/post-types.php';
