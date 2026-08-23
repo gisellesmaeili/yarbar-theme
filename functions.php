@@ -31,5 +31,12 @@ function yarbar_enqueue_assets() {
         array(),
         '1.0'
     );
+
+    wp_enqueue_style(
+        'yarbar-base',
+        get_template_directory_uri() . '/assets/css/base.css',
+        array(),
+        '1.0'
+    );
 }
 add_action( 'wp_enqueue_scripts', 'yarbar_enqueue_assets' );
