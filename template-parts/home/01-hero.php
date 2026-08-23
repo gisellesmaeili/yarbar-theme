@@ -6,7 +6,7 @@
             بسته‌بندی ایمن، حمل سریع، و تحویل بدون دغدغه — با تیم مجهز و بیمه کامل.
         </p>
         <div class="hero__actions">
-            <a href="tel:+98XXXXXXXXXX" class="btn btn--primary">تماس فوری</a>
+            <a href="<?php echo yarbar_phone_link(); ?>" class="btn btn--primary">تماس فوری</a>
             <a href="#contact" class="btn btn--secondary">درخواست مشاوره</a>
         </div>
     </div>

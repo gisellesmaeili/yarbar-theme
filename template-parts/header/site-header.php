@@ -15,12 +15,12 @@
             ?>
         </nav>
 
-        <a href="tel:+98XXXXXXXXXX" class="site-header__phone">
-            ۰۲۱-XXXXXXXX
+        <a href="<?php echo yarbar_phone_link(); ?>" class="site-header__phone">
+            <?php echo esc_html( yarbar_option( 'phone_primary' ) ); ?>
         </a>
     </div>
 </header>
 
-<a href="tel:+98XXXXXXXXXX" class="mobile-call-bar">
+<a href="<?php echo yarbar_phone_link(); ?>" class="mobile-call-bar">
     تماس با یاربار
 </a>

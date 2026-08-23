@@ -24,7 +24,7 @@ get_header();
             </div>
 
             <div class="single-article__cta">
-                <a href="tel:+98XXXXXXXXXX" class="btn btn--primary">تماس با یاربار</a>
+                <a href="<?php echo yarbar_phone_link(); ?>" class="btn btn--primary">تماس با یاربار</a>
             </div>
         </article>
 

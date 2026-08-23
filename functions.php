@@ -33,21 +33,21 @@ function yarbar_enqueue_assets() {
         'yarbar-fonts',
         get_template_directory_uri() . '/assets/css/fonts.css',
         array(),
-        '1.0.5'
+        '1.0.6'
     );
 
     wp_enqueue_style(
         'yarbar-style',
         get_stylesheet_uri(),
         array(),
-        '1.0.5'
+        '1.0.6'
     );
 
     wp_enqueue_style(
         'yarbar-base',
         get_template_directory_uri() . '/assets/css/base.css',
         array( 'yarbar-fonts' ),
-        '1.0.5'
+        '1.0.6'
     );
 }
 add_action( 'wp_enqueue_scripts', 'yarbar_enqueue_assets' );
@@ -72,3 +72,6 @@ add_filter( 'script_loader_tag', function( $tag, $handle ) {
     }
     return $tag;
 }, 10, 2 );
+
+require get_template_directory() . '/inc/helpers.php';
+require get_template_directory() . '/inc/business-settings.php';

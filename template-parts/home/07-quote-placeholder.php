@@ -4,6 +4,6 @@
         <p class="quote-cta__text">
             برای دریافت برآورد دقیق هزینه بار خود، همین حالا با ما تماس بگیرید.
         </p>
-        <a href="tel:+98XXXXXXXXXX" class="btn btn--primary">دریافت برآورد هزینه</a>
+        <a href="<?php echo yarbar_phone_link(); ?>" class="btn btn--primary">دریافت برآورد هزینه</a>
     </div>
 </section>

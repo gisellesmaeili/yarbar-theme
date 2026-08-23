@@ -18,7 +18,7 @@
         <div class="site-footer__col">
             <h4>تماس با ما</h4>
             <p class="site-footer__text">
-                <a href="tel:+98XXXXXXXXXX">۰۲۱-XXXXXXXX</a>
+                <a href="<?php echo yarbar_phone_link(); ?>"><?php echo esc_html( yarbar_option( 'phone_primary' ) ); ?></a>
             </p>
         </div>
     </div>
