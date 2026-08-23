@@ -12,6 +12,10 @@ get_header();
         <?php get_template_part( 'template-parts/home/03-services' ); ?>
         <?php get_template_part( 'template-parts/home/04-why-yarbar' ); ?>
         <?php get_template_part( 'template-parts/home/05-how-it-works' ); ?>
+        <?php get_template_part( 'template-parts/home/06-coverage' ); ?>
+        <?php get_template_part( 'template-parts/home/07-quote-placeholder' ); ?>
+        <?php get_template_part( 'template-parts/home/08-blog-preview' ); ?>
+        <?php get_template_part( 'template-parts/home/09-final-cta' ); ?>
     </main>
 
 <?php
