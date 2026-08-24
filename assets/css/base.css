@@ -679,10 +679,6 @@ img {
     color: var(--color-orange);
 }
 
-.wp-block-yarbar-hero {
-    display: block;
-}
-
 .faq {
     padding: var(--space-9) 0;
     background-color: var(--color-cool-white);
