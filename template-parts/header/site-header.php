@@ -1,7 +1,7 @@
 <header class="site-header">
     <div class="container site-header__inner">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-header__logo">
-            <span class="site-header__logo-white">یار</span><span class="site-header__logo-orange">بار</span>
+            <span class="site-header__logo-white">یار</span><span class="site-header__logo-orange">بار.</span>
         </a>
 
         <nav class="site-header__nav" aria-label="<?php esc_attr_e( 'منوی اصلی', 'yarbar' ); ?>">
@@ -14,11 +14,7 @@
                 <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">وبلاگ</a></li>
             </ul>
         </nav>
-
-        <div class="site-header__contact">
-            <span class="site-header__phone-number" dir="ltr"><?php echo esc_html( yarbar_option( 'phone_primary' ) ); ?></span>
-            <a href="<?php echo yarbar_phone_link(); ?>" class="btn btn--outline btn--small">تماس فوری</a>
-        </div>
+        <a href="<?php echo yarbar_phone_link(); ?>" class="btn btn--primary btn--small"><?php echo esc_html( yarbar_option( 'phone_primary' ) ); ?>تماس فوری: </a>
     </div>
 </header>
 

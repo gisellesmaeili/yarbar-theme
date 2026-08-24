@@ -4,8 +4,8 @@
     <div class="container hero__inner">
         <div class="hero__content">
             <h1 class="hero__title">
-                اسباب‌کشی و باربری تخصصی <span class="hero__highlight">یاربار</span>؛
-                جابه‌جایی <span class="hero__highlight">بی‌دردسر</span> در سراسر کشور
+                <span class="hero__highlight">یـــار</span>بار<br>
+                حمل مطمئن بار
             </h1>
 
             <p class="hero__description">

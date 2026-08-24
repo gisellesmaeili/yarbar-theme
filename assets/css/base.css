@@ -69,14 +69,15 @@ img {
     z-index: 5;
     overflow: visible;
     background-color: var(--color-midnight);
-    padding-top: var(--space-9);
+    padding-top: 14rem;
     padding-bottom: var(--space-8);
+    margin-top: -5rem;
 }
 
 .hero__pattern {
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1.5px, transparent 1.5px);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
     background-size: 24px 24px;
     pointer-events: none;
 }
@@ -193,10 +194,14 @@ img {
 .btn--primary {
     background-color: var(--color-orange);
     color: var(--color-white);
+    box-shadow: 0 4px 14px rgba(255, 107, 26, 0.35);
+    transition: all 0.2s ease;
 }
 
 .btn--primary:hover {
     background-color: var(--color-orange-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 26, 0.5);
 }
 
 .btn--secondary {
@@ -213,9 +218,10 @@ img {
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: rgba(10, 25, 41, 0.85);
-    backdrop-filter: blur(12px);
+    background-color: rgba(10, 25, 41, 0.75);
+    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(229, 234, 240, 0.08);
 }
 
 .site-header__inner {
@@ -229,10 +235,11 @@ img {
 
 .site-header__logo {
     font-family: var(--font-heading);
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 700;
     text-decoration: none;
     white-space: nowrap;
+    transition: filter 0.2s ease;
 }
 
 .site-header__logo-white {
@@ -241,6 +248,10 @@ img {
 
 .site-header__logo-orange {
     color: var(--color-orange);
+}
+
+.site-header__logo:hover .site-header__logo-orange{
+    filter: drop-shadow(0 0 8px rgba(255, 107, 26, 0.5))
 }
 
 .site-header__menu {
@@ -260,19 +271,6 @@ img {
 
 .site-header__menu a:hover {
     color: var(--color-orange);
-}
-
-.site-header__contact {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    white-space: nowrap;
-}
-
-.site-header__phone-number {
-    color: var(--color-white);
-    font-weight: 700;
-    font-size: 14px;
 }
 
 .btn--outline {
@@ -311,8 +309,7 @@ img {
         padding-bottom: 64px;
     }
 
-    .site-header__nav,
-    .site-header__phone-number {
+    .site-header__nav{
         display: none;
     }
 
@@ -869,6 +866,7 @@ img {
 }
 
 .marquee {
+    direction: ltr;
     position: relative;
     z-index: 1;
     background-color: var(--color-orange);
