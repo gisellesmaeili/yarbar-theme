@@ -1,4 +1,4 @@
-<section class="coverage">
+<section class="coverage" id="locations">
     <div class="container">
         <h2 class="section-heading">پوشش سراسری یاربار</h2>
         <p class="coverage__intro">

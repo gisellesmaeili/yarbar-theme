@@ -7,6 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Block direct access to this file.
 }
 
+define( 'YARBAR_VERSION', '1.0.12' );
+
 function yarbar_theme_setup() {
     // Let WordPress manage the page <title> tag.
     add_theme_support( 'title-tag' );
@@ -33,21 +35,21 @@ function yarbar_enqueue_assets() {
         'yarbar-fonts',
         get_template_directory_uri() . '/assets/css/fonts.css',
         array(),
-        '1.0.11'
+        YARBAR_VERSION
     );
 
     wp_enqueue_style(
         'yarbar-style',
         get_stylesheet_uri(),
         array(),
-        '1.0.11'
+        YARBAR_VERSION
     );
 
     wp_enqueue_style(
         'yarbar-base',
         get_template_directory_uri() . '/assets/css/base.css',
         array( 'yarbar-fonts' ),
-        '1.0.11'
+        YARBAR_VERSION
     );
 }
 add_action( 'wp_enqueue_scripts', 'yarbar_enqueue_assets' );

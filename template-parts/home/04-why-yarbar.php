@@ -1,4 +1,4 @@
-<section class="why">
+<section class="why" id="about">
     <div class="container">
         <h2 class="section-heading">چرا یاربار؟</h2>
 
