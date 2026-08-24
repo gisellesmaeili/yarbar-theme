@@ -37,21 +37,21 @@ function yarbar_enqueue_assets() {
         'yarbar-fonts',
         get_template_directory_uri() . '/assets/css/fonts.css',
         array(),
-        '1.0.8'
+        '1.0.9'
     );
 
     wp_enqueue_style(
         'yarbar-style',
         get_stylesheet_uri(),
         array(),
-        '1.0.8'
+        '1.0.9'
     );
 
     wp_enqueue_style(
         'yarbar-base',
         get_template_directory_uri() . '/assets/css/base.css',
         array( 'yarbar-fonts' ),
-        '1.0.8'
+        '1.0.9'
     );
 }
 add_action( 'wp_enqueue_scripts', 'yarbar_enqueue_assets' );

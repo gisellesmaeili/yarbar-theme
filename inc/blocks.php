@@ -30,7 +30,15 @@ function yarbar_enqueue_block_editor_assets() {
         'yarbar-blocks-cta',
         get_template_directory_uri() . '/assets/js/blocks/cta.js',
         array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' ),
-        '1.0',
+        '1.0.9',
+        true
+    );
+
+    wp_enqueue_script(
+        'yarbar-blocks-hero',
+        get_template_directory_uri() . '/assets/js/blocks/hero.js',
+        array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-i18n', 'yarbar-blocks-cta' ),
+        '1.0.9',
         true
     );
 }
@@ -69,6 +77,10 @@ function yarbar_render_cta_block( $attributes ) {
     $url   = isset( $attributes['url'] ) ? $attributes['url'] : '#';
     $style = ( isset( $attributes['style'] ) && 'secondary' === $attributes['style'] ) ? 'secondary' : 'primary';
 
+    if ( 'tel:' === trim( $url ) ) {
+        $url = yarbar_phone_link();
+    }
+
     if ( empty( $text ) ) {
         return '';
     }
@@ -80,3 +92,62 @@ function yarbar_render_cta_block( $attributes ) {
         esc_html( $text )
     );
 }
+
+/**
+ * Register the Hero block's data fields, and its PHP render function.
+ */
+function yarbar_register_hero_block() {
+    register_block_type( 'yarbar/hero', array(
+        'attributes' => array(
+            'eyebrow'     => array( 'type' => 'string', 'default' => '' ),
+            'title'       => array( 'type' => 'string', 'default' => '' ),
+            'description' => array( 'type' => 'string', 'default' => '' ),
+        ),
+        'render_callback' => 'yarbar_render_hero_block',
+    ) );
+}
+add_action( 'init', 'yarbar_register_hero_block' );
+
+function yarbar_render_hero_block( $attributes, $content ) {
+    $eyebrow     = isset( $attributes['eyebrow'] ) ? $attributes['eyebrow'] : '';
+    $title       = isset( $attributes['title'] ) ? $attributes['title'] : '';
+    $description = isset( $attributes['description'] ) ? $attributes['description'] : '';
+
+    ob_start();
+    ?>
+    <section class="hero">
+        <div class="container hero__inner">
+            <?php if ( ! empty( $eyebrow ) ) : ?>
+                <span class="hero__eyebrow"><?php echo wp_kses_post( $eyebrow ); ?></span>
+            <?php endif; ?>
+
+            <h1 class="hero__title"><?php echo wp_kses_post( $title ); ?></h1>
+
+            <?php if ( ! empty( $description ) ) : ?>
+                <p class="hero__description"><?php echo wp_kses_post( $description ); ?></p>
+            <?php endif; ?>
+
+            <div class="hero__actions">
+                <?php echo $content; ?>
+            </div>
+        </div>
+    </section>
+    <?php
+    return ob_get_clean();
+}
+
+/**
+ * Restrict the homepage's block editor to the Hero block only.
+ * This is the guardrail from your visual editor document, Section 4:
+ * the SEO specialist can add predefined components, never arbitrary layout blocks.
+ */
+function yarbar_restrict_homepage_blocks( $allowed_blocks, $block_editor_context ) {
+    if (
+        isset( $block_editor_context->post )
+        && (int) $block_editor_context->post->ID === (int) get_option( 'page_on_front' )
+    ) {
+        return array( 'yarbar/hero' );
+    }
+    return $allowed_blocks;
+}
+add_filter( 'allowed_block_types_all', 'yarbar_restrict_homepage_blocks', 10, 2 );

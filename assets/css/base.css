@@ -678,3 +678,7 @@ img {
 .rank-math-breadcrumb a:hover {
     color: var(--color-orange);
 }
+
+.wp-block-yarbar-hero {
+    display: block;
+}
