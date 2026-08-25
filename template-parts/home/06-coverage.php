@@ -2,8 +2,8 @@
 /**
  * Nationwide Coverage & Interactive Map Section
  * 
- * Dynamic query of 'location' Custom Post Type combined with
- * an interactive vector map of Iran.
+ * Dynamic query of 'location' Custom Post Type (up to 6 items)
+ * combined with an interactive vector map of Iran and archive CTA.
  * 
  * @package YarBar
  */
@@ -14,63 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $yarbar_locations_query = new WP_Query( array(
     'post_type'      => 'location',
-    'posts_per_page' => 5,
+    'posts_per_page' => 6,
     'post_status'    => 'publish',
     'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
 ) );
 
-$yarbar_default_locations = array(
-    array(
-        'title'       => 'باربری و اسباب‌کشی در تهران',
-        'slug'        => 'tehran',
-        'badge'       => 'مرکز اصلی',
-        'badge_class' => '',
-        'fleet_status'=> 'فعال ۲۴/۷',
-        'featured'    => false,
-        'excerpt'     => 'پوشش کامل ۲۲ منطقه تهران، پردیس، اندیشه و لواسانات با کامیون‌های موکت‌شده.',
-        'link_text'   => 'مشاهده تعرفه و مناطق',
-    ),
-    array(
-        'title'       => 'اسباب‌کشی تخصصی در کرج',
-        'slug'        => 'karaj',
-        'badge'       => 'استان البرز',
-        'badge_class' => '',
-        'fleet_status'=> 'فعال',
-        'featured'    => false,
-        'excerpt'     => 'ارائه خدمات سریع در عظیمیه، جهانشهر، گوهردشت، مهرشهر و فردیس.',
-        'link_text'   => 'مشاهده تعرفه کرج',
-    ),
-    array(
-        'title'       => 'حمل بار بین‌شهری سراسر ایران',
-        'slug'        => 'intercity',
-        'badge'       => 'ترانزیت کشوری',
-        'badge_class' => 'badge-orange',
-        'fleet_status'=> 'بیمه دولتی',
-        'featured'    => true,
-        'excerpt'     => 'ارسال بار به تمام استان‌ها با بارنامه رسمی و بیمه‌نامه معتبر تا سقف ۵۰۰ میلیون.',
-        'link_text'   => 'استعلام قیمت بین‌شهری',
-    ),
-    array(
-        'title'       => 'باربری و اسباب‌کشی در اصفهان',
-        'slug'        => 'isfahan',
-        'badge'       => 'مرکز ایران',
-        'badge_class' => '',
-        'fleet_status'=> 'فعال',
-        'featured'    => false,
-        'excerpt'     => 'خدمات کامل حمل اثاثیه منزل و شرکت‌ها در تمام مناطق کلان‌شهر اصفهان.',
-        'link_text'   => 'مشاهده جزئیات',
-    ),
-    array(
-        'title'       => 'باربری استان‌های گیلان و مازندران',
-        'slug'        => 'north',
-        'badge'       => 'خطه شمال',
-        'badge_class' => '',
-        'fleet_status'=> 'فعال',
-        'featured'    => false,
-        'excerpt'     => 'حمل تخصصی بار به رشت، ساری، گرگان، انزلی، چالوس و شهرهای ساحلی.',
-        'link_text'   => 'مشاهده جزئیات',
-    ),
-);
+$yarbar_locations_archive_url = get_post_type_archive_link( 'location' );
+if ( ! $yarbar_locations_archive_url ) {
+    $yarbar_locations_archive_url = home_url( '/locations/' );
+}
 ?>
 <!-- سکشن پوشش جغرافیایی (نقشه تعاملی + پست‌تایپ لوکیشن‌ها) -->
 <section id="locations" class="locations-map-section" aria-labelledby="locations-title">
@@ -182,28 +134,15 @@ $yarbar_default_locations = array(
                 <div class="locations-grid">
                     <?php if ( $yarbar_locations_query->have_posts() ) : ?>
                         <?php
-                        $loc_index = 0;
                         while ( $yarbar_locations_query->have_posts() ) :
                             $yarbar_locations_query->the_post();
-                            $def_item   = isset( $yarbar_default_locations[ $loc_index ] ) ? $yarbar_default_locations[ $loc_index ] : null;
-                            $badge_meta = get_post_meta( get_the_ID(), '_yarbar_location_badge', true );
-                            $badge_text = $badge_meta ? $badge_meta : ( $def_item ? $def_item['badge'] : 'نمایندگی فعال' );
-                            $status_meta= get_post_meta( get_the_ID(), '_yarbar_fleet_status', true );
-                            $status_text= $status_meta ? $status_meta : ( $def_item ? $def_item['fleet_status'] : 'فعال' );
-                            $is_featured= ( $loc_index === 2 ) || ( $def_item && $def_item['featured'] );
-                            $badge_class= ( $is_featured ) ? ' badge-orange' : '';
-
                             if ( has_excerpt() ) {
                                 $loc_excerpt = get_the_excerpt();
                             } else {
                                 $loc_excerpt = wp_trim_words( wp_strip_all_tags( get_the_content() ), 18, '...' );
                             }
                             ?>
-                            <a href="<?php the_permalink(); ?>" class="location-post-card<?php echo $is_featured ? ' featured-post' : ''; ?>">
-                                <div class="post-card-header">
-                                    <span class="location-badge<?php echo esc_attr( $badge_class ); ?>"><?php echo esc_html( $badge_text ); ?></span>
-                                    <span class="fleet-status"><?php echo esc_html( $status_text ); ?></span>
-                                </div>
+                            <a href="<?php the_permalink(); ?>" class="location-post-card">
                                 <h3 class="location-post-title"><?php the_title(); ?></h3>
                                 <p class="location-post-excerpt">
                                     <?php echo esc_html( $loc_excerpt ); ?>
@@ -215,31 +154,21 @@ $yarbar_default_locations = array(
                                     </svg>
                                 </div>
                             </a>
-                            <?php
-                            $loc_index++;
+                        <?php
                         endwhile;
                         wp_reset_postdata();
                         ?>
-                    <?php else : ?>
-                        <?php foreach ( $yarbar_default_locations as $loc ) : ?>
-                            <a href="<?php echo esc_url( home_url( '/locations/' . $loc['slug'] . '/' ) ); ?>" class="location-post-card<?php echo $loc['featured'] ? ' featured-post' : ''; ?>">
-                                <div class="post-card-header">
-                                    <span class="location-badge<?php echo $loc['badge_class'] ? ' ' . esc_attr( $loc['badge_class'] ) : ''; ?>"><?php echo esc_html( $loc['badge'] ); ?></span>
-                                    <span class="fleet-status"><?php echo esc_html( $loc['fleet_status'] ); ?></span>
-                                </div>
-                                <h3 class="location-post-title"><?php echo esc_html( $loc['title'] ); ?></h3>
-                                <p class="location-post-excerpt">
-                                    <?php echo esc_html( $loc['excerpt'] ); ?>
-                                </p>
-                                <div class="post-card-footer">
-                                    <span class="read-more"><?php echo esc_html( $loc['link_text'] ); ?></span>
-                                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7 7l-7-7 7-7"/>
-                                    </svg>
-                                </div>
-                            </a>
-                        <?php endforeach; ?>
                     <?php endif; ?>
+                </div>
+
+                <!-- دکمه آرشیو تمامی مناطق تحت پوشش -->
+                <div class="locations-cta">
+                    <a href="<?php echo esc_url( $yarbar_locations_archive_url ); ?>" class="btn btn--secondary">
+                        <span>نمایش تمامی مناطق تحت پوشش</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7 7l-7-7 7-7"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
 

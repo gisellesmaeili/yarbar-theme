@@ -1543,7 +1543,7 @@ img {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
     border: 1px solid rgba(229, 234, 240, 0.1);
     border-radius: 20px;
-    padding: 20px;
+    padding: 22px 20px;
     text-decoration: none;
     display: flex;
     flex-direction: column;
@@ -1551,45 +1551,12 @@ img {
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-.location-post-card.featured-post {
-    grid-column: span 2;
-    background: linear-gradient(135deg, rgba(255, 107, 26, 0.12) 0%, rgba(19, 47, 76, 0.4) 100%);
-    border-color: rgba(255, 107, 26, 0.3);
-}
-
-.post-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-}
-
-.location-badge {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--color-gray);
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 8px;
-}
-
-.location-badge.badge-orange {
-    background: var(--color-orange);
-    color: var(--color-white);
-}
-
-.fleet-status {
-    color: var(--color-orange);
-    font-size: 11px;
-    font-weight: 600;
-}
-
 .location-post-title {
     color: var(--color-white);
     font-size: 16px;
     font-weight: 700;
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     line-height: 1.4;
     transition: color 0.3s ease;
 }
@@ -1642,6 +1609,45 @@ img {
     transform: translateX(-6px);
 }
 
+/* Archive Button CTA */
+.locations-cta {
+    margin-top: var(--space-6);
+    text-align: center;
+}
+
+.locations-map-section .btn--secondary {
+    color: var(--color-white);
+    border: 1.5px solid rgba(229, 234, 240, 0.3);
+    border-radius: 12px;
+    padding: 12px 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.locations-map-section .btn--secondary .arrow-icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.25s ease;
+}
+
+.locations-map-section .btn--secondary:hover {
+    background: var(--color-white);
+    color: var(--color-midnight);
+    border-color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.locations-map-section .btn--secondary:hover .arrow-icon {
+    transform: translateX(-4px);
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .locations-split-wrapper {
@@ -1668,8 +1674,8 @@ img {
         grid-template-columns: 1fr;
     }
 
-    .location-post-card.featured-post {
-        grid-column: span 1;
+    .locations-map-section .btn--secondary {
+        width: 100%;
     }
 
     .map-graphic-container {
