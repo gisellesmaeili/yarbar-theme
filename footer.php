@@ -36,12 +36,23 @@ if ( ! $blog_archive_url ) {
     $blog_archive_url = home_url( '/blog/' );
 }
 
-// Fetch real blog categories
+// Fetch real blog categories (excluding uncategorized)
+$default_cat_id = (int) get_option( 'default_category' );
+$exclude_cats   = array();
+if ( $default_cat_id ) {
+    $exclude_cats[] = $default_cat_id;
+}
+$uncat_obj = get_category_by_slug( 'uncategorized' );
+if ( $uncat_obj && ! in_array( $uncat_obj->term_id, $exclude_cats, true ) ) {
+    $exclude_cats[] = $uncat_obj->term_id;
+}
+
 $footer_categories = get_categories( array(
     'orderby'    => 'count',
     'order'      => 'DESC',
     'number'     => 5,
     'hide_empty' => false,
+    'exclude'    => $exclude_cats,
 ) );
 
 $map_img_path = get_template_directory_uri() . '/assets/images/footer/map-location.webp';
@@ -96,7 +107,7 @@ $map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencod
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                             </svg>
-                            آرشیو خدمات باربری
+                            خدمات باربری
                         </a>
                     </li>
                     <li>
@@ -104,7 +115,7 @@ $map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencod
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                             </svg>
-                            آرشیو مناطق و لوکیشن‌ها
+                            مناطق تحت پوشش
                         </a>
                     </li>
                     <li>
@@ -112,7 +123,7 @@ $map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencod
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                             </svg>
-                            آرشیو مقالات وبلاگ
+                            مقالات وبلاگ
                         </a>
                     </li>
                 </ul>
