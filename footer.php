@@ -1,32 +1,207 @@
-<footer class="site-footer">
-    <div class="container site-footer__inner">
-        <div class="site-footer__col">
-            <span class="site-footer__logo">یاربار</span>
-            <p class="site-footer__text">
-                حمل و نقل و اسباب‌کشی حرفه‌ای در سراسر ایران.
-            </p>
+<?php
+/**
+ * The template for displaying the footer
+ *
+ * Contains the closing of the main container and all content after.
+ *
+ * @package YarBar
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+$phone_primary = yarbar_option( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
+$phone_link    = yarbar_phone_link( 'phone_primary' );
+if ( empty( $phone_link ) ) {
+    $phone_link = 'tel:' . preg_replace( '/[^0-9+]/', '', $phone_primary );
+}
+$phone_display = ! empty( $phone_primary ) ? $phone_primary : '۰۲۱-۹۱۰۰۰۰۰۰';
+
+$business_address = yarbar_option( 'address', 'تهران، خیابان شریعتی، بالاتر از میرداماد، پلاک ۱۲۴، واحد ۳' );
+
+$services_archive_url = get_post_type_archive_link( 'service' );
+if ( ! $services_archive_url ) {
+    $services_archive_url = home_url( '/services/' );
+}
+
+$locations_archive_url = get_post_type_archive_link( 'location' );
+if ( ! $locations_archive_url ) {
+    $locations_archive_url = home_url( '/locations/' );
+}
+
+$blog_page_id     = get_option( 'page_for_posts' );
+$blog_archive_url = $blog_page_id ? get_permalink( $blog_page_id ) : home_url( '/blog/' );
+if ( ! $blog_archive_url ) {
+    $blog_archive_url = home_url( '/blog/' );
+}
+
+// Fetch real blog categories
+$footer_categories = get_categories( array(
+    'orderby'    => 'count',
+    'order'      => 'DESC',
+    'number'     => 5,
+    'hide_empty' => false,
+) );
+
+$map_img_path = get_template_directory_uri() . '/assets/images/footer/map-location.webp';
+$map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( $business_address );
+?>
+<!-- فوتر اصلی سایت (Footer & SEO Links) -->
+<footer id="main-footer" class="site-footer">
+    <div class="container footer-container">
+
+        <!-- شبکه‌بندی اصلی فوتر (۴ ستون) -->
+        <div class="footer-grid">
+
+            <!-- ستون ۱: درباره شرکت و لوگو -->
+            <div class="footer-col col-about">
+                <div class="footer-logo">
+                    <span class="logo-text">یار<span>بار</span></span>
+                </div>
+                <p class="about-text">
+                    سامانه هوشمند باربری و حمل اثاثیه منزل در سراسر ایران. ارائه خدمات تخصصی با کامیون‌های موکت‌شده، کارگران آموزش‌دیده، بارنامه دولتی و بیمه‌نامه معتبر.
+                </p>
+
+                <div class="footer-trust-badges">
+                    <span class="badge-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                        تضمین سلامت کالا
+                    </span>
+                    <span class="badge-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        پشتیبانی ۲۴ ساعته
+                    </span>
+                </div>
+            </div>
+
+            <!-- ستون ۲: لینک‌های سریع -->
+            <div class="footer-col">
+                <h4 class="footer-heading">لینک‌های سریع</h4>
+                <ul class="footer-links">
+                    <li>
+                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            صفحه اصلی
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo esc_url( $services_archive_url ); ?>">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            آرشیو خدمات باربری
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo esc_url( $locations_archive_url ); ?>">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            آرشیو مناطق و لوکیشن‌ها
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo esc_url( $blog_archive_url ); ?>">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                            آرشیو مقالات وبلاگ
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ستون ۳: دسته‌بندی نوشته‌ها -->
+            <div class="footer-col">
+                <h4 class="footer-heading">دسته‌بندی نوشته‌ها</h4>
+                <ul class="footer-links">
+                    <?php if ( ! empty( $footer_categories ) ) : ?>
+                        <?php foreach ( $footer_categories as $fcat ) : ?>
+                            <li>
+                                <a href="<?php echo esc_url( get_category_link( $fcat->term_id ) ); ?>">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                    </svg>
+                                    <?php echo esc_html( $fcat->name ); ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <li>
+                            <a href="<?php echo esc_url( $blog_archive_url ); ?>">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                </svg>
+                                مقالات و راهنماهای اسباب‌کشی
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+
+            <!-- ستون ۴: لوکیشن و شماره تماس -->
+            <div class="footer-col col-contact">
+                <h4 class="footer-heading">ارتباط با مرکز تماس</h4>
+
+                <!-- شماره تماس برجسته -->
+                <a href="<?php echo esc_url( $phone_link ); ?>" class="phone-box">
+                    <div class="phone-icon-wrapper" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                    </div>
+                    <div class="phone-info">
+                        <span class="phone-label">تلفن پشتیبانی و مشاوره:</span>
+                        <strong class="phone-number"><?php echo esc_html( $phone_display ); ?></strong>
+                    </div>
+                </a>
+
+                <!-- آدرس متنی -->
+                <div class="address-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <span><?php echo esc_html( $business_address ); ?></span>
+                </div>
+
+                <!-- تصویر نقشه لوکیشن -->
+                <a href="<?php echo esc_url( $map_link_url ); ?>" target="_blank" rel="noopener noreferrer" class="map-preview-card" aria-label="<?php esc_attr_e( 'مسیریابی دفتر مرکزی روی نقشه', 'yarbar' ); ?>">
+                    <img 
+                        src="<?php echo esc_url( $map_img_path ); ?>" 
+                        alt="<?php esc_attr_e( 'نقشه لوکیشن دفتر مرکزی یاربار', 'yarbar' ); ?>" 
+                        class="map-img" 
+                        loading="lazy" 
+                        decoding="async" 
+                        onerror="this.src='https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=500&q=80'"
+                    >
+                    <span class="map-overlay-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        مسیریابی با گوگل مپ
+                    </span>
+                </a>
+
+            </div>
+
         </div>
 
-        <div class="site-footer__col">
-            <h4>دسترسی سریع</h4>
-            <ul class="site-footer__links">
-                <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">صفحه اصلی</a></li>
-                <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>">وبلاگ</a></li>
-            </ul>
+        <!-- خط جداکننده انتهایی -->
+        <div class="footer-divider"></div>
+
+        <!-- بخش حقوق و کپی‌رایت -->
+        <div class="footer-bottom">
+            <span>طراحی شده با ♡ - <a href="https://vardi.ir" target="_blank" rel="nofollow">آژانس تبلیغاتی وردی</a></span>
         </div>
 
-        <div class="site-footer__col">
-            <h4>تماس با ما</h4>
-            <p class="site-footer__text">
-                <a href="<?php echo yarbar_phone_link(); ?>"><?php echo esc_html( yarbar_option( 'phone_primary' ) ); ?></a>
-            </p>
-        </div>
-    </div>
-
-    <div class="site-footer__bottom">
-        <div class="container">
-            <p>&copy; <?php echo esc_html( date( 'Y' ) ); ?> یاربار. تمام حقوق محفوظ است.</p>
-        </div>
     </div>
 </footer>
 
