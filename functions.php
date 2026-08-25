@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Block direct access to this file.
 }
 
-define( 'YARBAR_VERSION', '1.0.14' );
+define( 'YARBAR_VERSION', '1.0.15' );
 
 function yarbar_theme_setup() {
     // Let WordPress manage the page <title> tag.
@@ -55,6 +55,14 @@ function yarbar_enqueue_assets() {
     wp_enqueue_script(
         'yarbar-header',
         get_template_directory_uri() . '/assets/js/header.js',
+        array(),
+        YARBAR_VERSION,
+        true
+    );
+
+    wp_enqueue_script(
+        'yarbar-calculator',
+        get_template_directory_uri() . '/assets/js/calculator.js',
         array(),
         YARBAR_VERSION,
         true
