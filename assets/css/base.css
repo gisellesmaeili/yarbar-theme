@@ -779,33 +779,272 @@ img {
     font-size: 14px;
 }
 
-/* Services */
-.services {
-    padding: var(--space-9) 0;
+/* ----------------------------------
+   Dedicated Services Showcase Section
+---------------------------------- */
+.services-section {
+    background-color: var(--color-navy);
+    padding: 100px 0;
+    direction: rtl;
+    position: relative;
+    overflow: hidden;
 }
 
-.services__grid {
+.services-ambient-glow {
+    position: absolute;
+    top: 20%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255, 107, 26, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.services-container {
+    position: relative;
+    z-index: 2;
+}
+
+.services-header {
+    margin-bottom: var(--space-7);
+    text-align: right;
+}
+
+.services-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background-color: rgba(255, 107, 26, 0.15);
+    border: 1px solid rgba(255, 107, 26, 0.3);
+    color: var(--color-orange);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 30px;
+    margin-bottom: var(--space-4);
+}
+
+.services-badge-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-orange);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--color-orange);
+}
+
+.services-title {
+    color: var(--color-white);
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    line-height: 1.3;
+}
+
+.services-subtitle {
+    color: var(--color-gray);
+    font-size: 16px;
+    opacity: 0.8;
+    max-width: 650px;
+    margin: 0;
+    line-height: 1.7;
+}
+
+/* 2x2 Grid */
+.services-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-5);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
 }
 
+/* Horizontal Service Card */
 .service-card {
-    background-color: var(--color-cool-white);
-    border: 1px solid var(--color-gray);
-    border-radius: 12px;
-    padding: var(--space-5);
+    display: flex;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(229, 234, 240, 0.12);
+    border-radius: 24px;
+    overflow: hidden;
+    text-decoration: none;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-.service-card h3 {
-    color: var(--color-midnight);
-    font-size: 18px;
+/* Image Wrap (Right side in RTL) */
+.card-image-wrap {
+    width: 220px;
+    min-width: 220px;
+    position: relative;
+    overflow: hidden;
 }
 
-.service-card p {
-    color: var(--color-muted);
+.service-featured-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, rgba(19, 47, 76, 0.45) 0%, rgba(19, 47, 76, 0) 100%);
+    pointer-events: none;
+}
+
+.card-tag {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(10, 25, 41, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--color-white);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.card-tag.tag-accent {
+    background: rgba(255, 107, 26, 0.9);
+    border-color: rgba(255, 107, 26, 0.5);
+}
+
+/* Card Content (Left side in RTL) */
+.card-content {
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: 10px;
+}
+
+.meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-orange);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.meta-item svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+.service-card .service-title {
+    color: var(--color-white);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.service-desc {
+    color: var(--color-gray);
     font-size: 14px;
-    margin-bottom: 0;
+    line-height: 1.6;
+    opacity: 0.8;
+    margin: 0 0 20px 0;
+}
+
+/* Card Footer & Action CTA */
+.card-footer {
+    border-top: 1px solid rgba(229, 234, 240, 0.08);
+    padding-top: 16px;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-gray);
+    font-size: 13px;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.arrow-icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Hover States */
+.service-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 107, 26, 0.5);
+    box-shadow: 0 20px 40px rgba(10, 25, 41, 0.6), 0 0 30px rgba(255, 107, 26, 0.15);
+}
+
+.service-card:hover .service-featured-img {
+    transform: scale(1.08);
+}
+
+.service-card:hover .service-title {
+    color: var(--color-orange);
+}
+
+.service-card:hover .action-btn {
+    color: var(--color-orange);
+}
+
+.service-card:hover .arrow-icon {
+    color: var(--color-orange);
+    transform: translateX(-6px);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .services-section {
+        padding: 60px 0;
+    }
+
+    .services-title {
+        font-size: 28px;
+    }
+
+    .service-card {
+        flex-direction: column;
+    }
+
+    .card-image-wrap {
+        width: 100%;
+        min-width: 100%;
+        height: 200px;
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .service-featured-img,
+    .arrow-icon {
+        transition: none;
+        transform: none !important;
+    }
 }
 
 /* Why YarBar */
@@ -873,10 +1112,6 @@ img {
 
 /* Mobile layout adjustments */
 @media (max-width: 768px) {
-    .services__grid {
-        grid-template-columns: 1fr;
-    }
-
     .why__list {
         grid-template-columns: 1fr;
     }
