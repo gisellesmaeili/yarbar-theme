@@ -19,11 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                 </svg>
-                <span>تعهد و مسئولیت‌پذیری یاربار</span>
+                <span>تعهد یاربار</span>
             </div>
 
             <h2 id="trust-title" class="trust-title">
-                در یاربار، ما فقط بار حمل نمی‌کنیم؛ تعهد ما امنیت خاطر شماست.
+               تعهد ما امنیت خاطر شماست.
             </h2>
 
             <div class="trust-text">
@@ -71,11 +71,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 <div class="signature-block">
                     <div class="author-info">
-                        <h4 class="author-name">رضا یاراحمدی</h4>
+                        <h4 class="author-name">رضا شاکری</h4>
                         <span class="author-title">موسس و مدیرعامل مجموعه یاربار</span>
                     </div>
                     <!-- امضای دیجیتال نمادین -->
-                    <div class="signature-svg" aria-label="امضای رضا یاراحمدی">
+                    <div class="signature-svg" aria-label="امضای رضا شاکری">
                         <svg viewBox="0 0 150 50" fill="none" stroke="#FF6B1A" aria-hidden="true">
                             <path d="M10 35 C30 10, 40 45, 60 15 C75 5, 85 40, 110 20 C125 10, 130 35, 140 25" stroke-width="2.5" stroke-linecap="round" fill="none"/>
                         </svg>

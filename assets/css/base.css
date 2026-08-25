@@ -1324,36 +1324,373 @@ img {
 /* How It Works Media Queries */
 
 
-/* Coverage */
-.coverage {
-    background-color: var(--color-cool-white);
-    padding: var(--space-9) 0;
+/* ----------------------------------
+   Locations Map & Coverage Section
+---------------------------------- */
+.locations-map-section {
+    background-color: var(--color-midnight);
+    padding: 100px 0;
+    direction: rtl;
+    position: relative;
+    overflow: hidden;
+}
+
+.locations-map-header {
+    margin-bottom: 48px;
+    text-align: right;
+}
+
+.locations-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background-color: rgba(255, 107, 26, 0.12);
+    border: 1px solid rgba(255, 107, 26, 0.3);
+    color: var(--color-orange);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 30px;
+    margin-bottom: var(--space-4);
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-orange);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--color-orange);
+}
+
+.locations-title {
+    color: var(--color-white);
+    font-size: 34px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.locations-subtitle {
+    color: var(--color-gray);
+    font-size: 16px;
+    opacity: 0.75;
+    max-width: 650px;
+    margin: 0;
+    line-height: 1.7;
+}
+
+/* Split-Screen Layout */
+.locations-split-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Right Column: Iran Map & Pulsing Pins */
+.map-column {
+    position: sticky;
+    top: 100px;
+    min-width: 0;
+}
+
+.map-card-wrapper {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(229, 234, 240, 0.12);
+    border-radius: 28px;
+    padding: 24px;
+    position: relative;
+}
+
+.map-graphic-container {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iran-map-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+}
+
+/* Map Pins & Pulse Animation */
+.map-pin-item {
+    position: absolute;
+    cursor: pointer;
+    z-index: 5;
+    outline: none;
+}
+
+.pin-point {
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-orange);
+    border: 2px solid var(--color-white);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--color-orange);
+    position: relative;
+    z-index: 2;
+}
+
+.pin-pulse {
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255, 107, 26, 0.4);
+    border-radius: 50%;
+    animation: yarbarPulse 2s infinite ease-out;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes yarbarPulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+}
+
+/* Pin Tooltip */
+.pin-tooltip {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(10, 25, 41, 0.95);
+    border: 1px solid rgba(255, 107, 26, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 8px 12px;
+    border-radius: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+}
+
+.pin-tooltip strong {
+    display: block;
+    color: var(--color-white);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.pin-tooltip span {
+    color: var(--color-orange);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.map-pin-item:hover .pin-tooltip,
+.map-pin-item:focus-visible .pin-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.map-footer-info {
+    border-top: 1px solid rgba(229, 234, 240, 0.08);
+    margin-top: 16px;
+    padding-top: 16px;
     text-align: center;
 }
 
-.coverage__intro {
-    color: var(--color-muted);
-    max-width: 600px;
-    margin: 0 auto var(--space-6) auto;
+.info-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-gray);
+    font-size: 12px;
+    opacity: 0.8;
 }
 
-.coverage__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.info-tag svg {
+    width: 16px;
+    height: 16px;
+    color: var(--color-orange);
+    flex-shrink: 0;
+}
+
+/* Left Column: Location CPT Cards */
+.locations-feed-column {
+    min-width: 0;
+}
+
+.locations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-4);
-    list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
-.coverage__list li {
-    background-color: var(--color-white);
-    border: 1px solid var(--color-gray);
+.location-post-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(229, 234, 240, 0.1);
     border-radius: 20px;
-    padding: var(--space-2) var(--space-5);
-    font-size: 14px;
-    color: var(--color-text);
+    padding: 20px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.location-post-card.featured-post {
+    grid-column: span 2;
+    background: linear-gradient(135deg, rgba(255, 107, 26, 0.12) 0%, rgba(19, 47, 76, 0.4) 100%);
+    border-color: rgba(255, 107, 26, 0.3);
+}
+
+.post-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.location-badge {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-gray);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+.location-badge.badge-orange {
+    background: var(--color-orange);
+    color: var(--color-white);
+}
+
+.fleet-status {
+    color: var(--color-orange);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.location-post-title {
+    color: var(--color-white);
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.location-post-excerpt {
+    color: var(--color-gray);
+    font-size: 13px;
+    line-height: 1.6;
+    opacity: 0.7;
+    margin: 0 0 16px 0;
+    flex: 1;
+}
+
+.post-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(229, 234, 240, 0.06);
+    padding-top: 12px;
+}
+
+.read-more {
+    color: var(--color-gray);
+    font-size: 12px;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.location-post-card .arrow-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--color-gray);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Card Hover States */
+.location-post-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 107, 26, 0.5);
+    box-shadow: 0 16px 32px rgba(10, 25, 41, 0.5), 0 0 20px rgba(255, 107, 26, 0.15);
+}
+
+.location-post-card:hover .location-post-title,
+.location-post-card:hover .read-more,
+.location-post-card:hover .arrow-icon {
+    color: var(--color-orange);
+}
+
+.location-post-card:hover .arrow-icon {
+    transform: translateX(-6px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .locations-split-wrapper {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .map-column {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .locations-map-section {
+        padding: 60px 0;
+    }
+
+    .locations-title {
+        font-size: 26px;
+    }
+
+    .locations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .location-post-card.featured-post {
+        grid-column: span 1;
+    }
+
+    .map-graphic-container {
+        height: 300px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pin-pulse {
+        animation: none;
+    }
+
+    .location-post-card {
+        transition: none;
+        transform: none !important;
+    }
+
+    .location-post-card .arrow-icon {
+        transition: none;
+        transform: none !important;
+    }
 }
 
 /* Quote Placeholder */

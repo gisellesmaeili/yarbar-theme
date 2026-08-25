@@ -1,20 +1,249 @@
-<section class="coverage" id="locations">
-    <div class="container">
-        <h2 class="section-heading">پوشش سراسری یاربار</h2>
-        <p class="coverage__intro">
-            یاربار خدمات حمل و نقل و اسباب‌کشی را در سراسر کشور ارائه می‌دهد.
-        </p>
+<?php
+/**
+ * Nationwide Coverage & Interactive Map Section
+ * 
+ * Dynamic query of 'location' Custom Post Type combined with
+ * an interactive vector map of Iran.
+ * 
+ * @package YarBar
+ */
 
-        <ul class="coverage__list">
-            <li>تهران</li>
-            <li>مشهد</li>
-            <li>اصفهان</li>
-            <li>شیراز</li>
-            <li>تبریز</li>
-            <li>کرج</li>
-            <li>نور</li>
-            <li>رویان</li>
-            <li>کلاردشت</li>
-        </ul>
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+$yarbar_locations_query = new WP_Query( array(
+    'post_type'      => 'location',
+    'posts_per_page' => 5,
+    'post_status'    => 'publish',
+    'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
+) );
+
+$yarbar_default_locations = array(
+    array(
+        'title'       => 'باربری و اسباب‌کشی در تهران',
+        'slug'        => 'tehran',
+        'badge'       => 'مرکز اصلی',
+        'badge_class' => '',
+        'fleet_status'=> 'فعال ۲۴/۷',
+        'featured'    => false,
+        'excerpt'     => 'پوشش کامل ۲۲ منطقه تهران، پردیس، اندیشه و لواسانات با کامیون‌های موکت‌شده.',
+        'link_text'   => 'مشاهده تعرفه و مناطق',
+    ),
+    array(
+        'title'       => 'اسباب‌کشی تخصصی در کرج',
+        'slug'        => 'karaj',
+        'badge'       => 'استان البرز',
+        'badge_class' => '',
+        'fleet_status'=> 'فعال',
+        'featured'    => false,
+        'excerpt'     => 'ارائه خدمات سریع در عظیمیه، جهانشهر، گوهردشت، مهرشهر و فردیس.',
+        'link_text'   => 'مشاهده تعرفه کرج',
+    ),
+    array(
+        'title'       => 'حمل بار بین‌شهری سراسر ایران',
+        'slug'        => 'intercity',
+        'badge'       => 'ترانزیت کشوری',
+        'badge_class' => 'badge-orange',
+        'fleet_status'=> 'بیمه دولتی',
+        'featured'    => true,
+        'excerpt'     => 'ارسال بار به تمام استان‌ها با بارنامه رسمی و بیمه‌نامه معتبر تا سقف ۵۰۰ میلیون.',
+        'link_text'   => 'استعلام قیمت بین‌شهری',
+    ),
+    array(
+        'title'       => 'باربری و اسباب‌کشی در اصفهان',
+        'slug'        => 'isfahan',
+        'badge'       => 'مرکز ایران',
+        'badge_class' => '',
+        'fleet_status'=> 'فعال',
+        'featured'    => false,
+        'excerpt'     => 'خدمات کامل حمل اثاثیه منزل و شرکت‌ها در تمام مناطق کلان‌شهر اصفهان.',
+        'link_text'   => 'مشاهده جزئیات',
+    ),
+    array(
+        'title'       => 'باربری استان‌های گیلان و مازندران',
+        'slug'        => 'north',
+        'badge'       => 'خطه شمال',
+        'badge_class' => '',
+        'fleet_status'=> 'فعال',
+        'featured'    => false,
+        'excerpt'     => 'حمل تخصصی بار به رشت، ساری، گرگان، انزلی، چالوس و شهرهای ساحلی.',
+        'link_text'   => 'مشاهده جزئیات',
+    ),
+);
+?>
+<!-- سکشن پوشش جغرافیایی (نقشه تعاملی + پست‌تایپ لوکیشن‌ها) -->
+<section id="locations" class="locations-map-section" aria-labelledby="locations-title">
+    <div class="container locations-map-container">
+
+        <!-- هدر سکشن -->
+        <div class="locations-map-header">
+            <div class="locations-badge">
+                <span class="pulse-dot" aria-hidden="true"></span>
+                <span>پوشش سراسری و لحظه‌ای</span>
+            </div>
+            <h2 id="locations-title" class="locations-title">شبکه فعال باربری و اسباب‌کشی در سراسر ایران</h2>
+            <p class="locations-subtitle">
+                ناوگان مستقر یاربار در کلان‌شهرها و مسیرهای ترانزیتی اصلی کشور جهت اعزام سریع.
+            </p>
+        </div>
+
+        <!-- چیدمان Split-Screen -->
+        <div class="locations-split-wrapper">
+
+            <!-- ستون سمت راست: نقشه وکتوری ایران و پین‌های فعال -->
+            <div class="map-column">
+                <div class="map-card-wrapper">
+                    <div class="map-graphic-container">
+                        <!-- وکتور ساده‌شده و سبک نقشه ایران -->
+                        <svg class="iran-map-svg" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path class="map-border" d="M120,80 L200,50 L280,60 L380,100 L480,90 L540,160 L510,260 L450,320 L380,420 L280,450 L180,410 L100,320 L60,220 L70,140 Z" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(229, 234, 240, 0.15)" stroke-width="2"/>
+                            <!-- خطوط شبکه‌ای گرافیکی -->
+                            <path class="map-grid-line" d="M100,100 L500,400" stroke="rgba(255, 107, 26, 0.08)" stroke-width="1" stroke-dasharray="4 4"/>
+                            <path class="map-grid-line" d="M100,350 L500,150" stroke="rgba(255, 107, 26, 0.08)" stroke-width="1" stroke-dasharray="4 4"/>
+                        </svg>
+
+                        <!-- پین‌های موقعیت مکانی با انیمیشن پالس -->
+                        <!-- شمال -->
+                        <div class="map-pin-item pin-north" style="top: 18%; right: 40%;" tabindex="0" role="button" aria-label="پوشش استان‌های شمال: ۴۰+ خودروی آماده">
+                            <span class="pin-pulse" aria-hidden="true"></span>
+                            <span class="pin-point" aria-hidden="true"></span>
+                            <div class="pin-tooltip">
+                                <strong>استان‌های شمال</strong>
+                                <span>۴۰+ خودروی آماده</span>
+                            </div>
+                        </div>
+
+                        <!-- کرج -->
+                        <div class="map-pin-item pin-karaj" style="top: 27%; right: 44%;" tabindex="0" role="button" aria-label="پوشش استان البرز: ۴۵+ خودروی آماده">
+                            <span class="pin-pulse" aria-hidden="true"></span>
+                            <span class="pin-point" aria-hidden="true"></span>
+                            <div class="pin-tooltip">
+                                <strong>استان البرز (کرج)</strong>
+                                <span>۴۵+ خودروی آماده</span>
+                            </div>
+                        </div>
+
+                        <!-- تهران -->
+                        <div class="map-pin-item pin-tehran" style="top: 28%; right: 38%;" tabindex="0" role="button" aria-label="پوشش تهران و حومه: ۱۵۰+ خودروی آماده">
+                            <span class="pin-pulse" aria-hidden="true"></span>
+                            <span class="pin-point" aria-hidden="true"></span>
+                            <div class="pin-tooltip">
+                                <strong>تهران و حومه</strong>
+                                <span>۱۵۰+ خودروی آماده</span>
+                            </div>
+                        </div>
+
+                        <!-- تبریز -->
+                        <div class="map-pin-item pin-tabriz" style="top: 16%; right: 20%;" tabindex="0" role="button" aria-label="پوشش آذربایجان و تبریز: ۳۵+ خودروی آماده">
+                            <span class="pin-pulse" aria-hidden="true"></span>
+                            <span class="pin-point" aria-hidden="true"></span>
+                            <div class="pin-tooltip">
+                                <strong>تبریز و شمال غرب</strong>
+                                <span>۳۵+ خودروی آماده</span>
+                            </div>
+                        </div>
+
+                        <!-- اصفهان -->
+                        <div class="map-pin-item pin-isfahan" style="top: 52%; right: 42%;" tabindex="0" role="button" aria-label="پوشش اصفهان: ۳۰+ خودروی آماده">
+                            <span class="pin-pulse" aria-hidden="true"></span>
+                            <span class="pin-point" aria-hidden="true"></span>
+                            <div class="pin-tooltip">
+                                <strong>اصفهان</strong>
+                                <span>۳۰+ خودروی آماده</span>
+                            </div>
+                        </div>
+
+                        <!-- شیراز -->
+                        <div class="map-pin-item pin-shiraz" style="top: 70%; right: 46%;" tabindex="0" role="button" aria-label="پوشش شیراز: ۲۵+ خودروی آماده">
+                            <span class="pin-pulse" aria-hidden="true"></span>
+                            <span class="pin-point" aria-hidden="true"></span>
+                            <div class="pin-tooltip">
+                                <strong>شیراز</strong>
+                                <span>۲۵+ خودروی آماده</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="map-footer-info">
+                        <span class="info-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            میانگین زمان تخصیص ماشین: زیر ۲۰ دقیقه
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ستون سمت چپ: پست‌های پست‌تایپ Locations -->
+            <div class="locations-feed-column">
+                <div class="locations-grid">
+                    <?php if ( $yarbar_locations_query->have_posts() ) : ?>
+                        <?php
+                        $loc_index = 0;
+                        while ( $yarbar_locations_query->have_posts() ) :
+                            $yarbar_locations_query->the_post();
+                            $def_item   = isset( $yarbar_default_locations[ $loc_index ] ) ? $yarbar_default_locations[ $loc_index ] : null;
+                            $badge_meta = get_post_meta( get_the_ID(), '_yarbar_location_badge', true );
+                            $badge_text = $badge_meta ? $badge_meta : ( $def_item ? $def_item['badge'] : 'نمایندگی فعال' );
+                            $status_meta= get_post_meta( get_the_ID(), '_yarbar_fleet_status', true );
+                            $status_text= $status_meta ? $status_meta : ( $def_item ? $def_item['fleet_status'] : 'فعال' );
+                            $is_featured= ( $loc_index === 2 ) || ( $def_item && $def_item['featured'] );
+                            $badge_class= ( $is_featured ) ? ' badge-orange' : '';
+
+                            if ( has_excerpt() ) {
+                                $loc_excerpt = get_the_excerpt();
+                            } else {
+                                $loc_excerpt = wp_trim_words( wp_strip_all_tags( get_the_content() ), 18, '...' );
+                            }
+                            ?>
+                            <a href="<?php the_permalink(); ?>" class="location-post-card<?php echo $is_featured ? ' featured-post' : ''; ?>">
+                                <div class="post-card-header">
+                                    <span class="location-badge<?php echo esc_attr( $badge_class ); ?>"><?php echo esc_html( $badge_text ); ?></span>
+                                    <span class="fleet-status"><?php echo esc_html( $status_text ); ?></span>
+                                </div>
+                                <h3 class="location-post-title"><?php the_title(); ?></h3>
+                                <p class="location-post-excerpt">
+                                    <?php echo esc_html( $loc_excerpt ); ?>
+                                </p>
+                                <div class="post-card-footer">
+                                    <span class="read-more">مشاهده جزئیات و تعرفه</span>
+                                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7 7l-7-7 7-7"/>
+                                    </svg>
+                                </div>
+                            </a>
+                            <?php
+                            $loc_index++;
+                        endwhile;
+                        wp_reset_postdata();
+                        ?>
+                    <?php else : ?>
+                        <?php foreach ( $yarbar_default_locations as $loc ) : ?>
+                            <a href="<?php echo esc_url( home_url( '/locations/' . $loc['slug'] . '/' ) ); ?>" class="location-post-card<?php echo $loc['featured'] ? ' featured-post' : ''; ?>">
+                                <div class="post-card-header">
+                                    <span class="location-badge<?php echo $loc['badge_class'] ? ' ' . esc_attr( $loc['badge_class'] ) : ''; ?>"><?php echo esc_html( $loc['badge'] ); ?></span>
+                                    <span class="fleet-status"><?php echo esc_html( $loc['fleet_status'] ); ?></span>
+                                </div>
+                                <h3 class="location-post-title"><?php echo esc_html( $loc['title'] ); ?></h3>
+                                <p class="location-post-excerpt">
+                                    <?php echo esc_html( $loc['excerpt'] ); ?>
+                                </p>
+                                <div class="post-card-footer">
+                                    <span class="read-more"><?php echo esc_html( $loc['link_text'] ); ?></span>
+                                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7 7l-7-7 7-7"/>
+                                    </svg>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 </section>
