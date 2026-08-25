@@ -1,170 +1,182 @@
-<section class="calculator" id="calculator">
-    <div class="container">
-        <div class="calculator-card">
-            <div class="calculator-card__header">
-                <h2 class="calculator-card__title">محاسبه دقیق هزینه اسباب‌کشی</h2>
-                <p class="calculator-card__subtitle">بدون هزینه‌های پنهان؛ فاکتور شفاف پیش از ثبت سفارش.</p>
+<?php
+/**
+ * Calculator Section Template Part
+ * 
+ * @package YarBar
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+?>
+<!-- سکشن محاسبه‌گر هزینه -->
+<section id="calculator" class="calculator-section" aria-labelledby="calc-title">
+    <div class="container calculator-container">
+
+        <!-- سربرگ سکشن -->
+        <div class="calculator-header">
+            <span class="calc-badge">محاسبه هوشمند و شفاف</span>
+            <h2 id="calc-title" class="calc-title">برآورد آنلاین هزینه اسباب‌کشی بدون قیمت پنهان</h2>
+        </div>
+
+        <!-- کارت اصلی محاسبه‌گر -->
+        <div class="calc-card">
+
+            <!-- گام اول: مسیر جابه‌جایی -->
+            <div class="calc-step">
+                <label class="step-label" for="origin">
+                    <span class="step-num" aria-hidden="true">۱</span>
+                    مسیر اسباب‌کشی را مشخص کنید
+                </label>
+
+                <div class="grid-2-cols">
+                    <div class="select-wrapper">
+                        <svg class="select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <circle cx="12" cy="11" r="3" stroke-width="2"/>
+                        </svg>
+                        <select class="custom-select" id="origin" aria-label="شهر یا منطقه مبدأ">
+                            <option value="" disabled selected>شهر / منطقه مبدأ</option>
+                            <option value="tehran-north">تهران (شمال و غرب)</option>
+                            <option value="tehran-center">تهران (مرکز و جنوب)</option>
+                            <option value="karaj">کرج و حومه</option>
+                            <option value="intercity">حمل بار بین‌شهری</option>
+                        </select>
+                    </div>
+
+                    <div class="select-wrapper">
+                        <svg class="select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <circle cx="12" cy="11" r="3" stroke-width="2"/>
+                        </svg>
+                        <select class="custom-select" id="destination" aria-label="شهر یا منطقه مقصد">
+                            <option value="" disabled selected>شهر / منطقه مقصد</option>
+                            <option value="tehran-north">تهران (شمال و غرب)</option>
+                            <option value="tehran-center">تهران (مرکز و جنوب)</option>
+                            <option value="karaj">کرج و حومه</option>
+                            <option value="intercity">حمل بار بین‌شهری</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <ol class="calc-steps" aria-hidden="true">
-                <li class="calc-steps__item" data-step="1">
-                    <span class="calc-steps__circle">۱</span>
-                    <span class="calc-steps__label">مسیر</span>
-                </li>
-                <li class="calc-steps__line" data-line="1"></li>
-                <li class="calc-steps__item" data-step="2">
-                    <span class="calc-steps__circle">۲</span>
-                    <span class="calc-steps__label">وسیله نقلیه</span>
-                </li>
-                <li class="calc-steps__line" data-line="2"></li>
-                <li class="calc-steps__item" data-step="3">
-                    <span class="calc-steps__circle">۳</span>
-                    <span class="calc-steps__label">خدمات اضافه</span>
-                </li>
-            </ol>
+            <!-- گام دوم: انتخاب وسیله نقلیه -->
+            <div class="calc-step">
+                <span class="step-label" id="vehicle-label">
+                    <span class="step-num" aria-hidden="true">۲</span>
+                    نوع خودروی باربری را انتخاب کنید
+                </span>
 
-            <form class="calc-form" id="yarbar-calc-form">
-
-                <div class="calc-row calc-row--route">
-                    <div class="calc-select-wrap">
-                        <label class="calc-label" for="calc-origin">مبدأ</label>
-                        <svg class="calc-select-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
-                        <select id="calc-origin" class="calc-select" data-calc="origin">
-                            <option value="">انتخاب مبدأ</option>
-                            <option value="sari">ساری</option>
-                            <option value="babol">بابل</option>
-                            <option value="amol">آمل</option>
-                            <option value="ghaemshahr">قائم‌شهر</option>
-                            <option value="babolsar">بابلسر</option>
-                            <option value="nowshahr">نوشهر</option>
-                            <option value="chalus">چالوس</option>
-                            <option value="nur">نور</option>
-                            <option value="mahmudabad">محمودآباد</option>
-                            <option value="fereydunkenar">فریدونکنار</option>
-                            <option value="other">سایر شهرها</option>
-                        </select>
-                    </div>
-
-                    <span class="calc-route-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
-                    </span>
-
-                    <div class="calc-select-wrap">
-                        <label class="calc-label" for="calc-destination">مقصد</label>
-                        <svg class="calc-select-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
-                        <select id="calc-destination" class="calc-select" data-calc="destination">
-                            <option value="">انتخاب مقصد</option>
-                            <option value="sari">ساری</option>
-                            <option value="babol">بابل</option>
-                            <option value="amol">آمل</option>
-                            <option value="ghaemshahr">قائم‌شهر</option>
-                            <option value="babolsar">بابلسر</option>
-                            <option value="nowshahr">نوشهر</option>
-                            <option value="chalus">چالوس</option>
-                            <option value="nur">نور</option>
-                            <option value="mahmudabad">محمودآباد</option>
-                            <option value="fereydunkenar">فریدونکنار</option>
-                            <option value="other">سایر شهرها</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="calc-row">
-                    <span class="calc-label calc-label--block">وسیله نقلیه</span>
-                    <div class="calc-vehicles" role="radiogroup" aria-label="انتخاب وسیله نقلیه">
-
-                        <label class="calc-vehicle">
-                            <input type="radio" name="calc-vehicle" value="havar" data-calc="vehicle">
-                            <span class="calc-vehicle__badge">پیشنهاد یاربار / پرفروش</span>
-                            <svg class="calc-vehicle__icon" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 16V7a1 1 0 0 1 1-1h9v10"></path><path d="M13 10h5l3 3v3h-3"></path><circle cx="7.5" cy="17.5" r="1.7"></circle><circle cx="17.5" cy="17.5" r="1.7"></circle></svg>
-                            <span class="calc-vehicle__name">خاور مسقف</span>
-                        </label>
-
-                        <label class="calc-vehicle">
-                            <input type="radio" name="calc-vehicle" value="kamyonet" data-calc="vehicle">
-                            <svg class="calc-vehicle__icon" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 16V9a1 1 0 0 1 1-1h8v8"></path><path d="M12 12h5l3 3v1h-3"></path><circle cx="7.5" cy="17.5" r="1.7"></circle><circle cx="17.5" cy="17.5" r="1.7"></circle></svg>
-                            <span class="calc-vehicle__name">کامیونت</span>
-                        </label>
-
-                        <label class="calc-vehicle">
-                            <input type="radio" name="calc-vehicle" value="nissan" data-calc="vehicle">
-                            <svg class="calc-vehicle__icon" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 16v-3l2-4h9l3 4h2v3"></path><circle cx="7.5" cy="17" r="1.6"></circle><circle cx="16.5" cy="17" r="1.6"></circle></svg>
-                            <span class="calc-vehicle__name">نیسان</span>
-                        </label>
-
-                        <label class="calc-vehicle">
-                            <input type="radio" name="calc-vehicle" value="vanet" data-calc="vehicle">
-                            <svg class="calc-vehicle__icon" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 16v-2l2-4h6v6"></path><path d="M11 10h4l3 3v3h-2"></path><circle cx="7" cy="17" r="1.6"></circle><circle cx="16" cy="17" r="1.6"></circle></svg>
-                            <span class="calc-vehicle__name">وانت</span>
-                        </label>
-
-                    </div>
-                </div>
-
-                <div class="calc-row calc-row--extras">
-                    <div class="calc-stepper">
-                        <span class="calc-label">طبقات مبدأ</span>
-                        <div class="calc-stepper__control">
-                            <button type="button" class="calc-stepper__btn" data-stepper="origin-floors" data-dir="-1" aria-label="کاهش">−</button>
-                            <span class="calc-stepper__value" data-value="origin-floors">۰</span>
-                            <button type="button" class="calc-stepper__btn" data-stepper="origin-floors" data-dir="1" aria-label="افزایش">+</button>
+                <div class="vehicle-grid" role="radiogroup" aria-labelledby="vehicle-label">
+                    <label class="vehicle-card">
+                        <input type="radio" name="vehicle" value="truck" checked>
+                        <div class="vehicle-content">
+                            <svg class="vehicle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8zM5.5 18.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM18.5 18.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/>
+                            </svg>
+                            <span class="vehicle-name">کامیونت مسقف</span>
+                            <span class="vehicle-desc">مخصوص اثاث‌کشی کامل</span>
                         </div>
-                    </div>
+                    </label>
 
-                    <div class="calc-stepper">
-                        <span class="calc-label">طبقات مقصد</span>
-                        <div class="calc-stepper__control">
-                            <button type="button" class="calc-stepper__btn" data-stepper="dest-floors" data-dir="-1" aria-label="کاهش">−</button>
-                            <span class="calc-stepper__value" data-value="dest-floors">۰</span>
-                            <button type="button" class="calc-stepper__btn" data-stepper="dest-floors" data-dir="1" aria-label="افزایش">+</button>
+                    <label class="vehicle-card">
+                        <input type="radio" name="vehicle" value="khavar">
+                        <div class="vehicle-content">
+                            <svg class="vehicle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M1 5h14v11H1zM15 9h5l3 3v3h-8V9zM4.5 18a2 2 0 100-4 2 2 0 000 4zM17.5 18a2 2 0 100-4 2 2 0 000 4z"/>
+                            </svg>
+                            <span class="vehicle-name">خاور روباز</span>
+                            <span class="vehicle-desc">حمل کارگاهی و مبلمان</span>
                         </div>
-                    </div>
+                    </label>
 
-                    <div class="calc-stepper">
-                        <span class="calc-label">تعداد کارگر</span>
-                        <div class="calc-stepper__control">
-                            <button type="button" class="calc-stepper__btn" data-stepper="workers" data-dir="-1" aria-label="کاهش">−</button>
-                            <span class="calc-stepper__value" data-value="workers">۰</span>
-                            <button type="button" class="calc-stepper__btn" data-stepper="workers" data-dir="1" aria-label="افزایش">+</button>
+                    <label class="vehicle-card">
+                        <input type="radio" name="vehicle" value="nissan">
+                        <div class="vehicle-content">
+                            <svg class="vehicle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7h11v9H3zM14 10h4l3 2v4h-7v-6zM6 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+                            </svg>
+                            <span class="vehicle-name">نیسان بار</span>
+                            <span class="vehicle-desc">بار نیمه‌ثقیل و سریع</span>
                         </div>
-                    </div>
-                </div>
+                    </label>
 
-                <div class="calc-row calc-row--toggle">
-                    <label class="calc-toggle">
-                        <input type="checkbox" id="calc-packaging" data-calc="packaging">
-                        <span class="calc-toggle__track"><span class="calc-toggle__thumb"></span></span>
-                        <span class="calc-toggle__text">
-                            خدمات بسته‌بندی
-                            <small>شامل فوم، کارتن ۵ لایه و سلفون</small>
-                        </span>
+                    <label class="vehicle-card">
+                        <input type="radio" name="vehicle" value="pickup">
+                        <div class="vehicle-content">
+                            <svg class="vehicle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 9h9v7H3zM12 12h4l3 2v3h-7v-5zM5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM15 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+                            </svg>
+                            <span class="vehicle-name">وانت پراید/پیکان</span>
+                            <span class="vehicle-desc">خرده‌بار و وسایل کم</span>
+                        </div>
                     </label>
                 </div>
+            </div>
 
-                <p class="calc-notice" id="calc-notice" role="status" aria-live="polite"></p>
+            <!-- گام سوم: خدمات اضافه و نیرو -->
+            <div class="calc-step">
+                <span class="step-label">
+                    <span class="step-num" aria-hidden="true">۳</span>
+                    تعداد نیرو و خدمات جانبی
+                </span>
 
-                <div class="calc-result">
-                    <div class="calc-result__price-side">
-                        <button type="submit" class="btn btn--primary calc-result__calc-btn" id="calc-submit">
-                            <span class="calc-result__btn-text">محاسبه هزینه تخمینی</span>
-                            <span class="calc-result__spinner" aria-hidden="true"></span>
-                        </button>
-
-                        <div class="calc-result__price-box" aria-live="polite">
-                            <span class="calc-result__price" id="calc-price">—</span>
-                            <span class="calc-result__price-unit">تومان (فاکتور تخمینی)</span>
+                <div class="options-grid">
+                    <!-- استپر تعداد کارگر -->
+                    <div class="option-box">
+                        <span class="option-title">تعداد کارگر تخصصی</span>
+                        <div class="stepper">
+                            <button type="button" class="step-btn" data-stepper="workers" data-dir="-1" aria-label="کاهش تعداد کارگر">−</button>
+                            <span class="step-value" data-value="workers">۳ نفر</span>
+                            <button type="button" class="step-btn" data-stepper="workers" data-dir="1" aria-label="افزایش تعداد کارگر">+</button>
                         </div>
                     </div>
 
-                    <div class="calc-result__booking-side">
-                        <a href="<?php echo yarbar_phone_link(); ?>" class="btn calc-result__booking-btn" id="calc-booking-btn" aria-disabled="true" tabindex="-1">
-                            ثبت این فاکتور با تماس فوری
-                        </a>
-                        <p class="calc-result__stability">رزرو تلفنی ۲۴ ساعته با تضمین ثبات قیمت</p>
+                    <!-- استپر طبقات -->
+                    <div class="option-box">
+                        <span class="option-title">تعداد طبقات (مجموع)</span>
+                        <div class="stepper">
+                            <button type="button" class="step-btn" data-stepper="floors" data-dir="-1" aria-label="کاهش تعداد طبقات">−</button>
+                            <span class="step-value" data-value="floors">۲ طبقه</span>
+                            <button type="button" class="step-btn" data-stepper="floors" data-dir="1" aria-label="افزایش تعداد طبقات">+</button>
+                        </div>
+                    </div>
+
+                    <!-- سوییچ بسته‌بندی -->
+                    <div class="option-box">
+                        <span class="option-title">خدمات کامل بسته‌بندی</span>
+                        <label class="toggle-switch" for="calc-packaging">
+                            <input type="checkbox" id="calc-packaging" aria-label="خدمات کامل بسته‌بندی">
+                            <span class="slider" aria-hidden="true"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- نوار خروجی قیمت و دکمه‌های اکشن -->
+            <div class="calc-result-bar">
+                <div class="result-price-area">
+                    <span class="price-label">هزینه تخمینی فاکتور:</span>
+                    <div class="price-display" aria-live="polite">
+                        <span class="price-number" id="finalPrice">۲,۴۵۰,۰۰۰</span>
+                        <span class="price-unit">تومان</span>
                     </div>
                 </div>
 
-            </form>
+                <div class="result-actions">
+                    <button type="button" class="btn btn-calc" id="calculateBtn">
+                        محاسبه مجدد
+                    </button>
+
+                    <a href="<?php echo yarbar_phone_link(); ?>" class="btn btn-submit-order">
+                        <svg class="phone-icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        <span>ثبت فاکتور با تماس</span>
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
