@@ -39,7 +39,7 @@ function yarbar_render_business_settings_page() {
     $settings = get_option( 'yarbar_business_settings', array() );
     ?>
     <div class="wrap">
-        <h1><?php esc_html_e( 'Business Settings', 'yarbar' ); ?></h1>
+        <h1><?php esc_html_e( 'تنظیمات کسب و کار', 'yarbar' ); ?></h1>
         <form method="post" action="options.php">
             <?php settings_fields( 'yarbar_business_settings_group' ); ?>
             <table class="form-table">

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Block direct access to this file.
 }
 
-define( 'YARBAR_VERSION', '1.0.21' );
+define( 'YARBAR_VERSION', '1.0.22' );
 
 function yarbar_theme_setup() {
     // Let WordPress manage the page <title> tag.
