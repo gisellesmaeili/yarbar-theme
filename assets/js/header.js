@@ -30,15 +30,20 @@
         }
     } );
 
-    // 1. Shrink header when user scrolls past the top (sentinel)
-    if ( header && sentinel && 'IntersectionObserver' in window ) {
-        var scrollObserver = new IntersectionObserver( function( entries ) {
-            entries.forEach( function( entry ) {
-                header.classList.toggle( 'is-scrolled', ! entry.isIntersecting );
-            } );
-        }, { rootMargin: '-40px 0px 0px 0px' } );
-        scrollObserver.observe( sentinel );
+    // 1. Shrink header when user scrolls past 30px
+    function updateHeaderScroll() {
+        if ( ! header ) return;
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+        if ( scrollTop > 30 ) {
+            header.classList.add( 'is-scrolled' );
+        } else {
+            header.classList.remove( 'is-scrolled' );
+        }
     }
+
+    window.addEventListener( 'scroll', updateHeaderScroll, { passive: true } );
+    // Initial check on load
+    updateHeaderScroll();
 
     // 2. Highlight the active nav link as sections scroll into view
     if ( sections.length && 'IntersectionObserver' in window ) {

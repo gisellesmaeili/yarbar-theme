@@ -76,8 +76,16 @@ img {
     z-index: 5;
     overflow: visible;
     background-color: var(--color-midnight);
-    padding-top: 120px;
-    padding-bottom: 80px;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding-top: 100px;
+    padding-bottom: 60px;
+    box-sizing: border-box;
+}
+
+.hero > .container {
+    width: 100%;
 }
 
 .hero__pattern {
@@ -1405,9 +1413,17 @@ img {
 ---------------------------------- */
 .trust-section {
     background-color: var(--color-cool-white);
-    padding: 100px 0;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 0;
     direction: rtl;
     position: relative;
+    box-sizing: border-box;
+}
+
+.trust-section > .container {
+    width: 100%;
 }
 
 .trust-container {
@@ -2037,9 +2053,17 @@ img {
 ---------------------------------- */
 .blog-section {
     background-color: var(--color-white);
-    padding: 100px 0;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 0;
     direction: rtl;
     position: relative;
+    box-sizing: border-box;
+}
+
+.blog-section > .container {
+    width: 100%;
 }
 
 /* Header & Archive Link */
