@@ -7,11 +7,11 @@ function yarbar_register_post_types() {
 
     register_post_type( 'service', array(
         'labels' => array(
-            'name'          => __( 'Services', 'yarbar' ),
-            'singular_name' => __( 'Service', 'yarbar' ),
-            'add_new_item'  => __( 'Add New Service', 'yarbar' ),
-            'edit_item'     => __( 'Edit Service', 'yarbar' ),
-            'all_items'     => __( 'Services', 'yarbar' ),
+            'name'          => __( 'خدمات', 'yarbar' ),
+            'singular_name' => __( 'خدمت', 'yarbar' ),
+            'add_new_item'  => __( 'افزودن خدمت جدید', 'yarbar' ),
+            'edit_item'     => __( 'ویرایش خدمت', 'yarbar' ),
+            'all_items'     => __( 'همه خدمات', 'yarbar' ),
         ),
         'public'       => true,
         'has_archive'  => true,
@@ -26,11 +26,11 @@ function yarbar_register_post_types() {
 
     register_post_type( 'location', array(
         'labels' => array(
-            'name'          => __( 'Locations', 'yarbar' ),
-            'singular_name' => __( 'Location', 'yarbar' ),
-            'add_new_item'  => __( 'Add New Location', 'yarbar' ),
-            'edit_item'     => __( 'Edit Location', 'yarbar' ),
-            'all_items'     => __( 'Locations', 'yarbar' ),
+            'name'          => __( 'مناطق تحت پوشش', 'yarbar' ),
+            'singular_name' => __( 'منطقه', 'yarbar' ),
+            'add_new_item'  => __( 'افزودن منطقه جدید', 'yarbar' ),
+            'edit_item'     => __( 'ویرایش منطقه', 'yarbar' ),
+            'all_items'     => __( 'همه مناطق', 'yarbar' ),
         ),
         'public'       => true,
         'has_archive'  => true,
@@ -44,3 +44,24 @@ function yarbar_register_post_types() {
     ) );
 }
 add_action( 'init', 'yarbar_register_post_types' );
+
+/**
+ * Filter archive titles to remove prefixes and set clean Persian titles
+ */
+function yarbar_clean_archive_title( $title ) {
+    if ( is_post_type_archive( 'location' ) ) {
+        return __( 'مناطق تحت پوشش', 'yarbar' );
+    }
+    if ( is_post_type_archive( 'service' ) ) {
+        return __( 'خدمات', 'yarbar' );
+    }
+    if ( is_category() ) {
+        return single_cat_title( '', false );
+    }
+    if ( is_search() ) {
+        return sprintf( __( 'نتایج جستجو برای: %s', 'yarbar' ), get_search_query() );
+    }
+    return $title;
+}
+add_filter( 'get_the_archive_title', 'yarbar_clean_archive_title' );
+add_filter( 'post_type_archive_title', 'yarbar_clean_archive_title' );

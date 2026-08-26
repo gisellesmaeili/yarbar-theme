@@ -16,3 +16,16 @@ function yarbar_validate_comment_submission( $commentdata ) {
     return $commentdata;
 }
 add_filter( 'preprocess_comment', 'yarbar_validate_comment_submission' );
+
+/**
+ * Ensure Author/Name field appears before the Comment/Message field
+ */
+function yarbar_reorder_comment_fields( $fields ) {
+    if ( isset( $fields['comment'] ) ) {
+        $comment_field = $fields['comment'];
+        unset( $fields['comment'] );
+        $fields['comment'] = $comment_field;
+    }
+    return $fields;
+}
+add_filter( 'comment_form_fields', 'yarbar_reorder_comment_fields' );

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Block direct access to this file.
 }
 
-define( 'YARBAR_VERSION', '1.0.32' );
+define( 'YARBAR_VERSION', '1.0.33' );
 
 function yarbar_theme_setup() {
     // Let WordPress manage the page <title> tag.
@@ -80,6 +80,24 @@ function yarbar_enqueue_assets() {
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
         wp_enqueue_script( 'comment-reply' );
     }
+
+    if ( is_archive() || is_home() || is_search() ) {
+        wp_enqueue_script(
+            'yarbar-archive',
+            get_template_directory_uri() . '/assets/js/archive.js',
+            array(),
+            YARBAR_VERSION,
+            true
+        );
+        wp_localize_script(
+            'yarbar-archive',
+            'yarbar_archive_ajax',
+            array(
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'nonce'    => wp_create_nonce( 'yarbar_archive_nonce' ),
+            )
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'yarbar_enqueue_assets' );
 
@@ -100,3 +118,4 @@ require get_template_directory() . '/inc/business-settings.php';
 require get_template_directory() . '/inc/post-types.php';
 
 require get_template_directory() . '/inc/comments.php';
+require get_template_directory() . '/inc/archive-ajax.php';

@@ -151,3 +151,164 @@ function yarbar_get_related_heading( $post_type = 'post' ) {
             );
     }
 }
+
+/**
+ * Get active blog categories excluding uncategorized
+ */
+function yarbar_get_blog_categories() {
+    $default_cat_id = (int) get_option( 'default_category' );
+    return get_categories( array(
+        'taxonomy'   => 'category',
+        'hide_empty' => true,
+        'exclude'    => array( $default_cat_id ),
+    ) );
+}
+
+/**
+ * Retrieve metadata (title, description, count, placeholder, etc.) for archive pages
+ */
+function yarbar_get_archive_meta() {
+    global $wp_query;
+
+    $found_count = (int) ( $wp_query->found_posts ?? 0 );
+
+    if ( is_search() ) {
+        $search_query = get_search_query();
+        return array(
+            'title'              => sprintf( __( 'نتایج جستجو برای: %s', 'yarbar' ), '&ldquo;' . esc_html( $search_query ) . '&rdquo;' ),
+            'description'        => sprintf( __( '%s نتیجه مطابق با عبارت جستجوی شما یافت شد.', 'yarbar' ), number_format_i18n( $found_count ) ),
+            'count_text'         => sprintf( __( 'تعداد کل نتایج: %s مورد', 'yarbar' ), number_format_i18n( $found_count ) ),
+            'search_placeholder' => __( 'جستجوی مجدد در سایت...', 'yarbar' ),
+            'empty_text'         => __( 'هیچ موردی مطابق با عبارت جستجوی شما یافت نشد.', 'yarbar' ),
+            'show_filters'       => false,
+            'post_type'          => 'any',
+            'categories'         => array(),
+        );
+    }
+
+    if ( is_post_type_archive( 'service' ) ) {
+        return array(
+            'title'              => __( 'خدمات یاربار', 'yarbar' ),
+            'description'        => __( 'مجموعه کامل خدمات باربری، حمل اثاثیه منزل، بسته‌بندی حرفه‌ای و اعزام کارگر متخصص یاربار.', 'yarbar' ),
+            'count_text'         => sprintf( __( 'تعداد کل خدمات: %s سرویس', 'yarbar' ), number_format_i18n( $found_count ) ),
+            'search_placeholder' => __( 'جستجو در خدمات یاربار...', 'yarbar' ),
+            'empty_text'         => __( 'خدماتی برای نمایش وجود ندارد.', 'yarbar' ),
+            'show_filters'       => false,
+            'post_type'          => 'service',
+            'categories'         => array(),
+        );
+    }
+
+    if ( is_post_type_archive( 'location' ) ) {
+        return array(
+            'title'              => __( 'مناطق تحت پوشش', 'yarbar' ),
+            'description'        => __( 'ارائه خدمات سریع و ۲۴ ساعته باربری در تمامی مناطق تهران، کرج و مسیرهای بین‌شهری سراسر کشور.', 'yarbar' ),
+            'count_text'         => sprintf( __( 'تعداد کل شعب: %s منطقه', 'yarbar' ), number_format_i18n( $found_count ) ),
+            'search_placeholder' => __( 'جستجو در مناطق تحت پوشش...', 'yarbar' ),
+            'empty_text'         => __( 'منطقه‌ای برای نمایش وجود ندارد.', 'yarbar' ),
+            'show_filters'       => false,
+            'post_type'          => 'location',
+            'categories'         => array(),
+        );
+    }
+
+    if ( is_category() ) {
+        $cat_title = single_cat_title( '', false );
+        $cat_desc  = category_description();
+        return array(
+            'title'              => $cat_title,
+            'description'        => $cat_desc ? wp_strip_all_tags( $cat_desc ) : __( 'مجموعه مقالات و راهنماهای این دسته‌بندی در وبلاگ یاربار.', 'yarbar' ),
+            'count_text'         => sprintf( __( 'تعداد کل مطالب: %s مقاله', 'yarbar' ), number_format_i18n( $found_count ) ),
+            'search_placeholder' => __( 'جستجو در بین مقالات و راهنماها...', 'yarbar' ),
+            'empty_text'         => __( 'مقاله‌ای در این دسته‌بندی یافت نشد.', 'yarbar' ),
+            'show_filters'       => true,
+            'post_type'          => 'post',
+            'categories'         => yarbar_get_blog_categories(),
+        );
+    }
+
+    // Default: Blog / Posts archive
+    $blog_page_id = get_option( 'page_for_posts' );
+    $blog_title   = $blog_page_id ? get_the_title( $blog_page_id ) : __( 'آرشیو مقالات و راهنمای اسباب‌کشی', 'yarbar' );
+    return array(
+        'title'              => $blog_title ? $blog_title : __( 'آرشیو مقالات و راهنمای اسباب‌کشی', 'yarbar' ),
+        'description'        => __( 'آخرین اخبار، آموزش‌های تخصصی بسته‌بندی، نکات حمل بار و راهنمای جامع تکنیک‌های اسباب‌کشی آسان.', 'yarbar' ),
+        'count_text'         => sprintf( __( 'تعداد کل مطالب: %s مقاله', 'yarbar' ), number_format_i18n( $found_count ) ),
+        'search_placeholder' => __( 'جستجو در بین مقالات و راهنماها...', 'yarbar' ),
+        'empty_text'         => __( 'مقاله‌ای برای نمایش وجود ندارد.', 'yarbar' ),
+        'show_filters'       => true,
+        'post_type'          => 'post',
+        'categories'         => yarbar_get_blog_categories(),
+    );
+}
+
+/**
+ * Render semantic, accessible pagination links with data-page attributes for AJAX
+ */
+function yarbar_render_pagination( $query = null, $current_page = 1 ) {
+    if ( ! $query ) {
+        global $wp_query;
+        $query = $wp_query;
+    }
+
+    $total_pages = (int) ( $query->max_num_pages ?? 1 );
+    if ( $total_pages <= 1 ) {
+        return '';
+    }
+
+    $paged = max( 1, (int) $current_page );
+    if ( is_front_page() || is_home() || is_archive() || is_search() ) {
+        $paged = max( 1, get_query_var( 'paged', 1 ) );
+    }
+
+    $pagination_links = paginate_links( array(
+        'base'      => esc_url_raw( str_replace( 999999999, '%#%', get_pagenum_link( 999999999, false ) ) ),
+        'format'    => '?paged=%#%',
+        'current'   => $paged,
+        'total'     => $total_pages,
+        'prev_text' => __( 'قبلی', 'yarbar' ),
+        'next_text' => __( 'بعدی', 'yarbar' ),
+        'type'      => 'array',
+        'mid_size'  => 2,
+        'end_size'  => 1,
+    ) );
+
+    if ( empty( $pagination_links ) ) {
+        return '';
+    }
+
+    ob_start();
+    ?>
+    <nav class="pagination-nav" aria-label="<?php esc_attr_e( 'صفحه‌بندی مطالب', 'yarbar' ); ?>">
+        <?php
+        foreach ( $pagination_links as $link ) {
+            if ( strpos( $link, 'current' ) !== false ) {
+                preg_match( '/>([^<]+)</', $link, $matches );
+                $num = $matches[1] ?? $paged;
+                echo '<span class="page-link active" aria-current="page" data-page="' . esc_attr( $num ) . '">' . esc_html( $num ) . '</span>';
+            } elseif ( strpos( $link, 'dots' ) !== false ) {
+                echo '<span class="page-dots" aria-hidden="true">...</span>';
+            } elseif ( strpos( $link, 'prev' ) !== false ) {
+                $target_page = max( 1, $paged - 1 );
+                preg_match( '/href=[\'"]([^\'"]+)[\'"]/', $link, $matches );
+                $href = $matches[1] ?? '#';
+                echo '<a href="' . esc_url( $href ) . '" class="page-link prev" data-page="' . esc_attr( $target_page ) . '">' . esc_html__( 'قبلی', 'yarbar' ) . '</a>';
+            } elseif ( strpos( $link, 'next' ) !== false ) {
+                $target_page = min( $total_pages, $paged + 1 );
+                preg_match( '/href=[\'"]([^\'"]+)[\'"]/', $link, $matches );
+                $href = $matches[1] ?? '#';
+                echo '<a href="' . esc_url( $href ) . '" class="page-link next" data-page="' . esc_attr( $target_page ) . '">' . esc_html__( 'بعدی', 'yarbar' ) . '</a>';
+            } else {
+                preg_match( '/>([^<]+)</', $link, $matches_num );
+                preg_match( '/href=[\'"]([^\'"]+)[\'"]/', $link, $matches_href );
+                $num  = $matches_num[1] ?? '';
+                $href = $matches_href[1] ?? '#';
+                echo '<a href="' . esc_url( $href ) . '" class="page-link" data-page="' . esc_attr( $num ) . '">' . esc_html( $num ) . '</a>';
+            }
+        }
+        ?>
+    </nav>
+    <?php
+    return ob_get_clean();
+}
+

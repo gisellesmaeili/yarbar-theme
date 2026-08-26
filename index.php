@@ -1,14 +1,12 @@
 <?php
 /**
- * The main fallback template file
+ * The main template file
+ *
+ * @package YarBar
  */
 
 get_header();
-?>
 
-    <main>
-        <p>YarBar theme is active. Content templates come next.</p>
-    </main>
+get_template_part( 'template-parts/archive/content' );
 
-<?php
 get_footer();
