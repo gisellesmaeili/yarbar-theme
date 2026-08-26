@@ -1125,68 +1125,458 @@ img {
     text-align: center;
 }
 
-/* Single article page */
-.single-article {
-    max-width: 760px;
-    padding-top: var(--space-6);
-    padding-bottom: var(--space-8);
+/* ----------------------------------
+   Single Template (Post, Service, Location)
+---------------------------------- */
+.single-post-page {
+    background-color: var(--color-cool-white);
+    min-height: 100vh;
 }
 
-.single-article__header {
-    margin-bottom: var(--space-6);
-}
-
-.single-article__title {
-    font-size: 34px;
-    color: var(--color-midnight);
-}
-
-.single-article__meta {
-    color: var(--color-muted);
-    font-size: 14px;
-}
-
-.single-article__image img {
+/* 1. Dark Hero Section */
+.post-hero-section {
+    background-color: var(--color-midnight);
+    padding-top: 140px;
+    padding-bottom: 220px;
     width: 100%;
+    position: relative;
+}
+
+.post-hero-section--no-thumb {
+    padding-bottom: 80px;
+}
+
+.hero-container {
+    width: 100%;
+}
+
+/* Breadcrumbs in Hero */
+.breadcrumbs-nav {
+    margin-bottom: 32px;
+}
+
+.post-hero-section .breadcrumbs,
+.post-hero-section .rank-math-breadcrumb {
+    font-size: 13.5px;
+    color: var(--color-muted);
+    margin: 0;
+}
+
+.post-hero-section .breadcrumbs a,
+.post-hero-section .rank-math-breadcrumb a {
+    color: #CBD5E1;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.post-hero-section .breadcrumbs a:hover,
+.post-hero-section .rank-math-breadcrumb a:hover {
+    color: var(--color-orange);
+}
+
+.post-hero-section .breadcrumbs span,
+.post-hero-section .rank-math-breadcrumb .last {
+    color: var(--color-orange);
+    font-weight: 700;
+}
+
+/* Post Hero Header & Meta */
+.post-hero-header {
+    width: 100%;
+}
+
+.post-meta-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 16px;
+}
+
+.post-category-tag {
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.25s ease;
+    display: inline-block;
+}
+
+.post-category-tag:hover {
+    background-color: var(--color-orange-dark);
+    transform: translateY(-2px);
+    color: var(--color-white);
+}
+
+.post-hero-header .meta-item {
+    color: #CBD5E1;
+    font-size: 13.5px;
+}
+
+.post-title {
+    color: var(--color-white);
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0 0 20px 0;
+    max-width: 1100px;
+}
+
+.post-excerpt {
+    color: #94A3B8;
+    font-size: 18px;
+    line-height: 1.8;
+    margin: 0;
+    max-width: 1000px;
+}
+
+/* 2. Main Content Section */
+.post-content-section {
+    width: 100%;
+    padding-bottom: 80px;
+}
+
+.main-container {
+    width: 100%;
+}
+
+/* Featured Image Overlap */
+.featured-image-wrapper {
+    margin: -180px 0 40px 0;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    background-color: var(--color-midnight);
+}
+
+.featured-image {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+}
+
+.image-caption {
+    background-color: #0F2337;
+    color: var(--color-muted);
+    font-size: 13px;
+    padding: 12px 24px;
+    text-align: center;
+}
+
+/* Post Content Card */
+.post-card {
+    background-color: var(--color-white);
+    border-radius: 24px;
+    padding: 56px;
+    box-shadow: 0 20px 40px -15px rgba(10, 25, 41, 0.07),
+                0 0 15px rgba(10, 25, 41, 0.03);
+    border: 1px solid var(--color-gray);
+    margin-bottom: 64px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.post-body-layout {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 48px;
+}
+
+/* Sticky Share Sidebar */
+.share-sidebar {
+    position: sticky;
+    top: 130px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 5;
+}
+
+.share-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-muted);
+}
+
+.share-buttons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.share-btn {
+    width: 44px;
+    height: 44px;
     border-radius: 12px;
-    margin-bottom: var(--space-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
 }
 
-.single-article__cta {
-    margin-top: var(--space-7);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--color-gray);
+.share-btn svg {
+    width: 20px;
+    height: 20px;
 }
 
-.entry-content h2 {
-    font-size: 24px;
-    margin-top: var(--space-7);
+.share-btn.telegram {
+    background-color: #229ED9;
 }
 
-.entry-content h3 {
-    font-size: 19px;
-    margin-top: var(--space-6);
+.share-btn.whatsapp {
+    background-color: #25D366;
 }
 
-.entry-content p {
+.share-btn.copy-link {
+    background-color: var(--color-midnight);
+}
+
+.share-btn.copy-link.is-copied {
+    background-color: var(--color-green);
+}
+
+.share-btn:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
+    color: var(--color-white);
+}
+
+/* Post Typography & Elements */
+.post-content {
     color: var(--color-text);
     font-size: 17px;
+    line-height: 2;
+    word-break: break-word;
 }
 
-.entry-content img {
-    border-radius: 12px;
-    margin: var(--space-5) 0;
+.post-content p:first-of-type,
+.lead-paragraph {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--color-midnight);
+    line-height: 1.85;
+    margin-bottom: 36px;
 }
 
-.entry-content a {
+.post-content h2 {
+    color: var(--color-midnight);
+    font-size: 24px;
+    font-weight: 700;
+    margin: 44px 0 20px 0;
+}
+
+.post-content h3 {
+    color: var(--color-midnight);
+    font-size: 19px;
+    font-weight: 700;
+    margin: 32px 0 16px 0;
+}
+
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+    color: var(--color-midnight);
+    font-weight: 700;
+}
+
+.post-content p {
+    margin-bottom: 24px;
+}
+
+.post-content ul,
+.post-content ol {
+    padding-right: 24px;
+    margin-bottom: 32px;
+}
+
+.post-content li {
+    margin-bottom: 12px;
+}
+
+.post-content blockquote {
+    background-color: var(--color-cool-white);
+    border-right: 4px solid var(--color-orange);
+    margin: 36px 0;
+    padding: 24px 28px;
+    border-radius: 0 16px 16px 0;
+    font-size: 16.5px;
+    font-weight: 500;
+    color: var(--color-midnight);
+    font-style: italic;
+    line-height: 1.8;
+}
+
+.post-content a {
+    color: var(--color-orange-dark);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.post-content a:hover {
+    color: var(--color-orange);
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    margin: 24px 0;
+}
+
+.content-callout-box {
+    background-color: var(--color-orange-light);
+    border: 1px solid rgba(255, 107, 26, 0.25);
+    border-radius: 16px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 36px 0;
+}
+
+.callout-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.callout-text {
+    font-size: 15.5px;
+    color: var(--color-midnight);
+    line-height: 1.75;
+}
+
+/* 3. Related Posts Section */
+.related-posts-section {
+    width: 100%;
+}
+
+.related-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    gap: 16px;
+}
+
+.related-title {
+    color: var(--color-midnight);
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.related-more-link {
+    color: var(--color-orange);
+    text-decoration: none;
+    font-size: 14.5px;
+    font-weight: 700;
+    transition: color 0.25s ease;
+}
+
+.related-more-link:hover {
     color: var(--color-orange-dark);
 }
 
-/* Related articles */
-.related-articles {
-    padding: var(--space-8) 0;
-    border-top: 1px solid var(--color-gray);
-    margin-top: var(--space-8);
+/* Single Responsive */
+@media (max-width: 992px) {
+    .post-hero-section {
+        padding-bottom: 160px;
+    }
+
+    .featured-image-wrapper {
+        margin-top: -120px;
+    }
+
+    .featured-image {
+        height: 360px;
+    }
+
+    .post-card {
+        padding: 32px;
+    }
+
+    .post-body-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .share-sidebar {
+        position: static;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 32px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--color-gray);
+        width: 100%;
+    }
+
+    .share-buttons-list {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 768px) {
+    .post-hero-section {
+        padding-top: 100px;
+        padding-bottom: 140px;
+    }
+
+    .post-hero-section--no-thumb {
+        padding-bottom: 60px;
+    }
+
+    .post-title {
+        font-size: 26px;
+    }
+
+    .post-excerpt {
+        font-size: 15px;
+    }
+
+    .featured-image-wrapper {
+        margin-top: -100px;
+    }
+
+    .featured-image {
+        height: 260px;
+    }
+
+    .post-meta-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .post-card {
+        padding: 24px 18px;
+        border-radius: 16px;
+    }
+
+    .related-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .share-btn,
+    .post-category-tag,
+    .featured-image-wrapper {
+        transition: none;
+        transform: none !important;
+    }
 }
 
 /* Pagination (output by the_posts_pagination) */
@@ -1213,30 +1603,4 @@ img {
 
 .pagination .page-numbers:hover {
     border-color: var(--color-orange);
-}
-
-/* Mobile layout adjustments */
-@media (max-width: 768px) {
-    .single-article__title {
-        font-size: 26px;
-    }
-}
-
-.rank-math-breadcrumb {
-    font-size: 13px;
-    color: var(--color-muted);
-    margin: var(--space-5) 0;
-}
-
-.rank-math-breadcrumb p {
-    margin: 0;
-}
-
-.rank-math-breadcrumb a {
-    color: var(--color-muted);
-    text-decoration: none;
-}
-
-.rank-math-breadcrumb a:hover {
-    color: var(--color-orange);
 }
