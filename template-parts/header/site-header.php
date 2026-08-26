@@ -44,6 +44,11 @@ $nav_items = array(
         'id'    => 'locations',
     ),
     array(
+        'label' => 'سوالات متداول',
+        'href'  => $is_home ? '#faq' : home_url( '/#faq' ),
+        'id'    => 'faq',
+    ),
+    array(
         'label' => 'مقالات وبلاگ',
         'href'  => $is_home ? '#blog-section' : home_url( '/#blog-section' ),
         'id'    => 'blog-section',
