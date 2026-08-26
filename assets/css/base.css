@@ -103,15 +103,6 @@ img {
     border-color: var(--color-midnight);
 }
 
-#yarbar-scroll-sentinel {
-    position: absolute;
-    top: 0;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
-}
-
 /* ----------------------------------
    Luxury Glassmorphic Site Header
 ---------------------------------- */
@@ -124,15 +115,8 @@ img {
     height: 80px;
     display: flex;
     align-items: center;
-    background: rgba(10, 25, 41, 0.9);
-    border-bottom: 1px solid rgba(229, 234, 240, 0.08);
-    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.site-header.is-scrolled {
-    height: 64px;
     background: rgba(10, 25, 41, 0.92);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(229, 234, 240, 0.08);
 }
 
 .site-header__inner {
@@ -441,10 +425,6 @@ img {
     }
 
     .site-header {
-        height: 60px;
-    }
-
-    .site-header.is-scrolled {
         height: 60px;
     }
 
@@ -1437,7 +1417,7 @@ img {
 }
 
 .content-callout-box {
-    background-color: var(--color-orange-light);
+    background-color: var(--color-orange);
     border: 1px solid rgba(255, 107, 26, 0.25);
     border-radius: 16px;
     padding: 20px 24px;
@@ -1713,4 +1693,12 @@ img {
 .comments-closed {
     color: var(--color-muted);
     font-size: 14px;
+}
+
+.yarbar-hp-field {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    height: 0;
+    overflow: hidden;
 }

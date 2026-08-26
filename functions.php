@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Block direct access to this file.
 }
 
-define( 'YARBAR_VERSION', '1.0.30' );
+define( 'YARBAR_VERSION', '1.0.32' );
 
 function yarbar_theme_setup() {
     // Let WordPress manage the page <title> tag.
@@ -18,11 +18,6 @@ function yarbar_theme_setup() {
 
     // Let WordPress handle the RSS feed link automatically.
     add_theme_support( 'automatic-feed-links' );
-
-    // Register a menu location for the main navigation.
-    register_nav_menus( array(
-        'primary' => __( 'Primary Menu', 'yarbar' ),
-    ) );
 
     // Custom image sizes matching real card and hero dimensions.
     add_image_size( 'yarbar-card', 500, 320, true );
@@ -103,3 +98,5 @@ add_filter( 'script_loader_tag', function( $tag, $handle ) {
 require get_template_directory() . '/inc/helpers.php';
 require get_template_directory() . '/inc/business-settings.php';
 require get_template_directory() . '/inc/post-types.php';
+
+require get_template_directory() . '/inc/comments.php';

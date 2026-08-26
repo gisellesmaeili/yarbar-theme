@@ -11,7 +11,6 @@
     'use strict';
 
     var header       = document.getElementById( 'site-header' );
-    var sentinel     = document.getElementById( 'yarbar-scroll-sentinel' );
     var hamburger    = document.querySelector( '.site-header__hamburger' );
     var drawer       = document.getElementById( 'yarbar-mobile-drawer' );
     var drawerClose  = document.querySelector( '.mobile-drawer__close' );
@@ -29,16 +28,6 @@
             }
         }
     } );
-
-    // 1. Shrink the header once the visitor scrolls past the invisible sentinel near the top
-    if ( header && sentinel && 'IntersectionObserver' in window ) {
-        var scrollObserver = new IntersectionObserver( function( entries ) {
-            entries.forEach( function( entry ) {
-                header.classList.toggle( 'is-scrolled', ! entry.isIntersecting );
-            } );
-        }, { rootMargin: '-30px 0px 0px 0px' } );
-        scrollObserver.observe( sentinel );
-    }
 
     // 2. Highlight the active nav link as sections scroll into view
     if ( sections.length && 'IntersectionObserver' in window ) {

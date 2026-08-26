@@ -55,7 +55,6 @@ $nav_items = array(
     ),
 );
 ?>
-<div id="yarbar-scroll-sentinel"></div>
 
 <header class="site-header" id="site-header">
     <div class="container site-header__inner">

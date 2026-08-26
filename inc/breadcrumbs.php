@@ -5,8 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function yarbar_breadcrumbs() {
     if ( function_exists( 'rank_math_the_breadcrumbs' ) ) {
+        ob_start();
         rank_math_the_breadcrumbs();
-        return;
+        $output = ob_get_clean();
+        if ( trim( $output ) !== '' ) {
+            echo $output;
+            return;
+        }
     }
 
     echo '<nav class="breadcrumbs" aria-label="' . esc_attr__( 'مسیر صفحه', 'yarbar' ) . '">';
