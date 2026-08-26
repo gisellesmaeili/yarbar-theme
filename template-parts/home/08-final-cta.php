@@ -11,12 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-$phone_primary = yarbar_option( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
-$phone_link    = yarbar_phone_link( 'phone_primary' );
-if ( empty( $phone_link ) ) {
-    $phone_link = 'tel:' . preg_replace( '/[^0-9+]/', '', $phone_primary );
-}
-$phone_display = ! empty( $phone_primary ) ? $phone_primary : '۰۲۱-۹۱۰۰۰۰۰۰';
+$phone_display = yarbar_option( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
+$phone_link    = yarbar_phone_link( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
 ?>
 <!-- سکشن فراخوان نهایی تماس (Final Conversion Banner) -->
 <section id="final-cta" class="final-cta-section" aria-labelledby="final-cta-title">

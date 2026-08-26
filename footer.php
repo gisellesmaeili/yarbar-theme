@@ -11,24 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-$phone_primary = yarbar_option( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
-$phone_link    = yarbar_phone_link( 'phone_primary' );
-if ( empty( $phone_link ) ) {
-    $phone_link = 'tel:' . preg_replace( '/[^0-9+]/', '', $phone_primary );
-}
-$phone_display = ! empty( $phone_primary ) ? $phone_primary : '۰۲۱-۹۱۰۰۰۰۰۰';
+$phone_display = yarbar_option( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
+$phone_link    = yarbar_phone_link( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
 
 $business_address = yarbar_option( 'address', 'تهران، خیابان شریعتی، بالاتر از میرداماد، پلاک ۱۲۴، واحد ۳' );
 
-$services_archive_url = get_post_type_archive_link( 'service' );
-if ( ! $services_archive_url ) {
-    $services_archive_url = home_url( '/services/' );
-}
+yarbar_archive_url( 'service', '/services/' );
 
-$locations_archive_url = get_post_type_archive_link( 'location' );
-if ( ! $locations_archive_url ) {
-    $locations_archive_url = home_url( '/locations/' );
-}
+yarbar_archive_url( 'location', '/locations/' );
 
 $blog_page_id     = get_option( 'page_for_posts' );
 $blog_archive_url = $blog_page_id ? get_permalink( $blog_page_id ) : home_url( '/blog/' );

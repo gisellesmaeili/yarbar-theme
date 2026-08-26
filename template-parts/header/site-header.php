@@ -12,12 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-$phone_primary = yarbar_option( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
-$phone_link    = yarbar_phone_link( 'phone_primary' );
-if ( empty( $phone_link ) ) {
-    $phone_link = 'tel:' . preg_replace( '/[^0-9+]/', '', $phone_primary );
-}
-$phone_display = ! empty( $phone_primary ) ? $phone_primary : '۰۲۱-۹۱۰۰۰۰۰۰';
+$phone_display = yarbar_option( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
+$phone_link    = yarbar_phone_link( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
 
 // Build anchor URLs (direct anchor on front page, full URL with hash on other pages)
 $is_home = is_front_page();

@@ -63,18 +63,18 @@
         } );
     }
 
-    // 3. Only animate the map pins once the Locations section actually scrolls into view
-    var locationsSection = document.getElementById( 'locations' );
-    if ( locationsSection && 'IntersectionObserver' in window ) {
-        var pulseObserver = new IntersectionObserver( function( entries ) {
+    // 3. Pause purely-decorative infinite animations while their section is off-screen
+    var animatedSections = document.querySelectorAll( '[data-animate-when-visible]' );
+    if ( animatedSections.length && 'IntersectionObserver' in window ) {
+        var visibilityObserver = new IntersectionObserver( function( entries ) {
             entries.forEach( function( entry ) {
-                if ( entry.isIntersecting ) {
-                    locationsSection.classList.add( 'in-view' );
-                    pulseObserver.unobserve( locationsSection );
-                }
+                entry.target.classList.toggle( 'in-view', entry.isIntersecting );
             } );
         }, { rootMargin: '0px 0px -10% 0px' } );
-        pulseObserver.observe( locationsSection );
+
+        animatedSections.forEach( function( el ) {
+            visibilityObserver.observe( el );
+        } );
     }
 
     // 4. Smooth scrolling for anchor links on the homepage

@@ -35,8 +35,8 @@ $yarbar_default_badges = array(
 
         <!-- هدر سکشن -->
         <div class="services-header">
-            <div class="services-badge">
-                <span class="services-badge-dot" aria-hidden="true"></span>
+            <div class="badge badge--orange">
+                <span class="badge-dot" aria-hidden="true"></span>
                 <span>خدمات متای یاربار</span>
             </div>
             <h2 id="services-title" class="services-title">راهکارهای تخصصی باربری و اسباب‌کشی</h2>

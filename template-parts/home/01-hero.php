@@ -1,4 +1,4 @@
-<section class="hero" id="hero">
+<section class="hero" id="hero" data-animate-when-visible>
     <div class="hero__pattern" aria-hidden="true"></div>
 
     <div class="container hero__inner">

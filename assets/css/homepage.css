@@ -1,3 +1,27 @@
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    margin-bottom: var(--space-4);
+}
+
+.badge--orange {
+    background-color: rgba(255, 107, 26, 0.12);
+    border: 1px solid rgba(255, 107, 26, 0.3);
+    color: var(--color-orange);
+}
+
+.badge--light {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray);
+    color: var(--color-midnight);
+    box-shadow: 0 2px 6px rgba(10, 25, 41, 0.03);
+}
+
 .hero {
     position: relative;
     z-index: 5;
@@ -188,6 +212,9 @@
     --truck-scale: 1.12;
     transform: translateY(var(--truck-shift)) scale(var(--truck-scale));
     filter: drop-shadow(0 25px 30px rgba(10, 25, 41, 0.45));
+}
+
+.hero.in-view .hero__truck {
     animation: yarbar-float 4s ease-in-out infinite;
 }
 
@@ -291,21 +318,7 @@
     text-align: right;
 }
 
-.services-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    background-color: rgba(255, 107, 26, 0.15);
-    border: 1px solid rgba(255, 107, 26, 0.3);
-    color: var(--color-orange);
-    font-size: 13px;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 30px;
-    margin-bottom: var(--space-4);
-}
-
-.services-badge-dot {
+.badge-dot {
     width: 8px;
     height: 8px;
     background-color: var(--color-orange);
@@ -534,21 +547,6 @@
 /* Right Column (Content & Stats) */
 .trust-content {
     min-width: 0;
-}
-
-.trust-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    background-color: var(--color-white);
-    border: 1px solid var(--color-gray);
-    color: var(--color-midnight);
-    font-size: 13px;
-    font-weight: 700;
-    padding: 6px 14px;
-    border-radius: 20px;
-    margin-bottom: var(--space-4);
-    box-shadow: 0 2px 6px rgba(10, 25, 41, 0.03);
 }
 
 .badge-icon {
@@ -781,28 +779,6 @@
 .locations-map-header {
     margin-bottom: 48px;
     text-align: right;
-}
-
-.locations-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    background-color: rgba(255, 107, 26, 0.12);
-    border: 1px solid rgba(255, 107, 26, 0.3);
-    color: var(--color-orange);
-    font-size: 13px;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 30px;
-    margin-bottom: var(--space-4);
-}
-
-.pulse-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--color-orange);
-    border-radius: 50%;
-    box-shadow: 0 0 10px var(--color-orange);
 }
 
 .locations-title {
@@ -1385,6 +1361,9 @@
 .marquee__track {
     display: flex;
     width: max-content;
+}
+
+.marquee.in-view .marquee__track {
     animation: yarbar-marquee 28s linear infinite;
 }
 
@@ -1445,18 +1424,6 @@
 .calculator-header {
     text-align: center;
     margin-bottom: var(--space-7);
-}
-
-.calc-badge {
-    display: inline-block;
-    background: rgba(255, 107, 26, 0.1);
-    color: var(--color-orange);
-    font-size: 13px;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 50px;
-    margin-bottom: var(--space-3);
-    border: 1px solid rgba(255, 107, 26, 0.2);
 }
 
 .calc-title {

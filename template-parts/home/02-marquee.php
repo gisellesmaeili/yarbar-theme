@@ -8,7 +8,7 @@ $yarbar_marquee_items = array(
     'ارسال سریع به سراسر ایران',
 );
 ?>
-<section class="marquee" aria-label="ویژگی‌های یاربار">
+<section class="marquee" aria-label="ویژگی‌های یاربار" data-animate-when-visible>
     <div class="marquee__track">
         <div class="marquee__group">
             <?php foreach ( $yarbar_marquee_items as $item ) : ?>

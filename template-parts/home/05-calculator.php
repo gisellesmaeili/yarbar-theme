@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <!-- سربرگ سکشن -->
         <div class="calculator-header">
-            <span class="calc-badge">محاسبه هوشمند و شفاف</span>
+            <span class="badge badge--orange">محاسبه هوشمند و شفاف</span>
             <h2 id="calc-title" class="calc-title">برآورد آنلاین هزینه اسباب‌کشی بدون قیمت پنهان</h2>
         </div>
 

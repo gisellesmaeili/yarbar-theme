@@ -19,19 +19,16 @@ $yarbar_locations_query = new WP_Query( array(
     'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
 ) );
 
-$yarbar_locations_archive_url = get_post_type_archive_link( 'location' );
-if ( ! $yarbar_locations_archive_url ) {
-    $yarbar_locations_archive_url = home_url( '/locations/' );
-}
+yarbar_archive_url( 'location', '/locations/' )
 ?>
 <!-- سکشن پوشش جغرافیایی (نقشه تعاملی + پست‌تایپ لوکیشن‌ها) -->
-<section id="locations" class="locations-map-section" aria-labelledby="locations-title">
+<section id="locations" class="locations-map-section" aria-labelledby="locations-title" data-animate-when-visible>
     <div class="container locations-map-container">
 
         <!-- هدر سکشن -->
         <div class="locations-map-header">
-            <div class="locations-badge">
-                <span class="pulse-dot" aria-hidden="true"></span>
+            <div class="badge badge--orange">
+                <span class="badge-dot" aria-hidden="true"></span>
                 <span>پوشش سراسری و لحظه‌ای</span>
             </div>
             <h2 id="locations-title" class="locations-title">شبکه فعال باربری و اسباب‌کشی در سراسر ایران</h2>
