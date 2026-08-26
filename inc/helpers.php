@@ -22,6 +22,12 @@ function yarbar_archive_url( $post_type, $fallback_path ) {
     return $url ? $url : home_url( $fallback_path );
 }
 
+function yarbar_blog_archive_url() {
+    $blog_page_id = get_option( 'page_for_posts' );
+    $url          = $blog_page_id ? get_permalink( $blog_page_id ) : '';
+    return $url ? $url : home_url( '/blog/' );
+}
+
 /**
  * Get category or taxonomy badge for single templates
  */
@@ -138,12 +144,10 @@ function yarbar_get_related_heading( $post_type = 'post' ) {
             );
         case 'post':
         default:
-            $blog_page_id = get_option( 'page_for_posts' );
-            $blog_url     = $blog_page_id ? get_permalink( $blog_page_id ) : home_url( '/blog/' );
             return array(
                 'title' => __( 'نوشته‌های مرتبط', 'yarbar' ),
                 'label' => __( 'مشاهده همه مقالات ←', 'yarbar' ),
-                'url'   => $blog_url ? $blog_url : home_url( '/blog/' ),
+                'url'   => yarbar_blog_archive_url(),
             );
     }
 }

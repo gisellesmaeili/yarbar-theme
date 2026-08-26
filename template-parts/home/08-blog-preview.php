@@ -18,11 +18,7 @@ $yarbar_blog_query = new WP_Query( array(
     'ignore_sticky_posts' => true,
 ) );
 
-$blog_page_id     = get_option( 'page_for_posts' );
-$blog_archive_url = $blog_page_id ? get_permalink( $blog_page_id ) : home_url( '/blog/' );
-if ( empty( $blog_archive_url ) ) {
-    $blog_archive_url = home_url( '/blog/' );
-}
+$blog_archive_url = yarbar_blog_archive_url();
 ?>
 <!-- سکشن مقالات و مجله آموزشی (پس‌زمینه سفید) -->
 <section id="blog-section" class="blog-section" aria-labelledby="blog-section-title">

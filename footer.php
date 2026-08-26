@@ -16,15 +16,10 @@ $phone_link    = yarbar_phone_link( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' )
 
 $business_address = yarbar_option( 'address', 'تهران، خیابان شریعتی، بالاتر از میرداماد، پلاک ۱۲۴، واحد ۳' );
 
-yarbar_archive_url( 'service', '/services/' );
+$services_archive_url  = yarbar_archive_url( 'service', '/services/' );
+$locations_archive_url = yarbar_archive_url( 'location', '/locations/' );
 
-yarbar_archive_url( 'location', '/locations/' );
-
-$blog_page_id     = get_option( 'page_for_posts' );
-$blog_archive_url = $blog_page_id ? get_permalink( $blog_page_id ) : home_url( '/blog/' );
-if ( ! $blog_archive_url ) {
-    $blog_archive_url = home_url( '/blog/' );
-}
+$blog_archive_url = yarbar_blog_archive_url();
 
 // Fetch real blog categories (excluding uncategorized)
 $default_cat_id = (int) get_option( 'default_category' );

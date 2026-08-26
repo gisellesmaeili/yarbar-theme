@@ -124,9 +124,7 @@ img {
     height: 80px;
     display: flex;
     align-items: center;
-    background: rgba(10, 25, 41, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(10, 25, 41, 0.9);
     border-bottom: 1px solid rgba(229, 234, 240, 0.08);
     transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -310,8 +308,6 @@ img {
     justify-content: space-between;
     padding: 30px 24px;
     background: rgba(10, 25, 41, 0.96);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -500,8 +496,6 @@ img {
         right: 0;
         z-index: 1100;
         background: rgba(10, 25, 41, 0.92);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
         padding: 10px 16px;
         border-top: 1px solid rgba(229, 234, 240, 0.1);
     }
@@ -780,9 +774,7 @@ img {
 .map-overlay-btn {
     position: absolute;
     inset: 0;
-    background: rgba(10, 25, 41, 0.65);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    background: rgba(10, 25, 41, 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -909,9 +901,7 @@ img {
     position: absolute;
     top: 16px;
     right: 16px;
-    background-color: rgba(10, 25, 41, 0.85);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background-color: rgba(10, 25, 41, 0.95);
     color: var(--color-white);
     font-size: 11px;
     font-weight: 700;
@@ -1245,6 +1235,7 @@ img {
 
 /* Featured Image Overlap */
 .featured-image-wrapper {
+    position: relative;
     margin: -180px 0 40px 0;
     border-radius: 24px;
     overflow: hidden;
@@ -1341,8 +1332,20 @@ img {
     background-color: var(--color-midnight);
 }
 
+.share-btn.copy-link .icon-check {
+    display: none;
+}
+
 .share-btn.copy-link.is-copied {
     background-color: var(--color-green);
+}
+
+.share-btn.copy-link.is-copied .icon-copy {
+    display: none;
+}
+
+.share-btn.copy-link.is-copied .icon-check {
+    display: block;
 }
 
 .share-btn:hover {
@@ -1603,4 +1606,111 @@ img {
 
 .pagination .page-numbers:hover {
     border-color: var(--color-orange);
+}
+
+.comments-area {
+    margin-top: var(--space-8);
+    padding-top: var(--space-7);
+    border-top: 1px solid var(--color-gray);
+}
+
+.comments-title {
+    font-size: 22px;
+    color: var(--color-midnight);
+}
+
+.comment-list {
+    list-style: none;
+    margin: 0 0 var(--space-6) 0;
+    padding: 0;
+}
+
+.comment-list .children {
+    list-style: none;
+    margin: var(--space-4) 0 0 0;
+    padding-right: var(--space-6);
+}
+
+.comment-body {
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-gray);
+}
+
+.comment-author .avatar {
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-left: var(--space-2);
+}
+
+.comment-author .fn {
+    font-weight: 700;
+    font-style: normal;
+    color: var(--color-text);
+}
+
+.comment-metadata {
+    font-size: 12px;
+    color: var(--color-muted);
+}
+
+.comment-metadata a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.comment-content p {
+    color: var(--color-text);
+    margin: var(--space-2) 0 0 0;
+}
+
+.reply a {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-orange-dark);
+    text-decoration: none;
+}
+
+.comment-respond {
+    margin-top: var(--space-6);
+}
+
+.comment-reply-title {
+    font-size: 18px;
+    color: var(--color-midnight);
+}
+
+.comment-form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 6px;
+}
+
+.comment-form input[type="text"],
+.comment-form input[type="email"],
+.comment-form input[type="url"],
+.comment-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--color-gray);
+    border-radius: 10px;
+    background-color: var(--color-cool-white);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    margin-bottom: var(--space-4);
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--color-orange);
+    background-color: var(--color-white);
+    box-shadow: 0 0 0 4px rgba(255, 107, 26, 0.1);
+}
+
+.comments-closed {
+    color: var(--color-muted);
+    font-size: 14px;
 }
