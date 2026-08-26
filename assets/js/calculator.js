@@ -82,6 +82,8 @@
         return total;
     }
 
+        var animationToken = 0;
+
     function updatePriceDisplay( animate ) {
         if ( ! priceEl ) {
             return;
@@ -94,17 +96,21 @@
             return;
         }
 
-        var currentText = priceEl.textContent.replace( /[^\d۰-۹]/g, '' );
+        animationToken++;
+        var thisToken = animationToken;
+
         var start = target * 0.85;
         var startTime = null;
         var duration = 400;
 
         function frame( timestamp ) {
+            if ( thisToken !== animationToken ) {
+                return; // A newer calculation started — let this old loop die quietly.
+            }
             if ( ! startTime ) {
                 startTime = timestamp;
             }
             var progress = Math.min( ( timestamp - startTime ) / duration, 1 );
-            // Ease out cubic
             var easeProgress = 1 - Math.pow( 1 - progress, 3 );
             var current = start + ( target - start ) * easeProgress;
             priceEl.textContent = formatToman( current );

@@ -188,10 +188,11 @@ $map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencod
                     <img 
                         src="<?php echo esc_url( $map_img_path ); ?>" 
                         alt="<?php esc_attr_e( 'نقشه لوکیشن دفتر مرکزی یاربار', 'yarbar' ); ?>" 
+                        width="500"
+                        height="100"
                         class="map-img" 
                         loading="lazy" 
-                        decoding="async" 
-                        onerror="this.src='https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=500&q=80'"
+                        decoding="async"
                     >
                     <span class="map-overlay-btn">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -210,7 +211,7 @@ $map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencod
 
         <!-- بخش حقوق و کپی‌رایت -->
         <div class="footer-bottom">
-            <span>طراحی شده با ♡ - <a href="https://vardi.ir" target="_blank" rel="nofollow">آژانس تبلیغاتی وردی</a></span>
+            <span>طراحی شده با ♡ - <a href="https://vardi.ir" target="_blank" rel="nofollow noopener">آژانس تبلیغاتی وردی</a></span>
         </div>
 
     </div>

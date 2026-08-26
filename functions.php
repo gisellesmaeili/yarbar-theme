@@ -39,18 +39,20 @@ function yarbar_enqueue_assets() {
     );
 
     wp_enqueue_style(
-        'yarbar-style',
-        get_stylesheet_uri(),
-        array(),
-        YARBAR_VERSION
-    );
-
-    wp_enqueue_style(
         'yarbar-base',
         get_template_directory_uri() . '/assets/css/base.css',
         array( 'yarbar-fonts' ),
         YARBAR_VERSION
     );
+
+    if ( is_front_page() ) {
+        wp_enqueue_style(
+            'yarbar-homepage',
+            get_template_directory_uri() . '/assets/css/homepage.css',
+            array( 'yarbar-base' ),
+            YARBAR_VERSION
+        );
+    }
 
     wp_enqueue_script(
         'yarbar-header',
@@ -60,13 +62,15 @@ function yarbar_enqueue_assets() {
         true
     );
 
-    wp_enqueue_script(
-        'yarbar-calculator',
-        get_template_directory_uri() . '/assets/js/calculator.js',
-        array(),
-        YARBAR_VERSION,
-        true
-    );
+    if ( is_front_page() ) {
+        wp_enqueue_script(
+            'yarbar-calculator',
+            get_template_directory_uri() . '/assets/js/calculator.js',
+            array(),
+            YARBAR_VERSION,
+            true
+        );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'yarbar_enqueue_assets' );
 
@@ -75,15 +79,6 @@ require get_template_directory() . '/inc/template-tags.php';
 
 require get_template_directory() . '/inc/performance.php';
 
-function yarbar_script_loading_strategy( $strategy, $handle, $src ) {
-    if ( strpos( $handle, 'yarbar-' ) === 0 ) {
-        return 'defer';
-    }
-    return $strategy;
-}
-add_filter( 'wp_script_attributes', function( $attributes ) {
-    return $attributes;
-} );
 add_filter( 'script_loader_tag', function( $tag, $handle ) {
     if ( strpos( $handle, 'yarbar-' ) === 0 && strpos( $tag, 'defer' ) === false ) {
         $tag = str_replace( ' src=', ' defer src=', $tag );

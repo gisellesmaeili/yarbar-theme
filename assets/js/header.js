@@ -30,20 +30,15 @@
         }
     } );
 
-    // 1. Shrink header when user scrolls past 30px
-    function updateHeaderScroll() {
-        if ( ! header ) return;
-        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
-        if ( scrollTop > 30 ) {
-            header.classList.add( 'is-scrolled' );
-        } else {
-            header.classList.remove( 'is-scrolled' );
-        }
+    // 1. Shrink the header once the visitor scrolls past the invisible sentinel near the top
+    if ( header && sentinel && 'IntersectionObserver' in window ) {
+        var scrollObserver = new IntersectionObserver( function( entries ) {
+            entries.forEach( function( entry ) {
+                header.classList.toggle( 'is-scrolled', ! entry.isIntersecting );
+            } );
+        }, { rootMargin: '-30px 0px 0px 0px' } );
+        scrollObserver.observe( sentinel );
     }
-
-    window.addEventListener( 'scroll', updateHeaderScroll, { passive: true } );
-    // Initial check on load
-    updateHeaderScroll();
 
     // 2. Highlight the active nav link as sections scroll into view
     if ( sections.length && 'IntersectionObserver' in window ) {
@@ -68,7 +63,21 @@
         } );
     }
 
-    // 3. Smooth scrolling for anchor links on the homepage
+    // 3. Only animate the map pins once the Locations section actually scrolls into view
+    var locationsSection = document.getElementById( 'locations' );
+    if ( locationsSection && 'IntersectionObserver' in window ) {
+        var pulseObserver = new IntersectionObserver( function( entries ) {
+            entries.forEach( function( entry ) {
+                if ( entry.isIntersecting ) {
+                    locationsSection.classList.add( 'in-view' );
+                    pulseObserver.unobserve( locationsSection );
+                }
+            } );
+        }, { rootMargin: '0px 0px -10% 0px' } );
+        pulseObserver.observe( locationsSection );
+    }
+
+    // 4. Smooth scrolling for anchor links on the homepage
     function handleAnchorClick( e ) {
         var href = this.getAttribute( 'href' );
         if ( ! href ) {
@@ -109,7 +118,7 @@
         link.addEventListener( 'click', handleAnchorClick );
     } );
 
-    // 4. Mobile Drawer toggle
+    // 5. Mobile Drawer toggle
     function openDrawer() {
         if ( ! drawer ) return;
         drawer.classList.add( 'is-open' );
