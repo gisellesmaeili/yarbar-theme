@@ -23,9 +23,9 @@ $phone_link    = yarbar_phone_link( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' )
 
         <!-- متن و تایپوگرافی -->
         <div class="cta-content">
-            <h2 id="final-cta-title" class="cta-title">همین حالا آماده جابه‌جایی هستید؟</h2>
+            <h2 id="final-cta-title" class="cta-title">آماده جابه‌جایی هستید؟</h2>
             <p class="cta-subtitle">
-                برای دریافت مشاوره رایگان یا ثبت فوری رزرو، کارشناسان یاربار منتظر تماس شما هستند.
+                کافی است با ما تماس بگیرید تا مناسب‌ترین راهکار حمل را برای شما پیدا کنیم.
             </p>
         </div>
 

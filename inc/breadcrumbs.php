@@ -22,7 +22,7 @@ function yarbar_breadcrumbs() {
     } elseif ( is_post_type_archive( 'location' ) ) {
         echo '<span class="separator">/</span><span>' . esc_html__( 'مناطق تحت پوشش', 'yarbar' ) . '</span>';
     } elseif ( is_post_type_archive( 'service' ) ) {
-        echo '<span class="separator">/</span><span>' . esc_html__( 'خدمات', 'yarbar' ) . '</span>';
+        echo '<span class="separator">/</span><span>' . esc_html__( 'خدمات یاربار', 'yarbar' ) . '</span>';
     } elseif ( is_category() ) {
         $blog_url = yarbar_blog_archive_url();
         echo '<span class="separator">/</span><a href="' . esc_url( $blog_url ) . '">' . esc_html__( 'وبلاگ و مقالات', 'yarbar' ) . '</a>';

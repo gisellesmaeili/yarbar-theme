@@ -1637,11 +1637,12 @@ img {
 /* Comment List */
 .comment-list {
     list-style: none;
-    margin: 0 0 40px 0;
-    padding: 0;
+    margin: 0 0 36px 0;
+    padding-bottom: 36px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    border-bottom: 1px solid var(--color-gray);
 }
 
 .comment-list .children {
@@ -1760,13 +1761,6 @@ img {
     transform: translateY(-2px);
 }
 
-/* Comment Form / Respond */
-.comment-respond {
-    border-top: 1px solid var(--color-gray);
-    padding-top: 36px;
-    margin-top: 36px;
-}
-
 .comment-reply-title {
     font-size: 20px;
     font-weight: 700;
@@ -1805,6 +1799,11 @@ img {
 
 .comment-form p {
     margin: 0;
+}
+
+.comment-form .logged-in-as a{
+    text-decoration: none;
+    color: var(--color-orange);
 }
 
 .comment-form label {

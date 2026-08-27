@@ -37,11 +37,11 @@ $yarbar_default_badges = array(
         <div class="services-header">
             <div class="badge badge--orange">
                 <span class="badge-dot" aria-hidden="true"></span>
-                <span>خدمات متای یاربار</span>
+                <span>خدمات یاربار</span>
             </div>
-            <h2 id="services-title" class="services-title">راهکارهای تخصصی باربری و اسباب‌کشی</h2>
+            <h2 id="services-title" class="services-title">برای هر نوع جابه‌جایی، یک راهکار مطمئن</h2>
             <p class="services-subtitle">
-                ارائه خدمات هوشمندانه جابه‌جایی با ناوگان اختصاصی، بسته‌بندی استاندارد و بیمه معتبر بار.
+                از اسباب‌کشی منزل و دفتر تا حمل بارهای سنگین و بین‌شهری، یاربار خدمات حمل‌ونقل را متناسب با نیاز شما ارائه می‌دهد.
             </p>
         </div>
 

@@ -100,13 +100,13 @@ function yarbar_ajax_archive_filter() {
     $pagination = yarbar_render_pagination( $query, $paged );
 
     $found_count = (int) $query->found_posts;
-    $count_text  = sprintf( __( 'تعداد کل مطالب: %s مورد', 'yarbar' ), number_format_i18n( $found_count ) );
+    $count_text  = sprintf( __( '%s مورد', 'yarbar' ), number_format_i18n( $found_count ) );
     if ( 'post' === $post_type ) {
-        $count_text = sprintf( __( 'تعداد کل مطالب: %s مقاله', 'yarbar' ), number_format_i18n( $found_count ) );
+        $count_text = sprintf( __( '%s مقاله', 'yarbar' ), number_format_i18n( $found_count ) );
     } elseif ( 'service' === $post_type ) {
-        $count_text = sprintf( __( 'تعداد کل خدمات: %s خدمات', 'yarbar' ), number_format_i18n( $found_count ) );
+        $count_text = sprintf( __( '%s خدمات', 'yarbar' ), number_format_i18n( $found_count ) );
     } elseif ( 'location' === $post_type ) {
-        $count_text = sprintf( __( 'تعداد کل شعب: %s منطقه', 'yarbar' ), number_format_i18n( $found_count ) );
+        $count_text = sprintf( __( '%s منطقه', 'yarbar' ), number_format_i18n( $found_count ) );
     }
 
     wp_send_json_success( array(

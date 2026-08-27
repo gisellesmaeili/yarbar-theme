@@ -19,19 +19,19 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                 </svg>
-                <span>تعهد یاربار</span>
+                <span>درباره یاربار</span>
             </div>
 
             <h2 id="trust-title" class="trust-title">
-               تعهد ما امنیت خاطر شماست.
+                بار شما، با خیال راحت به مقصد می‌رسد
             </h2>
 
             <div class="trust-text">
                 <p>
-                    اسباب‌کشی فقط جابه‌جایی وسایل نیست، بلکه انتقال یک زندگی است. ما در یاربار با حذف واسطه‌ها و ارائه فاکتور ۱۰۰٪ شفاف، هزینه‌های پنهان را به صفر رسانده‌ایم.
+                    یاربار با هدف ساده‌تر کردن فرآیند حمل‌ونقل بار شکل گرفته است؛ تا پیدا کردن وسیله مناسب، هماهنگی با راننده و جابه‌جایی بار، سریع‌تر و مطمئن‌تر انجام شود.
                 </p>
                 <p>
-                    تمامی نیروهای ما احراز هویت شده و ثابت هستند. همچنین مدیریت یاربار مستقیماً بر کیفیت ارائه خدمات و رضایت لحظه‌ای شما نظارت دقیق دارد.
+                    ما تلاش می‌کنیم از اولین تماس تا لحظه تحویل بار، تجربه‌ای شفاف، منظم و قابل اعتماد برای شما فراهم کنیم.
                 </p>
             </div>
 
@@ -39,15 +39,15 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="stats-grid">
                 <div class="stat-card">
                     <span class="stat-number">+۱۲,۰۰۰</span>
-                    <span class="stat-label">اسباب‌کشی موفق</span>
+                    <span class="stat-label">سفارش موفق حمل بار</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">۱۰۰٪</span>
-                    <span class="stat-label">پوشش بیمه‌ای بار</span>
+                    <span class="stat-number">+۵٬۰۰۰</span>
+                    <span class="stat-label">راننده و ناوگان فعال</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">۲۰ دقیقه</span>
-                    <span class="stat-label">میانگین زمان رسیدن</span>
+                    <span class="stat-number">+۳۵۰</span>
+                    <span class="stat-label">شهر تحت پوشش</span>
                 </div>
             </div>
         </div>
@@ -62,11 +62,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                         </svg>
                     </div>
-                    <span class="seal-text">گارانتی ۱۰۰٪ کیفیت و سلامت بار</span>
+                    <span class="seal-text">تعهد ما به شما</span>
                 </div>
 
                 <blockquote class="guarantee-quote">
-                    «اگر در طول جابه‌جایی حتی کوچک‌ترین آسیبی به لوازم شما وارد شود، مجموعه یاربار بدون چون‌وچرا خسارت آن را تمام‌وکمال جبران می‌کند. این قول شخصی من به شماست.»
+                    «در یاربار، مسئولیت ما فقط رساندن بار از مبدأ به مقصد نیست؛ اعتماد شماست که برای ما اهمیت دارد. تلاش می‌کنیم هر بار، با انتخاب درست خودرو، هماهنگی دقیق و پیگیری مستمر، با اطمینان خاطر جابه‌جا شود. این تعهدی است که از طرف یاربار، شخصاً پای آن می‌ایستم.»
                 </blockquote>
 
                 <div class="signature-block">

@@ -177,7 +177,7 @@ function yarbar_get_archive_meta() {
         return array(
             'title'              => sprintf( __( 'نتایج جستجو برای: %s', 'yarbar' ), '&ldquo;' . esc_html( $search_query ) . '&rdquo;' ),
             'description'        => sprintf( __( '%s نتیجه مطابق با عبارت جستجوی شما یافت شد.', 'yarbar' ), number_format_i18n( $found_count ) ),
-            'count_text'         => sprintf( __( 'تعداد کل نتایج: %s مورد', 'yarbar' ), number_format_i18n( $found_count ) ),
+            'count_text'         => sprintf( __( '%s نتیجه', 'yarbar' ), number_format_i18n( $found_count ) ),
             'search_placeholder' => __( 'جستجوی مجدد در سایت...', 'yarbar' ),
             'empty_text'         => __( 'هیچ موردی مطابق با عبارت جستجوی شما یافت نشد.', 'yarbar' ),
             'show_filters'       => false,
@@ -188,9 +188,9 @@ function yarbar_get_archive_meta() {
 
     if ( is_post_type_archive( 'service' ) ) {
         return array(
-            'title'              => __( 'خدمات یاربار', 'yarbar' ),
+            'title'              => __( 'خدمات باربری', 'yarbar' ),
             'description'        => __( 'مجموعه کامل خدمات باربری، حمل اثاثیه منزل، بسته‌بندی حرفه‌ای و اعزام کارگر متخصص یاربار.', 'yarbar' ),
-            'count_text'         => sprintf( __( 'تعداد کل خدمات: %s سرویس', 'yarbar' ), number_format_i18n( $found_count ) ),
+            'count_text'         => sprintf( __( '%s خدمات', 'yarbar' ), number_format_i18n( $found_count ) ),
             'search_placeholder' => __( 'جستجو در خدمات یاربار...', 'yarbar' ),
             'empty_text'         => __( 'خدماتی برای نمایش وجود ندارد.', 'yarbar' ),
             'show_filters'       => false,
@@ -203,7 +203,7 @@ function yarbar_get_archive_meta() {
         return array(
             'title'              => __( 'مناطق تحت پوشش', 'yarbar' ),
             'description'        => __( 'ارائه خدمات سریع و ۲۴ ساعته باربری در تمامی مناطق تهران، کرج و مسیرهای بین‌شهری سراسر کشور.', 'yarbar' ),
-            'count_text'         => sprintf( __( 'تعداد کل شعب: %s منطقه', 'yarbar' ), number_format_i18n( $found_count ) ),
+            'count_text'         => sprintf( __( '%s منطقه', 'yarbar' ), number_format_i18n( $found_count ) ),
             'search_placeholder' => __( 'جستجو در مناطق تحت پوشش...', 'yarbar' ),
             'empty_text'         => __( 'منطقه‌ای برای نمایش وجود ندارد.', 'yarbar' ),
             'show_filters'       => false,
@@ -218,7 +218,7 @@ function yarbar_get_archive_meta() {
         return array(
             'title'              => $cat_title,
             'description'        => $cat_desc ? wp_strip_all_tags( $cat_desc ) : __( 'مجموعه مقالات و راهنماهای این دسته‌بندی در وبلاگ یاربار.', 'yarbar' ),
-            'count_text'         => sprintf( __( 'تعداد کل مطالب: %s مقاله', 'yarbar' ), number_format_i18n( $found_count ) ),
+            'count_text'         => sprintf( __( '%s مقاله', 'yarbar' ), number_format_i18n( $found_count ) ),
             'search_placeholder' => __( 'جستجو در بین مقالات و راهنماها...', 'yarbar' ),
             'empty_text'         => __( 'مقاله‌ای در این دسته‌بندی یافت نشد.', 'yarbar' ),
             'show_filters'       => true,
@@ -233,7 +233,7 @@ function yarbar_get_archive_meta() {
     return array(
         'title'              => $blog_title ? $blog_title : __( 'آرشیو مقالات و راهنمای اسباب‌کشی', 'yarbar' ),
         'description'        => __( 'آخرین اخبار، آموزش‌های تخصصی بسته‌بندی، نکات حمل بار و راهنمای جامع تکنیک‌های اسباب‌کشی آسان.', 'yarbar' ),
-        'count_text'         => sprintf( __( 'تعداد کل مطالب: %s مقاله', 'yarbar' ), number_format_i18n( $found_count ) ),
+        'count_text'         => sprintf( __( '%s مقاله', 'yarbar' ), number_format_i18n( $found_count ) ),
         'search_placeholder' => __( 'جستجو در بین مقالات و راهنماها...', 'yarbar' ),
         'empty_text'         => __( 'مقاله‌ای برای نمایش وجود ندارد.', 'yarbar' ),
         'show_filters'       => true,

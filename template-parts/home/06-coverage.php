@@ -29,11 +29,11 @@ yarbar_archive_url( 'location', '/locations/' )
         <div class="locations-map-header">
             <div class="badge badge--orange">
                 <span class="badge-dot" aria-hidden="true"></span>
-                <span>پوشش سراسری و لحظه‌ای</span>
+                <span>مناطق تحت پوشش</span>
             </div>
-            <h2 id="locations-title" class="locations-title">شبکه فعال باربری و اسباب‌کشی در سراسر ایران</h2>
+            <h2 id="locations-title" class="locations-title">هرجا بار دارید، یاربار کنار شماست</h2>
             <p class="locations-subtitle">
-                ناوگان مستقر یاربار در کلان‌شهرها و مسیرهای ترانزیتی اصلی کشور جهت اعزام سریع.
+                یاربار خدمات حمل بار را در شهرها و مناطق مختلف ارائه می‌دهد. مبدأ و مقصدتان را انتخاب کنید و با خیال راحت، جابه‌جایی بار را به ما بسپارید.
             </p>
         </div>
 

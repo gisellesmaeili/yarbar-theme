@@ -25,11 +25,11 @@ $phone_link = yarbar_phone_link( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
                     <circle cx="12" cy="12" stroke-width="2"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3m.08 4h.01"/>
                 </svg>
-                <span>پرسش‌های پرتکرار شما</span>
+                <span>سؤالات متداول</span>
             </div>
-            <h2 id="faq-title" class="faq-title">هرآنچه که باید پیش از جابه‌جایی بدانید</h2>
+            <h2 id="faq-title" class="faq-title">پاسخ سؤالات خود را اینجا پیدا کنید</h2>
             <p class="faq-subtitle">
-                پاسخ شفاف به مهم‌ترین دغدغه‌های شما درباره خدمات، هزینه‌ها و نحوه ثبت سرویس در یاربار.
+                پاسخ رایج‌ترین سؤالات درباره نحوه ثبت درخواست، انتخاب خودرو، هزینه حمل و خدمات یاربار را در این بخش ببینید.
             </p>
         </div>
 

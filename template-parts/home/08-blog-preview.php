@@ -26,7 +26,7 @@ $blog_archive_url = yarbar_blog_archive_url();
 
         <!-- هدر سکشن همراه با دکمه آرشیو -->
         <div class="blog-header-wrapper">
-            <h2 id="blog-section-title" class="blog-title">آخرین مقالات و راهنماهای کاربردی اسباب‌کشی</h2>
+            <h2 id="blog-section-title" class="blog-title">تازه‌ترین مطالب و نکات حمل بار</h2>
             <!-- دکمه هدایت به آرشیو وبلاگ (دسکتاپ) -->
             <a href="<?php echo esc_url( $blog_archive_url ); ?>" class="blog-archive-btn">
                 <span>مشاهده همه مقالات</span>
