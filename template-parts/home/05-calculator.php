@@ -16,13 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 $calc_eyebrow = yarbar_option( 'calculator_eyebrow', 'محاسبه هوشمند هزینه' );
 $calc_title   = yarbar_option( 'calculator_title', 'هزینه حمل بارتان را همین حالا محاسبه کنید' );
+$calc_tag     = yarbar_validate_heading_tag( yarbar_option( 'calculator_tag', 'h2' ), 'h2' );
 ?>
         <!-- Section Header -->
         <div class="calculator-header">
             <?php if ( ! empty( $calc_eyebrow ) ) : ?>
-                <span class="badge badge--orange"><?php echo esc_html( $calc_eyebrow ); ?></span>
+                <span class="badge badge--orange"><?php echo wp_kses_post( $calc_eyebrow ); ?></span>
             <?php endif; ?>
-            <h2 id="calc-title" class="calc-title"><?php echo esc_html( $calc_title ); ?></h2>
+            <<?php echo $calc_tag; ?> id="calc-title" class="calc-title"><?php echo wp_kses_post( $calc_title ); ?></<?php echo $calc_tag; ?>>
         </div>
 
         <!-- Main Calculator Card -->

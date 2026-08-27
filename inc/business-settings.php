@@ -73,6 +73,67 @@ function yarbar_admin_enqueue_assets( $hook ) {
 add_action( 'admin_enqueue_scripts', 'yarbar_admin_enqueue_assets' );
 
 /**
+ * Helper to render dual Visual/Code editor field with optional heading tag selector
+ *
+ * @param string $field_name
+ * @param string $label
+ * @param string $value
+ * @param array  $args
+ */
+function yarbar_render_editor_field( $field_name, $label, $value, $args = array() ) {
+    $is_textarea = ! empty( $args['is_textarea'] );
+    $help_text   = $args['help_text'] ?? '';
+    $sub_label   = $args['sub_label'] ?? '';
+    $tag_name    = $args['tag_name'] ?? '';
+    $tag_val     = $args['tag_value'] ?? 'h2';
+    ?>
+    <div class="yarbar-form-group">
+        <div class="yarbar-field-header">
+            <label class="yarbar-label">
+                <?php echo esc_html( $label ); ?>
+                <?php if ( ! empty( $sub_label ) ) : ?>
+                    <span class="sub-label"><?php echo esc_html( $sub_label ); ?></span>
+                <?php endif; ?>
+            </label>
+
+            <div class="yarbar-field-toolbar">
+                <?php if ( ! empty( $tag_name ) ) : ?>
+                    <div class="yarbar-tag-selector">
+                        <span class="yarbar-tag-label">تگ HTML:</span>
+                        <select class="yarbar-tag-select" data-name="<?php echo esc_attr( $tag_name ); ?>">
+                            <option value="h1" <?php selected( $tag_val, 'h1' ); ?>>H1</option>
+                            <option value="h2" <?php selected( $tag_val, 'h2' ); ?>>H2</option>
+                            <option value="h3" <?php selected( $tag_val, 'h3' ); ?>>H3</option>
+                            <option value="h4" <?php selected( $tag_val, 'h4' ); ?>>H4</option>
+                            <option value="h5" <?php selected( $tag_val, 'h5' ); ?>>H5</option>
+                            <option value="h6" <?php selected( $tag_val, 'h6' ); ?>>H6</option>
+                            <option value="p" <?php selected( $tag_val, 'p' ); ?>>P (پاراگراف)</option>
+                            <option value="div" <?php selected( $tag_val, 'div' ); ?>>DIV</option>
+                        </select>
+                    </div>
+                <?php endif; ?>
+
+                <div class="yarbar-mode-toggle" role="tablist">
+                    <button type="button" class="yarbar-mode-tab is-active" data-mode="visual" title="حالت ظاهری">ظاهری</button>
+                    <button type="button" class="yarbar-mode-tab" data-mode="code" title="حالت کد HTML">کد &lt;/&gt;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="yarbar-editor-container" data-field="<?php echo esc_attr( $field_name ); ?>">
+            <input type="hidden" class="yarbar-editor-data" data-name="<?php echo esc_attr( $field_name ); ?>" value="<?php echo esc_attr( $value ); ?>">
+            <div class="yarbar-editor-view is-visual" contenteditable="true" spellcheck="false" placeholder="متن را وارد کنید..."><?php echo wp_kses_post( $value ); ?></div>
+            <textarea class="yarbar-editor-view is-code" rows="<?php echo $is_textarea ? '5' : '2'; ?>" spellcheck="false" dir="ltr" placeholder="کد HTML را وارد کنید..."><?php echo esc_textarea( $value ); ?></textarea>
+        </div>
+
+        <?php if ( ! empty( $help_text ) ) : ?>
+            <p class="yarbar-help-text"><?php echo esc_html( $help_text ); ?></p>
+        <?php endif; ?>
+    </div>
+    <?php
+}
+
+/**
  * Handle AJAX Save Request
  */
 function yarbar_ajax_save_settings() {
@@ -106,34 +167,42 @@ function yarbar_ajax_save_settings() {
     // 2. Sanitize fields
     $sanitized = array();
 
-    // Tab 1: Headings & Descriptions
+    // Tab 1: Headings & Descriptions & Tags
     $sanitized['hero_h1']            = wp_kses_post( $post_data['hero_h1'] ?? '' );
-    
-    $sanitized['about_eyebrow']      = sanitize_text_field( $post_data['about_eyebrow'] ?? '' );
-    $sanitized['about_title']        = sanitize_text_field( $post_data['about_title'] ?? '' );
-    $sanitized['about_desc']         = sanitize_textarea_field( $post_data['about_desc'] ?? '' );
+    $sanitized['hero_tag']           = yarbar_validate_heading_tag( $post_data['hero_tag'] ?? 'h1', 'h1' );
 
-    $sanitized['services_eyebrow']   = sanitize_text_field( $post_data['services_eyebrow'] ?? '' );
-    $sanitized['services_title']     = sanitize_text_field( $post_data['services_title'] ?? '' );
-    $sanitized['services_desc']      = sanitize_textarea_field( $post_data['services_desc'] ?? '' );
+    $sanitized['about_eyebrow']      = wp_kses_post( $post_data['about_eyebrow'] ?? '' );
+    $sanitized['about_title']        = wp_kses_post( $post_data['about_title'] ?? '' );
+    $sanitized['about_desc']         = wp_kses_post( $post_data['about_desc'] ?? '' );
+    $sanitized['about_tag']          = yarbar_validate_heading_tag( $post_data['about_tag'] ?? 'h2', 'h2' );
 
-    $sanitized['calculator_eyebrow'] = sanitize_text_field( $post_data['calculator_eyebrow'] ?? '' );
-    $sanitized['calculator_title']   = sanitize_text_field( $post_data['calculator_title'] ?? '' );
+    $sanitized['services_eyebrow']   = wp_kses_post( $post_data['services_eyebrow'] ?? '' );
+    $sanitized['services_title']     = wp_kses_post( $post_data['services_title'] ?? '' );
+    $sanitized['services_desc']      = wp_kses_post( $post_data['services_desc'] ?? '' );
+    $sanitized['services_tag']       = yarbar_validate_heading_tag( $post_data['services_tag'] ?? 'h2', 'h2' );
 
-    $sanitized['coverage_eyebrow']   = sanitize_text_field( $post_data['coverage_eyebrow'] ?? '' );
-    $sanitized['coverage_title']     = sanitize_text_field( $post_data['coverage_title'] ?? '' );
-    $sanitized['coverage_desc']      = sanitize_textarea_field( $post_data['coverage_desc'] ?? '' );
+    $sanitized['calculator_eyebrow'] = wp_kses_post( $post_data['calculator_eyebrow'] ?? '' );
+    $sanitized['calculator_title']   = wp_kses_post( $post_data['calculator_title'] ?? '' );
+    $sanitized['calculator_tag']     = yarbar_validate_heading_tag( $post_data['calculator_tag'] ?? 'h2', 'h2' );
 
-    $sanitized['faq_eyebrow']        = sanitize_text_field( $post_data['faq_eyebrow'] ?? '' );
-    $sanitized['faq_title']          = sanitize_text_field( $post_data['faq_title'] ?? '' );
-    $sanitized['faq_desc']           = sanitize_textarea_field( $post_data['faq_desc'] ?? '' );
+    $sanitized['coverage_eyebrow']   = wp_kses_post( $post_data['coverage_eyebrow'] ?? '' );
+    $sanitized['coverage_title']     = wp_kses_post( $post_data['coverage_title'] ?? '' );
+    $sanitized['coverage_desc']      = wp_kses_post( $post_data['coverage_desc'] ?? '' );
+    $sanitized['coverage_tag']       = yarbar_validate_heading_tag( $post_data['coverage_tag'] ?? 'h2', 'h2' );
 
-    $sanitized['blog_eyebrow']       = sanitize_text_field( $post_data['blog_eyebrow'] ?? '' );
-    $sanitized['blog_title']         = sanitize_text_field( $post_data['blog_title'] ?? '' );
+    $sanitized['faq_eyebrow']        = wp_kses_post( $post_data['faq_eyebrow'] ?? '' );
+    $sanitized['faq_title']          = wp_kses_post( $post_data['faq_title'] ?? '' );
+    $sanitized['faq_desc']           = wp_kses_post( $post_data['faq_desc'] ?? '' );
+    $sanitized['faq_tag']            = yarbar_validate_heading_tag( $post_data['faq_tag'] ?? 'h2', 'h2' );
 
-    $sanitized['cta_eyebrow']        = sanitize_text_field( $post_data['cta_eyebrow'] ?? '' );
-    $sanitized['cta_title']          = sanitize_text_field( $post_data['cta_title'] ?? '' );
-    $sanitized['cta_desc']           = sanitize_textarea_field( $post_data['cta_desc'] ?? '' );
+    $sanitized['blog_eyebrow']       = wp_kses_post( $post_data['blog_eyebrow'] ?? '' );
+    $sanitized['blog_title']         = wp_kses_post( $post_data['blog_title'] ?? '' );
+    $sanitized['blog_tag']           = yarbar_validate_heading_tag( $post_data['blog_tag'] ?? 'h2', 'h2' );
+
+    $sanitized['cta_eyebrow']        = wp_kses_post( $post_data['cta_eyebrow'] ?? '' );
+    $sanitized['cta_title']          = wp_kses_post( $post_data['cta_title'] ?? '' );
+    $sanitized['cta_desc']           = wp_kses_post( $post_data['cta_desc'] ?? '' );
+    $sanitized['cta_tag']            = yarbar_validate_heading_tag( $post_data['cta_tag'] ?? 'h2', 'h2' );
 
     // Tab 2: FAQs
     $sanitized['faqs'] = array(
@@ -199,35 +268,43 @@ function yarbar_render_theme_settings_page() {
     $faqs     = yarbar_get_faqs();
 
     // Default values for Headings
-    $default_hero_h1 = 'یـــار <span class="hero__highlight">بار</span> <br> حمل مطمئن بار';
+    $default_hero_h1 = "یـــار \n<span class=\"hero__highlight\">بار</span> <br>\nحمل مطمئن بار";
 
-    $hero_h1 = ! empty( $settings['hero_h1'] ) ? $settings['hero_h1'] : $default_hero_h1;
+    $hero_h1  = ! empty( $settings['hero_h1'] ) ? $settings['hero_h1'] : $default_hero_h1;
+    $hero_tag = yarbar_validate_heading_tag( $settings['hero_tag'] ?? 'h1', 'h1' );
 
     $about_eyebrow = $settings['about_eyebrow'] ?? 'درباره یاربار';
     $about_title   = $settings['about_title'] ?? 'بار شما، با خیال راحت به مقصد می‌رسد';
     $about_desc    = $settings['about_desc'] ?? "یاربار با هدف ساده‌تر کردن فرآیند حمل‌ونقل بار شکل گرفته است؛ تا پیدا کردن وسیله مناسب، هماهنگی با راننده و جابه‌جایی بار، سریع‌تر و مطمئن‌تر انجام شود.\n\nما تلاش می‌کنیم از اولین تماس تا لحظه تحویل بار، تجربه‌ای شفاف، منظم و قابل اعتماد برای شما فراهم کنیم.";
+    $about_tag     = yarbar_validate_heading_tag( $settings['about_tag'] ?? 'h2', 'h2' );
 
     $services_eyebrow = $settings['services_eyebrow'] ?? 'خدمات یاربار';
     $services_title   = $settings['services_title'] ?? 'برای هر نوع جابه‌جایی، یک راهکار مطمئن';
     $services_desc    = $settings['services_desc'] ?? 'از اسباب‌کشی منزل و دفتر تا حمل بارهای سنگین و بین‌شهری، یاربار خدمات حمل‌ونقل را متناسب با نیاز شما ارائه می‌دهد.';
+    $services_tag     = yarbar_validate_heading_tag( $settings['services_tag'] ?? 'h2', 'h2' );
 
     $calc_eyebrow = $settings['calculator_eyebrow'] ?? 'محاسبه هوشمند هزینه';
     $calc_title   = $settings['calculator_title'] ?? 'هزینه حمل بارتان را همین حالا محاسبه کنید';
+    $calc_tag     = yarbar_validate_heading_tag( $settings['calculator_tag'] ?? 'h2', 'h2' );
 
     $coverage_eyebrow = $settings['coverage_eyebrow'] ?? 'مناطق تحت پوشش';
     $coverage_title   = $settings['coverage_title'] ?? 'هرجا بار دارید، یاربار کنار شماست';
     $coverage_desc    = $settings['coverage_desc'] ?? 'یاربار خدمات حمل بار را در شهرها و مناطق مختلف ارائه می‌دهد. مبدأ و مقصدتان را انتخاب کنید و با خیال راحت، جابه‌جایی بار را به ما بسپارید.';
+    $coverage_tag     = yarbar_validate_heading_tag( $settings['coverage_tag'] ?? 'h2', 'h2' );
 
     $faq_eyebrow = $settings['faq_eyebrow'] ?? 'سؤالات متداول';
     $faq_title   = $settings['faq_title'] ?? 'پاسخ سؤالات خود را اینجا پیدا کنید';
     $faq_desc    = $settings['faq_desc'] ?? 'پاسخ رایج‌ترین سؤالات درباره نحوه ثبت درخواست، انتخاب خودرو، هزینه حمل و خدمات یاربار را در این بخش ببینید.';
+    $faq_tag     = yarbar_validate_heading_tag( $settings['faq_tag'] ?? 'h2', 'h2' );
 
     $blog_eyebrow = $settings['blog_eyebrow'] ?? 'وبلاگ و مقالات آموزشی';
     $blog_title   = $settings['blog_title'] ?? 'تازه‌ترین مطالب و نکات حمل بار';
+    $blog_tag     = yarbar_validate_heading_tag( $settings['blog_tag'] ?? 'h2', 'h2' );
 
     $cta_eyebrow = $settings['cta_eyebrow'] ?? 'شروع همکاری با یاربار';
     $cta_title   = $settings['cta_title'] ?? 'آماده جابه‌جایی هستید؟';
     $cta_desc    = $settings['cta_desc'] ?? 'کافی است با ما تماس بگیرید تا مناسب‌ترین راهکار حمل را برای شما پیدا کنیم.';
+    $cta_tag     = yarbar_validate_heading_tag( $settings['cta_tag'] ?? 'h2', 'h2' );
 
     // Contact info
     $support_phone = yarbar_option( 'support_phone', '۰۲۱-۹۱۰۰۰۰۰۰' );
@@ -243,7 +320,7 @@ function yarbar_render_theme_settings_page() {
                 <div class="yarbar-brand-logo" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="1" y="3" width="15" height="13" rx="2"/>
-                        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                        <polygon points="16 8 20 8 23 11 23 16 16 16 8"/>
                         <circle cx="5.5" cy="18.5" r="2.5"/>
                         <circle cx="18.5" cy="18.5" r="2.5"/>
                     </svg>
@@ -293,14 +370,20 @@ function yarbar_render_theme_settings_page() {
                     </h3>
                     <span class="yarbar-card-badge">بالای صفحه</span>
                 </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">
-                        تیتر اصلی H1 هیرو (hero__title):
-                        <span class="sub-label">امکان درج تگ &lt;span class="hero__highlight"&gt; و &lt;br&gt; وجود دارد</span>
-                    </label>
-                    <textarea class="yarbar-textarea" data-name="hero_h1" rows="3"><?php echo esc_textarea( $hero_h1 ); ?></textarea>
-                    <p class="yarbar-help-text">این متن در صفحه اصلی داخل تگ h1 با کلاس <code>hero__title</code> قرار می‌گیرد.</p>
-                </div>
+                <?php
+                yarbar_render_editor_field(
+                    'hero_h1',
+                    'تیتر اصلی هیرو (hero__title):',
+                    $hero_h1,
+                    array(
+                        'is_textarea' => true,
+                        'tag_name'    => 'hero_tag',
+                        'tag_value'   => $hero_tag,
+                        'sub_label'   => 'امکان انتخاب تگ HTML و ویرایش در حالت ظاهری یا کد',
+                        'help_text'   => 'این تیتر در صفحه اصلی داخل المان hero__title نمایش داده می‌شود.',
+                    )
+                );
+                ?>
             </div>
 
             <!-- About Section -->
@@ -311,18 +394,14 @@ function yarbar_render_theme_settings_page() {
                     </h3>
                     <span class="yarbar-card-badge">بخش اول</span>
                 </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">نشان بالای تیتر (Eyebrow):</label>
-                    <input type="text" class="yarbar-input" data-name="about_eyebrow" value="<?php echo esc_attr( $about_eyebrow ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">عنوان اصلی (H2 Title):</label>
-                    <input type="text" class="yarbar-input" data-name="about_title" value="<?php echo esc_attr( $about_title ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">توضیحات (Description):</label>
-                    <textarea class="yarbar-textarea" data-name="about_desc" rows="3"><?php echo esc_textarea( $about_desc ); ?></textarea>
-                </div>
+                <?php
+                yarbar_render_editor_field( 'about_eyebrow', 'نشان بالای تیتر (Eyebrow):', $about_eyebrow );
+                yarbar_render_editor_field( 'about_title', 'عنوان اصلی (Title):', $about_title, array(
+                    'tag_name'  => 'about_tag',
+                    'tag_value' => $about_tag,
+                ) );
+                yarbar_render_editor_field( 'about_desc', 'توضیحات (Description):', $about_desc, array( 'is_textarea' => true ) );
+                ?>
             </div>
 
             <!-- Services Section -->
@@ -333,18 +412,14 @@ function yarbar_render_theme_settings_page() {
                     </h3>
                     <span class="yarbar-card-badge">بخش دوم</span>
                 </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">نشان بالای تیتر (Eyebrow):</label>
-                    <input type="text" class="yarbar-input" data-name="services_eyebrow" value="<?php echo esc_attr( $services_eyebrow ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">عنوان اصلی (H2 Title):</label>
-                    <input type="text" class="yarbar-input" data-name="services_title" value="<?php echo esc_attr( $services_title ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">توضیحات (Description):</label>
-                    <textarea class="yarbar-textarea" data-name="services_desc" rows="3"><?php echo esc_textarea( $services_desc ); ?></textarea>
-                </div>
+                <?php
+                yarbar_render_editor_field( 'services_eyebrow', 'نشان بالای تیتر (Eyebrow):', $services_eyebrow );
+                yarbar_render_editor_field( 'services_title', 'عنوان اصلی (Title):', $services_title, array(
+                    'tag_name'  => 'services_tag',
+                    'tag_value' => $services_tag,
+                ) );
+                yarbar_render_editor_field( 'services_desc', 'توضیحات (Description):', $services_desc, array( 'is_textarea' => true ) );
+                ?>
             </div>
 
             <!-- Calculator Section -->
@@ -355,14 +430,13 @@ function yarbar_render_theme_settings_page() {
                     </h3>
                     <span class="yarbar-card-badge">بخش سوم</span>
                 </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">نشان بالای تیتر (Eyebrow):</label>
-                    <input type="text" class="yarbar-input" data-name="calculator_eyebrow" value="<?php echo esc_attr( $calc_eyebrow ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">عنوان اصلی (H2 Title):</label>
-                    <input type="text" class="yarbar-input" data-name="calculator_title" value="<?php echo esc_attr( $calc_title ); ?>">
-                </div>
+                <?php
+                yarbar_render_editor_field( 'calculator_eyebrow', 'نشان بالای تیتر (Eyebrow):', $calc_eyebrow );
+                yarbar_render_editor_field( 'calculator_title', 'عنوان اصلی (Title):', $calc_title, array(
+                    'tag_name'  => 'calculator_tag',
+                    'tag_value' => $calc_tag,
+                ) );
+                ?>
             </div>
 
             <!-- Coverage Section -->
@@ -373,18 +447,14 @@ function yarbar_render_theme_settings_page() {
                     </h3>
                     <span class="yarbar-card-badge">بخش چهارم</span>
                 </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">نشان بالای تیتر (Eyebrow):</label>
-                    <input type="text" class="yarbar-input" data-name="coverage_eyebrow" value="<?php echo esc_attr( $coverage_eyebrow ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">عنوان اصلی (H2 Title):</label>
-                    <input type="text" class="yarbar-input" data-name="coverage_title" value="<?php echo esc_attr( $coverage_title ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">توضیحات (Description):</label>
-                    <textarea class="yarbar-textarea" data-name="coverage_desc" rows="3"><?php echo esc_textarea( $coverage_desc ); ?></textarea>
-                </div>
+                <?php
+                yarbar_render_editor_field( 'coverage_eyebrow', 'نشان بالای تیتر (Eyebrow):', $coverage_eyebrow );
+                yarbar_render_editor_field( 'coverage_title', 'عنوان اصلی (Title):', $coverage_title, array(
+                    'tag_name'  => 'coverage_tag',
+                    'tag_value' => $coverage_tag,
+                ) );
+                yarbar_render_editor_field( 'coverage_desc', 'توضیحات (Description):', $coverage_desc, array( 'is_textarea' => true ) );
+                ?>
             </div>
 
             <!-- FAQ Section -->
@@ -395,18 +465,14 @@ function yarbar_render_theme_settings_page() {
                     </h3>
                     <span class="yarbar-card-badge">بخش پنجم</span>
                 </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">نشان بالای تیتر (Eyebrow):</label>
-                    <input type="text" class="yarbar-input" data-name="faq_eyebrow" value="<?php echo esc_attr( $faq_eyebrow ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">عنوان اصلی (H2 Title):</label>
-                    <input type="text" class="yarbar-input" data-name="faq_title" value="<?php echo esc_attr( $faq_title ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">توضیحات (Description):</label>
-                    <textarea class="yarbar-textarea" data-name="faq_desc" rows="3"><?php echo esc_textarea( $faq_desc ); ?></textarea>
-                </div>
+                <?php
+                yarbar_render_editor_field( 'faq_eyebrow', 'نشان بالای تیتر (Eyebrow):', $faq_eyebrow );
+                yarbar_render_editor_field( 'faq_title', 'عنوان اصلی (Title):', $faq_title, array(
+                    'tag_name'  => 'faq_tag',
+                    'tag_value' => $faq_tag,
+                ) );
+                yarbar_render_editor_field( 'faq_desc', 'توضیحات (Description):', $faq_desc, array( 'is_textarea' => true ) );
+                ?>
             </div>
 
             <!-- Blog Preview Section -->
@@ -417,14 +483,13 @@ function yarbar_render_theme_settings_page() {
                     </h3>
                     <span class="yarbar-card-badge">بخش ششم</span>
                 </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">نشان بالای تیتر (Eyebrow):</label>
-                    <input type="text" class="yarbar-input" data-name="blog_eyebrow" value="<?php echo esc_attr( $blog_eyebrow ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">عنوان اصلی (H2 Title):</label>
-                    <input type="text" class="yarbar-input" data-name="blog_title" value="<?php echo esc_attr( $blog_title ); ?>">
-                </div>
+                <?php
+                yarbar_render_editor_field( 'blog_eyebrow', 'نشان بالای تیتر (Eyebrow):', $blog_eyebrow );
+                yarbar_render_editor_field( 'blog_title', 'عنوان اصلی (Title):', $blog_title, array(
+                    'tag_name'  => 'blog_tag',
+                    'tag_value' => $blog_tag,
+                ) );
+                ?>
             </div>
 
             <!-- Final CTA Section -->
@@ -435,18 +500,14 @@ function yarbar_render_theme_settings_page() {
                     </h3>
                     <span class="yarbar-card-badge">بخش پایانی</span>
                 </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">نشان بالای تیتر (Eyebrow):</label>
-                    <input type="text" class="yarbar-input" data-name="cta_eyebrow" value="<?php echo esc_attr( $cta_eyebrow ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">عنوان اصلی (H2 Title):</label>
-                    <input type="text" class="yarbar-input" data-name="cta_title" value="<?php echo esc_attr( $cta_title ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">توضیحات (Description):</label>
-                    <textarea class="yarbar-textarea" data-name="cta_desc" rows="3"><?php echo esc_textarea( $cta_desc ); ?></textarea>
-                </div>
+                <?php
+                yarbar_render_editor_field( 'cta_eyebrow', 'نشان بالای تیتر (Eyebrow):', $cta_eyebrow );
+                yarbar_render_editor_field( 'cta_title', 'عنوان اصلی (Title):', $cta_title, array(
+                    'tag_name'  => 'cta_tag',
+                    'tag_value' => $cta_tag,
+                ) );
+                yarbar_render_editor_field( 'cta_desc', 'توضیحات (Description):', $cta_desc, array( 'is_textarea' => true ) );
+                ?>
             </div>
 
         </div>
@@ -454,34 +515,14 @@ function yarbar_render_theme_settings_page() {
         <!-- Tab 2: سؤالات متداول (FAQ) -->
         <div id="tab-pane-faq" class="yarbar-tab-pane" role="tabpanel">
 
-            <!-- Section Headings Sync -->
-            <div class="yarbar-card">
-                <div class="yarbar-card-header">
-                    <h3 class="yarbar-card-title">تیتر و معرفی بخش سؤالات متداول</h3>
-                    <span class="yarbar-card-badge">هدر سکشن</span>
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">نشان بالای تیتر (Eyebrow):</label>
-                    <input type="text" class="yarbar-input" data-name="faq_eyebrow" value="<?php echo esc_attr( $faq_eyebrow ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">عنوان اصلی (H2 Title):</label>
-                    <input type="text" class="yarbar-input" data-name="faq_title" value="<?php echo esc_attr( $faq_title ); ?>">
-                </div>
-                <div class="yarbar-form-group">
-                    <label class="yarbar-label">توضیحات (Description):</label>
-                    <textarea class="yarbar-textarea" data-name="faq_desc" rows="3"><?php echo esc_textarea( $faq_desc ); ?></textarea>
-                </div>
-            </div>
-
-            <!-- 2-Column FAQ Items Manager -->
+            <!-- 2-Column FAQ Items Manager (Sole Card in Tab 2) -->
             <div class="yarbar-card">
                 <div class="yarbar-card-header">
                     <h3 class="yarbar-card-title">مدیریت آیتم‌های سؤال و جواب دو ستونه</h3>
                     <span class="yarbar-card-badge">حداقل ۱ و حداکثر ۱۰ سوال در هر ستون</span>
                 </div>
                 <p class="yarbar-help-text" style="margin-bottom: 20px;">
-                    می‌توانید سوالات را با کشیدن و رها کردن (Drag & Drop) در داخل ستون یا بین دو ستون جابه‌جا کنید، یا از دکمه «انتقال» استفاده فرمایید.
+                    می‌توانید سوالات را با کشیدن و رها کردن (Drag & Drop) در داخل ستون یا بین دو ستون جابه‌جا کنید، یا از دکمه «انتقال» استفاده فرمایید. تیتر و توضیحات بخش سوالات متداول را در تب «تیترها» می‌توانید ویرایش کنید.
                 </p>
 
                 <div class="yarbar-faq-board">

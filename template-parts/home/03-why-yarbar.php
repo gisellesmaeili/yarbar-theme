@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $about_eyebrow = yarbar_option( 'about_eyebrow', 'درباره یاربار' );
 $about_title   = yarbar_option( 'about_title', 'بار شما، با خیال راحت به مقصد می‌رسد' );
 $about_desc    = yarbar_option( 'about_desc', "یاربار با هدف ساده‌تر کردن فرآیند حمل‌ونقل بار شکل گرفته است؛ تا پیدا کردن وسیله مناسب، هماهنگی با راننده و جابه‌جایی بار، سریع‌تر و مطمئن‌تر انجام شود.\n\nما تلاش می‌کنیم از اولین تماس تا لحظه تحویل بار، تجربه‌ای شفاف، منظم و قابل اعتماد برای شما فراهم کنیم." );
+$about_tag     = yarbar_validate_heading_tag( yarbar_option( 'about_tag', 'h2' ), 'h2' );
 ?>
 <!-- Personal Branding & Trust Statement Section -->
 <section id="about" class="trust-section" aria-labelledby="trust-title">
@@ -25,17 +26,17 @@ $about_desc    = yarbar_option( 'about_desc', "یاربار با هدف ساده
                     <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
-                    <span><?php echo esc_html( $about_eyebrow ); ?></span>
+                    <span><?php echo wp_kses_post( $about_eyebrow ); ?></span>
                 </div>
             <?php endif; ?>
 
-            <h2 id="trust-title" class="trust-title">
-                <?php echo esc_html( $about_title ); ?>
-            </h2>
+            <<?php echo $about_tag; ?> id="trust-title" class="trust-title">
+                <?php echo wp_kses_post( $about_title ); ?>
+            </<?php echo $about_tag; ?>>
 
             <?php if ( ! empty( $about_desc ) ) : ?>
                 <div class="trust-text">
-                    <?php echo wpautop( esc_html( $about_desc ) ); ?>
+                    <?php echo wp_kses_post( wpautop( $about_desc ) ); ?>
                 </div>
             <?php endif; ?>
 

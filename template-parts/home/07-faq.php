@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $faq_eyebrow = yarbar_option( 'faq_eyebrow', 'سؤالات متداول' );
 $faq_title   = yarbar_option( 'faq_title', 'پاسخ سؤالات خود را اینجا پیدا کنید' );
 $faq_desc    = yarbar_option( 'faq_desc', 'پاسخ رایج‌ترین سؤالات درباره نحوه ثبت درخواست، انتخاب خودرو، هزینه حمل و خدمات یاربار را در این بخش ببینید.' );
+$faq_tag     = yarbar_validate_heading_tag( yarbar_option( 'faq_tag', 'h2' ), 'h2' );
 
 $faqs_data   = yarbar_get_faqs();
 $col1_items  = ! empty( $faqs_data['col1'] ) ? $faqs_data['col1'] : array();
@@ -34,13 +35,13 @@ $phone_link  = yarbar_phone_link( 'support_phone', '۰۲۱-۹۱۰۰۰۰۰۰' );
                         <circle cx="12" cy="12" stroke-width="2"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3m.08 4h.01"/>
                     </svg>
-                    <span><?php echo esc_html( $faq_eyebrow ); ?></span>
+                    <span><?php echo wp_kses_post( $faq_eyebrow ); ?></span>
                 </div>
             <?php endif; ?>
-            <h2 id="faq-title" class="faq-title"><?php echo esc_html( $faq_title ); ?></h2>
+            <<?php echo $faq_tag; ?> id="faq-title" class="faq-title"><?php echo wp_kses_post( $faq_title ); ?></<?php echo $faq_tag; ?>>
             <?php if ( ! empty( $faq_desc ) ) : ?>
                 <p class="faq-subtitle">
-                    <?php echo esc_html( $faq_desc ); ?>
+                    <?php echo wp_kses_post( $faq_desc ); ?>
                 </p>
             <?php endif; ?>
         </div>

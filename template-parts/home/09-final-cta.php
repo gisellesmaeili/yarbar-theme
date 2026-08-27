@@ -17,6 +17,7 @@ $phone_link    = yarbar_phone_link( 'support_phone', '۰۲۱-۹۱۰۰۰۰۰۰' )
 $cta_eyebrow   = yarbar_option( 'cta_eyebrow', '' );
 $cta_title     = yarbar_option( 'cta_title', 'آماده جابه‌جایی هستید؟' );
 $cta_desc      = yarbar_option( 'cta_desc', 'کافی است با ما تماس بگیرید تا مناسب‌ترین راهکار حمل را برای شما پیدا کنیم.' );
+$cta_tag       = yarbar_validate_heading_tag( yarbar_option( 'cta_tag', 'h2' ), 'h2' );
 ?>
 <!-- Final Conversion Banner Section -->
 <section id="final-cta" class="final-cta-section" aria-labelledby="final-cta-title">
@@ -28,12 +29,12 @@ $cta_desc      = yarbar_option( 'cta_desc', 'کافی است با ما تماس 
         <!-- Typography & Heading -->
         <div class="cta-content">
             <?php if ( ! empty( $cta_eyebrow ) ) : ?>
-                <span class="badge badge--navy" style="background: rgba(10, 25, 41, 0.2); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); margin-bottom: 8px; display: inline-flex; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px;"><?php echo esc_html( $cta_eyebrow ); ?></span>
+                <span class="badge badge--navy" style="background: rgba(10, 25, 41, 0.2); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); margin-bottom: 8px; display: inline-flex; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px;"><?php echo wp_kses_post( $cta_eyebrow ); ?></span>
             <?php endif; ?>
-            <h2 id="final-cta-title" class="cta-title"><?php echo esc_html( $cta_title ); ?></h2>
+            <<?php echo $cta_tag; ?> id="final-cta-title" class="cta-title"><?php echo wp_kses_post( $cta_title ); ?></<?php echo $cta_tag; ?>>
             <?php if ( ! empty( $cta_desc ) ) : ?>
                 <p class="cta-subtitle">
-                    <?php echo esc_html( $cta_desc ); ?>
+                    <?php echo wp_kses_post( $cta_desc ); ?>
                 </p>
             <?php endif; ?>
         </div>

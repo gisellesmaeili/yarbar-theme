@@ -29,19 +29,20 @@ $yarbar_locations_archive_url = yarbar_archive_url( 'location', '/locations/' );
 $coverage_eyebrow = yarbar_option( 'coverage_eyebrow', 'مناطق تحت پوشش' );
 $coverage_title   = yarbar_option( 'coverage_title', 'هرجا بار دارید، یاربار کنار شماست' );
 $coverage_desc    = yarbar_option( 'coverage_desc', 'یاربار خدمات حمل بار را در شهرها و مناطق مختلف ارائه می‌دهد. مبدأ و مقصدتان را انتخاب کنید و با خیال راحت، جابه‌جایی بار را به ما بسپارید.' );
+$coverage_tag     = yarbar_validate_heading_tag( yarbar_option( 'coverage_tag', 'h2' ), 'h2' );
 ?>
         <!-- Section Header -->
         <div class="locations-map-header">
             <?php if ( ! empty( $coverage_eyebrow ) ) : ?>
                 <div class="badge badge--orange">
                     <span class="badge-dot" aria-hidden="true"></span>
-                    <span><?php echo esc_html( $coverage_eyebrow ); ?></span>
+                    <span><?php echo wp_kses_post( $coverage_eyebrow ); ?></span>
                 </div>
             <?php endif; ?>
-            <h2 id="locations-title" class="locations-title"><?php echo esc_html( $coverage_title ); ?></h2>
+            <<?php echo $coverage_tag; ?> id="locations-title" class="locations-title"><?php echo wp_kses_post( $coverage_title ); ?></<?php echo $coverage_tag; ?>>
             <?php if ( ! empty( $coverage_desc ) ) : ?>
                 <p class="locations-subtitle">
-                    <?php echo esc_html( $coverage_desc ); ?>
+                    <?php echo wp_kses_post( $coverage_desc ); ?>
                 </p>
             <?php endif; ?>
         </div>

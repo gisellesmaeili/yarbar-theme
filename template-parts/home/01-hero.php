@@ -1,15 +1,16 @@
 <?php
 $default_hero_title = "یـــار \n<span class=\"hero__highlight\">\n    بار\n</span> <br>\nحمل مطمئن بار";
 $hero_title         = yarbar_option( 'hero_h1', $default_hero_title );
+$hero_tag           = yarbar_validate_heading_tag( yarbar_option( 'hero_tag', 'h1' ), 'h1' );
 ?>
 <section class="hero" id="hero" data-animate-when-visible>
     <div class="hero__pattern" aria-hidden="true"></div>
 
     <div class="container hero__inner">
         <div class="hero__content">
-            <h1 class="hero__title">
+            <<?php echo $hero_tag; ?> class="hero__title">
                 <?php echo wp_kses_post( $hero_title ); ?>
-            </h1>
+            </<?php echo $hero_tag; ?>>
 
             <p class="hero__description">
                از جابه‌جایی‌های کوچک تا اسباب‌کشی کامل، بار شما را مطمئن و به‌موقع به مقصد می‌رسانیم.

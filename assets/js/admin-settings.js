@@ -70,6 +70,66 @@
             }, 4000 );
         }
 
+        // 2.5 Dual Visual / Code Editor Modes
+        wrap.querySelectorAll( '.yarbar-editor-container' ).forEach( function( container ) {
+            var hiddenInput = container.querySelector( '.yarbar-editor-data' );
+            var visualView  = container.querySelector( '.yarbar-editor-view.is-visual' );
+            var codeView    = container.querySelector( '.yarbar-editor-view.is-code' );
+            var parentGroup = container.closest( '.yarbar-form-group' );
+            if ( ! parentGroup || ! hiddenInput ) return;
+
+            var modeTabs = parentGroup.querySelectorAll( '.yarbar-mode-tab' );
+
+            function syncFromVisual() {
+                if ( visualView && codeView && hiddenInput ) {
+                    var html = visualView.innerHTML;
+                    codeView.value = html;
+                    hiddenInput.value = html;
+                }
+            }
+
+            function syncFromCode() {
+                if ( visualView && codeView && hiddenInput ) {
+                    var code = codeView.value;
+                    visualView.innerHTML = code;
+                    hiddenInput.value = code;
+                }
+            }
+
+            if ( visualView ) {
+                visualView.addEventListener( 'input', syncFromVisual );
+                visualView.addEventListener( 'blur', syncFromVisual );
+            }
+            if ( codeView ) {
+                codeView.addEventListener( 'input', syncFromCode );
+                codeView.addEventListener( 'blur', syncFromCode );
+            }
+
+            modeTabs.forEach( function( tab ) {
+                tab.addEventListener( 'click', function( e ) {
+                    e.preventDefault();
+                    var mode = this.getAttribute( 'data-mode' );
+                    modeTabs.forEach( function( t ) {
+                        t.classList.toggle( 'is-active', t === tab );
+                    } );
+
+                    if ( mode === 'code' ) {
+                        syncFromVisual();
+                        container.classList.add( 'mode-code' );
+                        if ( codeView ) {
+                            codeView.focus();
+                        }
+                    } else {
+                        syncFromCode();
+                        container.classList.remove( 'mode-code' );
+                        if ( visualView ) {
+                            visualView.focus();
+                        }
+                    }
+                } );
+            } );
+        } );
+
         // 3. FAQ Board Management & Drag-and-Drop
         var faqBoard = wrap.querySelector( '.yarbar-faq-board' );
 
@@ -297,11 +357,31 @@
                 return;
             }
 
+            // Sync all editor fields before gathering
+            wrap.querySelectorAll( '.yarbar-editor-container' ).forEach( function( container ) {
+                var hiddenInput = container.querySelector( '.yarbar-editor-data' );
+                var visualView  = container.querySelector( '.yarbar-editor-view.is-visual' );
+                var codeView    = container.querySelector( '.yarbar-editor-view.is-code' );
+                if ( ! hiddenInput ) return;
+
+                if ( container.classList.contains( 'mode-code' ) ) {
+                    if ( codeView ) {
+                        hiddenInput.value = codeView.value;
+                        if ( visualView ) visualView.innerHTML = codeView.value;
+                    }
+                } else {
+                    if ( visualView ) {
+                        hiddenInput.value = visualView.innerHTML;
+                        if ( codeView ) codeView.value = visualView.innerHTML;
+                    }
+                }
+            } );
+
             // Gather settings
             var settings = {};
 
-            // Text/Textarea inputs with data-name
-            wrap.querySelectorAll( 'input[data-name], textarea[data-name]' ).forEach( function( field ) {
+            // Text/Textarea/Select inputs with data-name
+            wrap.querySelectorAll( 'input[data-name], textarea[data-name], select[data-name]' ).forEach( function( field ) {
                 var name = field.getAttribute( 'data-name' );
                 if ( name ) {
                     settings[ name ] = field.value;

@@ -30,6 +30,19 @@ function yarbar_option( $key, $default = '' ) {
 }
 
 /**
+ * Validate and sanitize an HTML heading tag (e.g. h1, h2, h3, h4, p, div)
+ *
+ * @param string $tag
+ * @param string $default
+ * @return string
+ */
+function yarbar_validate_heading_tag( $tag, $default = 'h2' ) {
+    $allowed = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div' );
+    $clean_tag = strtolower( trim( (string) $tag ) );
+    return in_array( $clean_tag, $allowed, true ) ? $clean_tag : $default;
+}
+
+/**
  * Retrieve FAQ items structured into Column 1 and Column 2
  * Falls back to the standard 8 questions if not yet configured.
  *

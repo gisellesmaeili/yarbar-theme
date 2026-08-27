@@ -37,19 +37,20 @@ $yarbar_default_badges = array(
 $services_eyebrow = yarbar_option( 'services_eyebrow', 'خدمات یاربار' );
 $services_title   = yarbar_option( 'services_title', 'برای هر نوع جابه‌جایی، یک راهکار مطمئن' );
 $services_desc    = yarbar_option( 'services_desc', 'از اسباب‌کشی منزل و دفتر تا حمل بارهای سنگین و بین‌شهری، یاربار خدمات حمل‌ونقل را متناسب با نیاز شما ارائه می‌دهد.' );
+$services_tag     = yarbar_validate_heading_tag( yarbar_option( 'services_tag', 'h2' ), 'h2' );
 ?>
         <!-- Section Header -->
         <div class="services-header">
             <?php if ( ! empty( $services_eyebrow ) ) : ?>
                 <div class="badge badge--orange">
                     <span class="badge-dot" aria-hidden="true"></span>
-                    <span><?php echo esc_html( $services_eyebrow ); ?></span>
+                    <span><?php echo wp_kses_post( $services_eyebrow ); ?></span>
                 </div>
             <?php endif; ?>
-            <h2 id="services-title" class="services-title"><?php echo esc_html( $services_title ); ?></h2>
+            <<?php echo $services_tag; ?> id="services-title" class="services-title"><?php echo wp_kses_post( $services_title ); ?></<?php echo $services_tag; ?>>
             <?php if ( ! empty( $services_desc ) ) : ?>
                 <p class="services-subtitle">
-                    <?php echo esc_html( $services_desc ); ?>
+                    <?php echo wp_kses_post( $services_desc ); ?>
                 </p>
             <?php endif; ?>
         </div>

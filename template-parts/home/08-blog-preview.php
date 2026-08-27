@@ -21,6 +21,7 @@ $yarbar_blog_query = new WP_Query( array(
 $blog_archive_url = yarbar_blog_archive_url();
 $blog_eyebrow     = yarbar_option( 'blog_eyebrow', '' );
 $blog_title       = yarbar_option( 'blog_title', 'تازه‌ترین مطالب و نکات حمل بار' );
+$blog_tag         = yarbar_validate_heading_tag( yarbar_option( 'blog_tag', 'h2' ), 'h2' );
 ?>
 <!-- Blog & Articles Showcase Section (White Background) -->
 <section id="blog-section" class="blog-section" aria-labelledby="blog-section-title">
@@ -30,9 +31,9 @@ $blog_title       = yarbar_option( 'blog_title', 'تازه‌ترین مطالب
         <div class="blog-header-wrapper">
             <div class="blog-header-title-wrap">
                 <?php if ( ! empty( $blog_eyebrow ) ) : ?>
-                    <span class="badge badge--orange" style="margin-bottom: 8px; display: inline-flex;"><?php echo esc_html( $blog_eyebrow ); ?></span>
+                    <span class="badge badge--orange" style="margin-bottom: 8px; display: inline-flex;"><?php echo wp_kses_post( $blog_eyebrow ); ?></span>
                 <?php endif; ?>
-                <h2 id="blog-section-title" class="blog-title"><?php echo esc_html( $blog_title ); ?></h2>
+                <<?php echo $blog_tag; ?> id="blog-section-title" class="blog-title"><?php echo wp_kses_post( $blog_title ); ?></<?php echo $blog_tag; ?>>
             </div>
             <!-- Desktop Archive Navigation Button -->
             <a href="<?php echo esc_url( $blog_archive_url ); ?>" class="blog-archive-btn">
