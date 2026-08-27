@@ -7,10 +7,10 @@ function yarbar_register_post_types() {
 
     register_post_type( 'service', array(
         'labels' => array(
-            'name'          => __( 'خدمات', 'yarbar' ),
-            'singular_name' => __( 'خدمت', 'yarbar' ),
-            'add_new_item'  => __( 'افزودن خدمت جدید', 'yarbar' ),
-            'edit_item'     => __( 'ویرایش خدمت', 'yarbar' ),
+            'name'          => __( 'خدمات باربری', 'yarbar' ),
+            'singular_name' => __( 'خدمات', 'yarbar' ),
+            'add_new_item'  => __( 'افزودن خدمات جدید', 'yarbar' ),
+            'edit_item'     => __( 'ویرایش خدمات', 'yarbar' ),
             'all_items'     => __( 'همه خدمات', 'yarbar' ),
         ),
         'public'       => true,
@@ -53,7 +53,7 @@ function yarbar_clean_archive_title( $title ) {
         return __( 'مناطق تحت پوشش', 'yarbar' );
     }
     if ( is_post_type_archive( 'service' ) ) {
-        return __( 'خدمات', 'yarbar' );
+        return __( 'خدمات باربری', 'yarbar' );
     }
     if ( is_category() ) {
         return single_cat_title( '', false );

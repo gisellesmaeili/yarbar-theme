@@ -22,7 +22,7 @@ function yarbar_breadcrumbs() {
     } elseif ( is_post_type_archive( 'location' ) ) {
         echo '<span class="separator">/</span><span>' . esc_html__( 'مناطق تحت پوشش', 'yarbar' ) . '</span>';
     } elseif ( is_post_type_archive( 'service' ) ) {
-        echo '<span class="separator">/</span><span>' . esc_html__( 'خدمات یاربار', 'yarbar' ) . '</span>';
+        echo '<span class="separator">/</span><span>' . esc_html__( 'خدمات باربری', 'yarbar' ) . '</span>';
     } elseif ( is_category() ) {
         $blog_url = yarbar_blog_archive_url();
         echo '<span class="separator">/</span><a href="' . esc_url( $blog_url ) . '">' . esc_html__( 'وبلاگ و مقالات', 'yarbar' ) . '</a>';
@@ -35,7 +35,7 @@ function yarbar_breadcrumbs() {
         $post_type = get_post_type();
         if ( 'service' === $post_type ) {
             $services_url = yarbar_archive_url( 'service', '/services/' );
-            echo '<span class="separator">/</span><a href="' . esc_url( $services_url ) . '">' . esc_html__( 'خدمات', 'yarbar' ) . '</a>';
+            echo '<span class="separator">/</span><a href="' . esc_url( $services_url ) . '">' . esc_html__( 'خدمات باربری', 'yarbar' ) . '</a>';
         } elseif ( 'location' === $post_type ) {
             $locations_url = yarbar_archive_url( 'location', '/locations/' );
             echo '<span class="separator">/</span><a href="' . esc_url( $locations_url ) . '">' . esc_html__( 'مناطق تحت پوشش', 'yarbar' ) . '</a>';
