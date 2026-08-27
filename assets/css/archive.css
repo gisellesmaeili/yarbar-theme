@@ -1,0 +1,364 @@
+/* ==========================================================================
+   YarBar - Archive, Category & Search Stylesheet (archive.css)
+   Loaded conditionally only on archive/blog/search views via
+   is_archive() || is_home() || is_search()
+   ========================================================================== */
+
+.archive-page {
+    background-color: var(--color-cool-white);
+    min-height: 100vh;
+}
+
+/* --------------------------------------------------------------------------
+   1. Dark Hero Section (#0A1929)
+   -------------------------------------------------------------------------- */
+.archive-hero-section {
+    background-color: var(--color-midnight);
+    padding-top: 140px;
+    padding-bottom: 64px;
+    width: 100%;
+    position: relative;
+}
+
+/* Breadcrumbs in Hero Sections */
+.breadcrumbs-nav {
+    margin-bottom: 32px;
+}
+
+.breadcrumbs,
+.rank-math-breadcrumb {
+    font-size: 13.5px;
+    color: var(--color-muted);
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.breadcrumbs a,
+.rank-math-breadcrumb a {
+    color: #CBD5E1;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.breadcrumbs a:hover,
+.rank-math-breadcrumb a:hover {
+    color: var(--color-orange);
+}
+
+.breadcrumbs span,
+.rank-math-breadcrumb .last {
+    color: var(--color-orange);
+    font-weight: 700;
+}
+
+.breadcrumbs .separator,
+.rank-math-breadcrumb .separator {
+    color: #64748B;
+    margin: 0 2px;
+}
+
+.post-count {
+    font-size: 13px;
+    color: #94A3B8;
+}
+
+.archive-hero-header {
+    max-width: 800px;
+}
+
+.archive-title {
+    color: var(--color-white);
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+    line-height: 1.35;
+}
+
+.archive-subtitle {
+    color: #94A3B8;
+    font-size: 16.5px;
+    line-height: 1.8;
+    margin: 0 0 32px 0;
+}
+
+/* Search Form Component */
+.archive-search-form {
+    display: flex;
+    gap: 12px;
+    max-width: 600px;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.search-input-wrapper svg {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #64748B;
+    pointer-events: none;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    height: 50px;
+    background-color: #0F2337;
+    border: 1.5px solid #1E293B;
+    border-radius: 12px;
+    padding: 0 48px 0 16px;
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.search-input-wrapper input:focus {
+    border-color: var(--color-orange);
+}
+
+.search-submit-btn {
+    height: 50px;
+    padding: 0 28px;
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14.5px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-submit-btn:hover {
+    background-color: var(--color-orange-dark);
+    transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   2. Main Archive Content Section
+   -------------------------------------------------------------------------- */
+.archive-content-section {
+    width: 100%;
+    padding: 48px 0 80px 0;
+}
+
+/* Category Filter Bar & Sorting Dropdown */
+.archive-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    background-color: var(--color-white);
+    padding: 12px 20px;
+    border-radius: 16px;
+    border: 1px solid var(--color-gray);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.categories-tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.categories-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.category-tab {
+    padding: 8px 18px;
+    border-radius: 10px;
+    color: var(--color-text);
+    background: transparent;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.category-tab:hover {
+    color: var(--color-orange);
+    background-color: rgba(255, 107, 26, 0.08);
+}
+
+.category-tab.active {
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    font-weight: 700;
+}
+
+.sort-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.sort-label {
+    font-size: 13.5px;
+    color: var(--color-muted);
+}
+
+.sort-select {
+    border: 1px solid var(--color-gray);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13.5px;
+    color: var(--color-midnight);
+    font-family: var(--font-body);
+    outline: none;
+    background-color: var(--color-white);
+    cursor: pointer;
+    transition: border-color 0.25s ease;
+}
+
+.sort-select:focus {
+    border-color: var(--color-orange);
+}
+
+/* --------------------------------------------------------------------------
+   3. AJAX Grid & Pagination
+   -------------------------------------------------------------------------- */
+.archive-grid-container {
+    position: relative;
+    transition: opacity 0.3s ease;
+}
+
+.archive-grid-container.is-loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.archive-empty {
+    grid-column: 1 / -1;
+    padding: 64px 20px;
+    text-align: center;
+    color: var(--color-muted);
+    font-size: 16px;
+    background-color: var(--color-white);
+    border-radius: 16px;
+    border: 1px dashed var(--color-gray);
+}
+
+/* Accessible Pagination Component */
+.pagination-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 56px;
+    flex-wrap: wrap;
+}
+
+.page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 42px;
+    padding: 0 14px;
+    border-radius: 12px;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray);
+    color: var(--color-midnight);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.page-link:hover:not(.disabled):not(.active) {
+    border-color: var(--color-orange);
+    color: var(--color-orange);
+    transform: translateY(-2px);
+}
+
+.page-link.active {
+    background-color: var(--color-orange);
+    border-color: var(--color-orange);
+    color: var(--color-white);
+}
+
+.page-link.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.page-dots {
+    color: var(--color-muted);
+    padding: 0 4px;
+    font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   4. Responsive Layout & Media Queries
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .archive-hero-section {
+        padding-top: 100px;
+        padding-bottom: 48px;
+    }
+
+    .archive-title {
+        font-size: 26px;
+    }
+
+    .archive-subtitle {
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+
+    .archive-search-form {
+        flex-direction: column;
+    }
+
+    .search-submit-btn {
+        width: 100%;
+    }
+
+    .archive-filter-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .categories-tabs {
+        width: 100%;
+        padding-bottom: 4px;
+    }
+
+    .sort-wrapper {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .breadcrumbs-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}

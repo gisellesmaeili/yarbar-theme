@@ -99,11 +99,9 @@
         }
     }
 
-    navLinks.forEach( function( link ) {
-        link.addEventListener( 'click', handleAnchorClick );
-    } );
-
-    drawerLinks.forEach( function( link ) {
+    // Attach smooth scrolling to all on-page anchor links (header, drawer, hero buttons, etc.)
+    var allAnchorLinks = document.querySelectorAll( 'a[href^="#"], a[href*="/#"]' );
+    allAnchorLinks.forEach( function( link ) {
         link.addEventListener( 'click', handleAnchorClick );
     } );
 

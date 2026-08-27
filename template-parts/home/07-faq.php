@@ -3,7 +3,7 @@
  * FAQ Section Template Part (Frequently Asked Questions)
  * 
  * Clean, high-performance accordion component using native <details> and <summary>
- * with support callout box.
+ * with support callout box and dynamic content from WordPress settings.
  * 
  * @package YarBar
  */
@@ -12,179 +12,83 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-$phone_link = yarbar_phone_link( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
+$faq_eyebrow = yarbar_option( 'faq_eyebrow', 'سؤالات متداول' );
+$faq_title   = yarbar_option( 'faq_title', 'پاسخ سؤالات خود را اینجا پیدا کنید' );
+$faq_desc    = yarbar_option( 'faq_desc', 'پاسخ رایج‌ترین سؤالات درباره نحوه ثبت درخواست، انتخاب خودرو، هزینه حمل و خدمات یاربار را در این بخش ببینید.' );
+
+$faqs_data   = yarbar_get_faqs();
+$col1_items  = ! empty( $faqs_data['col1'] ) ? $faqs_data['col1'] : array();
+$col2_items  = ! empty( $faqs_data['col2'] ) ? $faqs_data['col2'] : array();
+
+$phone_link  = yarbar_phone_link( 'support_phone', '۰۲۱-۹۱۰۰۰۰۰۰' );
 ?>
-<!-- سکشن سوالات متداول (FAQ) -->
+<!-- Frequently Asked Questions (FAQ) Section -->
 <section id="faq" class="faq-section" aria-labelledby="faq-title">
     <div class="container faq-container">
 
-        <!-- هدر سکشن -->
+        <!-- Section Header -->
         <div class="faq-header">
-            <div class="badge badge--orange">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16" aria-hidden="true">
-                    <circle cx="12" cy="12" stroke-width="2"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3m.08 4h.01"/>
-                </svg>
-                <span>سؤالات متداول</span>
-            </div>
-            <h2 id="faq-title" class="faq-title">پاسخ سؤالات خود را اینجا پیدا کنید</h2>
-            <p class="faq-subtitle">
-                پاسخ رایج‌ترین سؤالات درباره نحوه ثبت درخواست، انتخاب خودرو، هزینه حمل و خدمات یاربار را در این بخش ببینید.
-            </p>
+            <?php if ( ! empty( $faq_eyebrow ) ) : ?>
+                <div class="badge badge--orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16" aria-hidden="true">
+                        <circle cx="12" cy="12" stroke-width="2"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3m.08 4h.01"/>
+                    </svg>
+                    <span><?php echo esc_html( $faq_eyebrow ); ?></span>
+                </div>
+            <?php endif; ?>
+            <h2 id="faq-title" class="faq-title"><?php echo esc_html( $faq_title ); ?></h2>
+            <?php if ( ! empty( $faq_desc ) ) : ?>
+                <p class="faq-subtitle">
+                    <?php echo esc_html( $faq_desc ); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
-        <!-- شبکه‌بندی دو ستونه سوالات -->
+        <!-- Two-Column Accordion Grid -->
         <div class="faq-grid">
 
-            <!-- ستون اول -->
+            <!-- Column 1 -->
             <div class="faq-column">
-
-                <!-- سوال ۱ -->
-                <details class="faq-card" open>
-                    <summary class="faq-summary">
-                        <span class="faq-question">۱. یاربار چه خدماتی در زمینه حمل بار ارائه می‌دهد؟</span>
-                        <span class="faq-icon-wrapper" aria-hidden="true">
-                            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m-7-7h14"/>
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="faq-answer">
-                        <p>
-                            یاربار خدمات حمل و جابه‌جایی بار را برای نیازهای مختلف ارائه می‌دهد و بسته به نوع بار، مسیر و شرایط سرویس، گزینه مناسب حمل را پیشنهاد می‌کند. هدف یاربار ارائه خدمات سریع، مطمئن و متناسب با نیاز مشتری است.
-                        </p>
-                    </div>
-                </details>
-
-                <!-- سوال ۲ -->
-                <details class="faq-card">
-                    <summary class="faq-summary">
-                        <span class="faq-question">۲. چگونه می‌توان از یاربار درخواست سرویس حمل بار کرد؟</span>
-                        <span class="faq-icon-wrapper" aria-hidden="true">
-                            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m-7-7h14"/>
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="faq-answer">
-                        <p>
-                            برای ثبت درخواست سرویس می‌توانید با شماره تماس یاربار تماس بگیرید و اطلاعات مربوط به نوع بار، مبدأ، مقصد و زمان موردنظر را اعلام کنید. کارشناسان یاربار پس از بررسی اطلاعات، مراحل دریافت سرویس را راهنمایی می‌کنند.
-                        </p>
-                    </div>
-                </details>
-
-                <!-- سوال ۳ -->
-                <details class="faq-card">
-                    <summary class="faq-summary">
-                        <span class="faq-question">۳. هزینه خدمات حمل بار یاربار چگونه محاسبه می‌شود؟</span>
-                        <span class="faq-icon-wrapper" aria-hidden="true">
-                            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m-7-7h14"/>
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="faq-answer">
-                        <p>
-                            هزینه حمل بار بر اساس عواملی مانند مبدأ و مقصد، نوع بار، حجم یا شرایط بار و نوع سرویس موردنیاز تعیین می‌شود. برای برآورد هزینه می‌توانید از بخش <strong>محاسبه قیمت خدمات</strong> در سایت استفاده کنید یا با یاربار تماس بگیرید.
-                        </p>
-                    </div>
-                </details>
-
-                <!-- سوال ۴ -->
-                <details class="faq-card">
-                    <summary class="faq-summary">
-                        <span class="faq-question">۴. یاربار در چه شهرها و مناطقی خدمات ارائه می‌دهد؟</span>
-                        <span class="faq-icon-wrapper" aria-hidden="true">
-                            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m-7-7h14"/>
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="faq-answer">
-                        <p>
-                            محدوده پوشش خدمات یاربار به نوع سرویس و مسیر موردنظر بستگی دارد. برای اطلاع از امکان ارائه سرویس در شهر یا مسیر موردنظر، می‌توانید با یاربار تماس بگیرید یا محدوده خدمات را در بخش پوشش خدمات مشاهده کنید.
-                        </p>
-                    </div>
-                </details>
-
+                <?php foreach ( $col1_items as $index => $item ) : ?>
+                    <details class="faq-card"<?php echo ( 0 === $index ) ? ' open' : ''; ?>>
+                        <summary class="faq-summary">
+                            <span class="faq-question"><?php echo esc_html( $item['q'] ); ?></span>
+                            <span class="faq-icon-wrapper" aria-hidden="true">
+                                <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m-7-7h14"/>
+                                </svg>
+                            </span>
+                        </summary>
+                        <div class="faq-answer">
+                            <?php echo wpautop( esc_html( $item['a'] ) ); ?>
+                        </div>
+                    </details>
+                <?php endforeach; ?>
             </div>
 
-            <!-- ستون دوم -->
+            <!-- Column 2 -->
             <div class="faq-column">
-
-                <!-- سوال ۵ -->
-                <details class="faq-card">
-                    <summary class="faq-summary">
-                        <span class="faq-question">۵. آیا یاربار خدمات حمل بار شهری و بین‌شهری ارائه می‌دهد؟</span>
-                        <span class="faq-icon-wrapper" aria-hidden="true">
-                            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m-7-7h14"/>
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="faq-answer">
-                        <p>
-                            بله، یاربار می‌تواند خدمات حمل بار را در مسیرهای شهری و بین‌شهری ارائه دهد. نوع سرویس بر اساس مسیر، مشخصات بار و نیاز مشتری تعیین می‌شود.
-                        </p>
-                    </div>
-                </details>
-
-                <!-- سوال ۶ -->
-                <details class="faq-card">
-                    <summary class="faq-summary">
-                        <span class="faq-question">۶. برای دریافت قیمت حمل بار چه اطلاعاتی لازم است؟</span>
-                        <span class="faq-icon-wrapper" aria-hidden="true">
-                            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m-7-7h14"/>
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="faq-answer">
-                        <p>
-                            برای برآورد دقیق‌تر هزینه، معمولاً اطلاعاتی مانند محل مبدأ، مقصد، نوع بار و مشخصات کلی آن مورد نیاز است. ارائه اطلاعات کامل‌تر به یاربار کمک می‌کند هزینه و شرایط سرویس را دقیق‌تر بررسی کند.
-                        </p>
-                    </div>
-                </details>
-
-                <!-- سوال ۷ -->
-                <details class="faq-card">
-                    <summary class="faq-summary">
-                        <span class="faq-question">۷. مدت زمان پاسخگویی یاربار برای ثبت درخواست چقدر است؟</span>
-                        <span class="faq-icon-wrapper" aria-hidden="true">
-                            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m-7-7h14"/>
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="faq-answer">
-                        <p>
-                            یاربار تلاش می‌کند درخواست‌های مشتریان را در سریع‌ترین زمان ممکن بررسی و پاسخگویی کند. زمان نهایی هماهنگی سرویس به نوع درخواست، مسیر و شرایط سرویس بستگی دارد.
-                        </p>
-                    </div>
-                </details>
-
-                <!-- سوال ۸ -->
-                <details class="faq-card">
-                    <summary class="faq-summary">
-                        <span class="faq-question">۸. چرا برای حمل بار، یاربار را انتخاب کنیم؟</span>
-                        <span class="faq-icon-wrapper" aria-hidden="true">
-                            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m-7-7h14"/>
-                            </svg>
-                        </span>
-                    </summary>
-                    <div class="faq-answer">
-                        <p>
-                            یاربار با تمرکز بر <strong>سرعت پاسخگویی، ارائه خدمات مطمئن، دسترسی آسان و تجربه کاربری ساده</strong> تلاش می‌کند فرآیند درخواست حمل بار را برای مشتریان سریع‌تر و راحت‌تر کند. برای دریافت اطلاعات و هماهنگی سرویس نیز امکان تماس مستقیم با یاربار فراهم است.
-                        </p>
-                    </div>
-                </details>
-
+                <?php foreach ( $col2_items as $index => $item ) : ?>
+                    <details class="faq-card">
+                        <summary class="faq-summary">
+                            <span class="faq-question"><?php echo esc_html( $item['q'] ); ?></span>
+                            <span class="faq-icon-wrapper" aria-hidden="true">
+                                <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m-7-7h14"/>
+                                </svg>
+                            </span>
+                        </summary>
+                        <div class="faq-answer">
+                            <?php echo wpautop( esc_html( $item['a'] ) ); ?>
+                        </div>
+                    </details>
+                <?php endforeach; ?>
             </div>
 
         </div>
 
-        <!-- باکس پشتیبانی و تعاملی پایین سکشن -->
+        <!-- Bottom Interactive Support Callout Card -->
         <div class="faq-callout-box">
             <div class="callout-info">
                 <div class="callout-icon" aria-hidden="true">

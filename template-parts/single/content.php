@@ -22,16 +22,16 @@ $title          = get_the_title( $post_id );
 ?>
 <main class="single-post-page">
 
-    <!-- ۱. هدر تیره بالای صفحه -->
+    <!-- 1. Dark Hero Section -->
     <section class="post-hero-section<?php echo ! $has_thumb ? ' post-hero-section--no-thumb' : ''; ?>">
         <div class="container hero-container">
 
-            <!-- مسیر صفحه (Breadcrumbs) -->
+            <!-- Breadcrumbs Navigation -->
             <nav class="breadcrumbs-nav" aria-label="<?php esc_attr_e( 'مسیر صفحه', 'yarbar' ); ?>">
                 <?php yarbar_breadcrumbs(); ?>
             </nav>
 
-            <!-- هدر و متاداده نوشته -->
+            <!-- Post Hero Header & Meta -->
             <header class="post-hero-header">
                 <?php if ( $category_badge || $show_date ) : ?>
                     <div class="post-meta-top">
@@ -52,10 +52,10 @@ $title          = get_the_title( $post_id );
                     </div>
                 <?php endif; ?>
 
-                <!-- عنوان اصلی -->
+                <!-- Main Post Title -->
                 <h1 class="post-title"><?php echo esc_html( $title ); ?></h1>
 
-                <!-- خلاصه یا متای توضیحات -->
+                <!-- Post Excerpt / Subtitle -->
                 <?php if ( ! empty( $post_excerpt ) ) : ?>
                     <p class="post-excerpt">
                         <?php echo esc_html( $post_excerpt ); ?>
@@ -66,11 +66,11 @@ $title          = get_the_title( $post_id );
         </div>
     </section>
 
-    <!-- ۲. بخش محتوای اصلی -->
+    <!-- 2. Main Content Section -->
     <section class="post-content-section">
         <div class="container main-container">
 
-            <!-- تصویر شاخص (با همپوشانی شیک) -->
+            <!-- Overlapping Featured Hero Image -->
             <?php if ( $has_thumb ) : ?>
                 <figure class="featured-image-wrapper">
                     <?php the_post_thumbnail( 'yarbar-hero', array(
@@ -84,11 +84,11 @@ $title          = get_the_title( $post_id );
                 </figure>
             <?php endif; ?>
 
-            <!-- باکس سفید محتوای نوشته -->
+            <!-- Post Article Container Card -->
             <div class="post-card">
                 <div class="post-body-layout">
 
-                    <!-- سایدبار اشتراک‌گذاری شناور -->
+                    <!-- Floating Social Share Sidebar -->
                     <aside class="share-sidebar" aria-label="<?php esc_attr_e( 'اشتراک‌گذاری نوشته', 'yarbar' ); ?>">
                         <span class="share-title"><?php esc_html_e( 'اشتراک', 'yarbar' ); ?></span>
                         <div class="share-buttons-list">
@@ -105,7 +105,7 @@ $title          = get_the_title( $post_id );
                         </div>
                     </aside>
 
-                    <!-- متن اصلی -->
+                    <!-- Article Body Content -->
                     <article class="post-content">
                         <?php the_content(); ?>
                     </article>
@@ -113,14 +113,14 @@ $title          = get_the_title( $post_id );
                 </div>
             </div>
 
-            <!-- ۲.۵. بخش دیدگاه‌ها -->
+            <!-- 3. Comments Section -->
             <?php if ( comments_open() || get_comments_number() ) : ?>
                 <div class="post-comments-wrapper">
                     <?php comments_template(); ?>
                 </div>
             <?php endif; ?>
 
-            <!-- ۳. بخش آیتم‌های مرتبط -->
+            <!-- 4. Dynamic Related Items Section -->
             <?php get_template_part( 'template-parts/single/related' ); ?>
 
         </div>

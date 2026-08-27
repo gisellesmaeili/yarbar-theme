@@ -14,12 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 $phone_display = yarbar_option( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
 $phone_link    = yarbar_phone_link( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
 
-$business_address = yarbar_option( 'address', 'تهران، خیابان شریعتی، بالاتر از میرداماد، پلاک ۱۲۴، واحد ۳' );
-
 $services_archive_url  = yarbar_archive_url( 'service', '/services/' );
 $locations_archive_url = yarbar_archive_url( 'location', '/locations/' );
 
 $blog_archive_url = yarbar_blog_archive_url();
+
+$whatsapp_url  = yarbar_option( 'whatsapp_url', '' );
+$telegram_url  = yarbar_option( 'telegram_url', '' );
+$instagram_url = yarbar_option( 'instagram_url', '' );
 
 // Fetch real blog categories (excluding uncategorized)
 $default_cat_id = (int) get_option( 'default_category' );
@@ -39,18 +41,15 @@ $footer_categories = get_categories( array(
     'hide_empty' => false,
     'exclude'    => $exclude_cats,
 ) );
-
-$map_img_path = get_template_directory_uri() . '/assets/images/footer/map-location.webp';
-$map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencode( $business_address );
 ?>
-<!-- فوتر اصلی سایت (Footer & SEO Links) -->
+<!-- Main Site Footer (Footer & SEO Links) -->
 <footer id="main-footer" class="site-footer">
     <div class="container footer-container">
 
-        <!-- شبکه‌بندی اصلی فوتر (۴ ستون) -->
+        <!-- Main 4-Column Footer Grid -->
         <div class="footer-grid">
 
-            <!-- ستون ۱: درباره شرکت و لوگو -->
+            <!-- Column 1: Brand & About -->
             <div class="footer-col col-about">
                 <div class="footer-logo">
                     <span class="logo-text">یار<span>بار</span></span>
@@ -75,7 +74,7 @@ $map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencod
                 </div>
             </div>
 
-            <!-- ستون ۲: لینک‌های سریع -->
+            <!-- Column 2: Quick Links -->
             <div class="footer-col">
                 <h4 class="footer-heading">لینک‌های سریع</h4>
                 <ul class="footer-links">
@@ -114,7 +113,7 @@ $map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencod
                 </ul>
             </div>
 
-            <!-- ستون ۳: دسته‌بندی نوشته‌ها -->
+            <!-- Column 3: Post Categories -->
             <div class="footer-col">
                 <h4 class="footer-heading">دسته‌بندی نوشته‌ها</h4>
                 <ul class="footer-links">
@@ -142,11 +141,11 @@ $map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencod
                 </ul>
             </div>
 
-            <!-- ستون ۴: لوکیشن و شماره تماس -->
+            <!-- Column 4: Location & Contact Box -->
             <div class="footer-col col-contact">
                 <h4 class="footer-heading">ارتباط با مرکز تماس</h4>
 
-                <!-- شماره تماس برجسته -->
+                <!-- Prominent Phone Call Box -->
                 <a href="<?php echo esc_url( $phone_link ); ?>" class="phone-box">
                     <div class="phone-icon-wrapper" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -159,42 +158,47 @@ $map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencod
                     </div>
                 </a>
 
-                <!-- آدرس متنی -->
-                <div class="address-box">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    </svg>
-                    <span><?php echo esc_html( $business_address ); ?></span>
-                </div>
-
-                <!-- تصویر نقشه لوکیشن -->
-                <a href="<?php echo esc_url( $map_link_url ); ?>" target="_blank" rel="noopener noreferrer" class="map-preview-card" aria-label="<?php esc_attr_e( 'مسیریابی دفتر مرکزی روی نقشه', 'yarbar' ); ?>">
-                    <img 
-                        src="<?php echo esc_url( $map_img_path ); ?>" 
-                        alt="<?php esc_attr_e( 'نقشه لوکیشن دفتر مرکزی یاربار', 'yarbar' ); ?>" 
-                        width="500"
-                        height="100"
-                        class="map-img" 
-                        loading="lazy" 
-                        decoding="async"
-                    >
-                    <span class="map-overlay-btn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                        </svg>
-                        مسیریابی با گوگل مپ
-                    </span>
-                </a>
+                <?php if ( ! empty( $whatsapp_url ) || ! empty( $telegram_url ) || ! empty( $instagram_url ) ) : ?>
+                    <!-- Social Channels -->
+                    <div class="footer-social-wrapper">
+                        <span class="footer-social-label">ما را در شبکه‌های اجتماعی دنبال کنید:</span>
+                        <div class="footer-social-links">
+                            <?php if ( ! empty( $whatsapp_url ) ) : ?>
+                                <a href="<?php echo esc_url( $whatsapp_url ); ?>" target="_blank" rel="noopener noreferrer" class="social-btn whatsapp" aria-label="<?php esc_attr_e( 'ارتباط در واتس‌اپ', 'yarbar' ); ?>" title="واتس‌اپ">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"/>
+                                        <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"/>
+                                    </svg>
+                                </a>
+                            <?php endif; ?>
+                            <?php if ( ! empty( $telegram_url ) ) : ?>
+                                <a href="<?php echo esc_url( $telegram_url ); ?>" target="_blank" rel="noopener noreferrer" class="social-btn telegram" aria-label="<?php esc_attr_e( 'کانال تلگرام', 'yarbar' ); ?>" title="تلگرام">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"/>
+                                    </svg>
+                                </a>
+                            <?php endif; ?>
+                            <?php if ( ! empty( $instagram_url ) ) : ?>
+                                <a href="<?php echo esc_url( $instagram_url ); ?>" target="_blank" rel="noopener noreferrer" class="social-btn instagram" aria-label="<?php esc_attr_e( 'صفحه اینستاگرام', 'yarbar' ); ?>" title="اینستاگرام">
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                                    </svg>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
 
             </div>
 
         </div>
 
-        <!-- خط جداکننده انتهایی -->
+        <!-- Footer Bottom Divider -->
         <div class="footer-divider"></div>
 
-        <!-- بخش حقوق و کپی‌رایت -->
+        <!-- Copyright & Credits Bar -->
         <div class="footer-bottom">
             <span>طراحی شده با ♡ - <a href="https://vardi.ir" target="_blank" rel="nofollow noopener">آژانس تبلیغاتی وردی</a></span>
         </div>

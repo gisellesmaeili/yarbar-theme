@@ -18,11 +18,11 @@ $current_cat  = is_category() ? get_queried_object_id() : 'all';
 ?>
 <main class="archive-page">
 
-    <!-- ۱. هدر تیره بالای صفحه (#0A1929) -->
+    <!-- 1. Dark Hero Section (#0A1929) -->
     <section class="archive-hero-section">
         <div class="container hero-container">
 
-            <!-- مسیر صفحه (Breadcrumbs) و شمارش مطالب -->
+            <!-- Breadcrumbs Navigation & Post Count -->
             <nav class="breadcrumbs-nav" aria-label="<?php esc_attr_e( 'مسیر صفحه', 'yarbar' ); ?>">
                 <div class="breadcrumbs-wrapper">
                     <div class="breadcrumbs-right">
@@ -32,14 +32,14 @@ $current_cat  = is_category() ? get_queried_object_id() : 'all';
                 </div>
             </nav>
 
-            <!-- عنوان و فرم جستجو -->
+            <!-- Title & Search Form Header -->
             <header class="archive-hero-header">
                 <h1 class="archive-title"><?php echo wp_kses_post( $meta['title'] ); ?></h1>
                 <?php if ( ! empty( $meta['description'] ) ) : ?>
                     <p class="archive-subtitle"><?php echo esc_html( $meta['description'] ); ?></p>
                 <?php endif; ?>
 
-                <!-- فرم جستجو -->
+                <!-- Search Form -->
                 <form class="archive-search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="GET" role="search">
                     <div class="search-input-wrapper">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20" aria-hidden="true">
@@ -54,11 +54,11 @@ $current_cat  = is_category() ? get_queried_object_id() : 'all';
         </div>
     </section>
 
-    <!-- ۲. بخش اصلی مطالب -->
+    <!-- 2. Main Content Section -->
     <section class="archive-content-section">
         <div class="container main-container" id="archive-main-container">
 
-            <!-- فیلتر دسته‌بندی و مرتب‌سازی: ONLY ON POSTS ARCHIVE (blog) -->
+            <!-- Category Filter Tabs & Sort Dropdown: ONLY ON POSTS ARCHIVE (blog) -->
             <?php if ( $show_filters ) : ?>
                 <div class="archive-filter-bar">
                     <nav class="categories-tabs" aria-label="<?php esc_attr_e( 'دسته‌بندی مقالات', 'yarbar' ); ?>">
@@ -83,7 +83,7 @@ $current_cat  = is_category() ? get_queried_object_id() : 'all';
                 </div>
             <?php endif; ?>
 
-            <!-- محتوای گرید مقالات و صفحه بندی -->
+            <!-- Post Grid Content & AJAX Container -->
             <div id="archive-grid-container" class="archive-grid-container" data-post-type="<?php echo esc_attr( $meta['post_type'] ); ?>" data-search="<?php echo esc_attr( get_search_query() ); ?>">
                 <div class="blog-grid" id="archive-blog-grid">
                     <?php
@@ -100,7 +100,7 @@ $current_cat  = is_category() ? get_queried_object_id() : 'all';
                     <?php endif; ?>
                 </div>
 
-                <!-- صفحه‌بندی -->
+                <!-- Pagination Navigation -->
                 <div id="archive-pagination-wrapper">
                     <?php echo yarbar_render_pagination(); ?>
                 </div>

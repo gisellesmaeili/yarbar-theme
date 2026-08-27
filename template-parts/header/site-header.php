@@ -15,8 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 $phone_display = yarbar_option( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
 $phone_link    = yarbar_phone_link( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
 
-// Build anchor URLs (direct anchor on front page, full URL with hash on other pages)
+// Build navigation URLs
 $is_home = is_front_page();
+$services_archive_url  = yarbar_archive_url( 'service', '/services/' );
+$locations_archive_url = yarbar_archive_url( 'location', '/locations/' );
+$blog_archive_url      = yarbar_blog_archive_url();
+
 $nav_items = array(
     array(
         'label' => 'صفحه اصلی',
@@ -24,13 +28,13 @@ $nav_items = array(
         'id'    => 'hero',
     ),
     array(
-        'label' => 'تعهد یاربار',
+        'label' => 'درباره یاربار',
         'href'  => $is_home ? '#about' : home_url( '/#about' ),
         'id'    => 'about',
     ),
     array(
         'label' => 'خدمات باربری',
-        'href'  => $is_home ? '#services' : home_url( '/#services' ),
+        'href'  => $services_archive_url,
         'id'    => 'services',
     ),
     array(
@@ -40,7 +44,7 @@ $nav_items = array(
     ),
     array(
         'label' => 'مناطق تحت پوشش',
-        'href'  => $is_home ? '#locations' : home_url( '/#locations' ),
+        'href'  => $locations_archive_url,
         'id'    => 'locations',
     ),
     array(
@@ -49,8 +53,8 @@ $nav_items = array(
         'id'    => 'faq',
     ),
     array(
-        'label' => 'مقالات وبلاگ',
-        'href'  => $is_home ? '#blog-section' : home_url( '/#blog-section' ),
+        'label' => 'مقالات',
+        'href'  => $blog_archive_url,
         'id'    => 'blog-section',
     ),
 );
@@ -59,14 +63,14 @@ $nav_items = array(
 <header class="site-header" id="site-header">
     <div class="container site-header__inner">
 
-        <!-- سمت راست: لوگوتایپ یاربار همراه با نقطه تکنولوژیک -->
+        <!-- Right: YarBar Brand Logotype with Tech Dot -->
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-header__logo" aria-label="<?php esc_attr_e( 'یاربار - بازگشت به صفحه اصلی', 'yarbar' ); ?>">
             <span class="site-header__logo-text">
                 <span class="logo-white">یار</span><span class="logo-orange">بار</span><span class="logo-dot" aria-hidden="true"></span>
             </span>
         </a>
 
-        <!-- وسط: منوی دسترسی و ناوبری انکرها -->
+        <!-- Center: Primary Navigation Menu -->
         <nav class="site-header__nav" aria-label="<?php esc_attr_e( 'منوی اصلی', 'yarbar' ); ?>">
             <ul class="site-header__menu">
                 <?php foreach ( $nav_items as $item ) : ?>
@@ -79,7 +83,7 @@ $nav_items = array(
             </ul>
         </nav>
 
-        <!-- سمت چپ: دکمه فراخوان تماس فوری (CTA) -->
+        <!-- Left: Quick Phone CTA Button -->
         <div class="site-header__actions">
             <a href="<?php echo esc_url( $phone_link ); ?>" class="site-header__cta">
                 <span class="site-header__cta-icon" aria-hidden="true">
@@ -91,14 +95,14 @@ $nav_items = array(
                 <span class="site-header__cta-number" dir="ltr"><?php echo esc_html( $phone_display ); ?></span>
             </a>
 
-            <!-- دکمه تماس موبایل (آیکون کوچک نارنجی) -->
+            <!-- Mobile Direct Call Icon Button -->
             <a href="<?php echo esc_url( $phone_link ); ?>" class="site-header__mobile-call" aria-label="<?php esc_attr_e( 'تماس تلفنی سریع', 'yarbar' ); ?>">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                 </svg>
             </a>
 
-            <!-- دکمه همبرگری موبایل -->
+            <!-- Mobile Hamburger Toggle Button -->
             <button type="button" class="site-header__hamburger" aria-expanded="false" aria-controls="yarbar-mobile-drawer" aria-label="<?php esc_attr_e( 'باز کردن منو', 'yarbar' ); ?>">
                 <span></span><span></span><span></span>
             </button>
@@ -107,7 +111,7 @@ $nav_items = array(
     </div>
 </header>
 
-<!-- منوی کشویی تمام صفحه موبایل (Drawer) -->
+<!-- Fullscreen Mobile Navigation Drawer -->
 <div id="yarbar-mobile-drawer" class="mobile-drawer" aria-hidden="true">
     <div class="mobile-drawer__header">
         <div class="mobile-drawer__logo">
@@ -138,7 +142,7 @@ $nav_items = array(
     </div>
 </div>
 
-<!-- نوار شناور پایین موبایل برای تماس سریع -->
+<!-- Floating Bottom Sticky Call Bar for Mobile -->
 <div class="mobile-call-bar">
     <a href="<?php echo esc_url( $phone_link ); ?>" class="mobile-call-bar__btn">
         <span class="mobile-call-bar__icon" aria-hidden="true">

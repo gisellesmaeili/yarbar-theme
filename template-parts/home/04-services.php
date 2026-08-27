@@ -26,26 +26,35 @@ $yarbar_default_badges = array(
     array( 'text' => 'بیمه تا ۵۰۰ میلیون', 'accent' => true ),
 );
 ?>
-<!-- سکشن کارت‌های خدمات اختصاصی -->
+<!-- Dedicated Services Showcase Section -->
 <section id="services" class="services-section" aria-labelledby="services-title">
-    <!-- افکت نوری پس‌زمینه -->
+    <!-- Ambient Background Glow Effect -->
     <div class="services-ambient-glow" aria-hidden="true"></div>
 
     <div class="container services-container">
 
-        <!-- هدر سکشن -->
+<?php
+$services_eyebrow = yarbar_option( 'services_eyebrow', 'خدمات یاربار' );
+$services_title   = yarbar_option( 'services_title', 'برای هر نوع جابه‌جایی، یک راهکار مطمئن' );
+$services_desc    = yarbar_option( 'services_desc', 'از اسباب‌کشی منزل و دفتر تا حمل بارهای سنگین و بین‌شهری، یاربار خدمات حمل‌ونقل را متناسب با نیاز شما ارائه می‌دهد.' );
+?>
+        <!-- Section Header -->
         <div class="services-header">
-            <div class="badge badge--orange">
-                <span class="badge-dot" aria-hidden="true"></span>
-                <span>خدمات یاربار</span>
-            </div>
-            <h2 id="services-title" class="services-title">برای هر نوع جابه‌جایی، یک راهکار مطمئن</h2>
-            <p class="services-subtitle">
-                از اسباب‌کشی منزل و دفتر تا حمل بارهای سنگین و بین‌شهری، یاربار خدمات حمل‌ونقل را متناسب با نیاز شما ارائه می‌دهد.
-            </p>
+            <?php if ( ! empty( $services_eyebrow ) ) : ?>
+                <div class="badge badge--orange">
+                    <span class="badge-dot" aria-hidden="true"></span>
+                    <span><?php echo esc_html( $services_eyebrow ); ?></span>
+                </div>
+            <?php endif; ?>
+            <h2 id="services-title" class="services-title"><?php echo esc_html( $services_title ); ?></h2>
+            <?php if ( ! empty( $services_desc ) ) : ?>
+                <p class="services-subtitle">
+                    <?php echo esc_html( $services_desc ); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
-        <!-- گرید ۲ ستونه کارت‌های اختصاصی -->
+        <!-- 2-Column Dedicated Service Cards Grid -->
         <div class="services-grid">
             <?php if ( $yarbar_services_query->have_posts() ) : ?>
                 <?php
@@ -64,25 +73,25 @@ $yarbar_default_badges = array(
                     }
                     ?>
                     <a href="<?php the_permalink(); ?>" class="service-card">
-                        <!-- قاب تصویر شاخص -->
-                        <div class="card-image-wrap">
-                            <?php if ( has_post_thumbnail() ) : ?>
+                        <?php if ( has_post_thumbnail() ) : ?>
+                            <!-- Featured Image Frame -->
+                            <div class="card-image-wrap">
                                 <?php the_post_thumbnail( 'yarbar-card', array(
                                     'class'    => 'service-featured-img',
                                     'loading'  => 'lazy',
                                     'decoding' => 'async',
                                     'alt'      => esc_attr( get_the_title() ),
                                 ) ); ?>
-                            <?php endif; ?>
-                            <div class="image-overlay" aria-hidden="true"></div>
-                            <?php if ( ! empty( $badge_text ) ) : ?>
-                                <span class="card-tag<?php echo $is_accent ? ' tag-accent' : ''; ?>">
-                                    <?php echo esc_html( $badge_text ); ?>
-                                </span>
-                            <?php endif; ?>
-                        </div>
+                                <div class="image-overlay" aria-hidden="true"></div>
+                                <?php if ( ! empty( $badge_text ) ) : ?>
+                                    <span class="card-tag<?php echo $is_accent ? ' tag-accent' : ''; ?>">
+                                        <?php echo esc_html( $badge_text ); ?>
+                                    </span>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
 
-                        <!-- محتوای کارت -->
+                        <!-- Card Content -->
                         <div class="card-content">
                             <div class="card-body">
                                 <h3 class="service-title"><?php the_title(); ?></h3>
@@ -107,6 +116,16 @@ $yarbar_default_badges = array(
                 wp_reset_postdata();
                 ?>
             <?php endif; ?>
+        </div>
+
+        <!-- Archive CTA Button for All Services -->
+        <div class="services-cta">
+            <a href="<?php echo esc_url( yarbar_archive_url( 'service', '/services/' ) ); ?>" class="btn btn--secondary">
+                <span>مشاهده همه خدمات</span>
+                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7 7l-7-7 7-7"/>
+                </svg>
+            </a>
         </div>
 
     </div>

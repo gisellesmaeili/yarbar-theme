@@ -20,7 +20,7 @@ if ( $related_query && $related_query->have_posts() ) :
 ?>
 <section class="related-posts-section" aria-labelledby="related-heading">
     <div class="related-header">
-        <h3 id="related-heading" class="related-title"><?php echo esc_html( $heading_data['title'] ); ?></h3>
+        <h2 id="related-heading" class="related-title"><?php echo esc_html( $heading_data['title'] ); ?></h2>
         <a href="<?php echo esc_url( $heading_data['url'] ); ?>" class="related-more-link">
             <?php echo esc_html( $heading_data['label'] ); ?>
         </a>

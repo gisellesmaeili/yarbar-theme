@@ -19,15 +19,22 @@ $yarbar_blog_query = new WP_Query( array(
 ) );
 
 $blog_archive_url = yarbar_blog_archive_url();
+$blog_eyebrow     = yarbar_option( 'blog_eyebrow', '' );
+$blog_title       = yarbar_option( 'blog_title', 'تازه‌ترین مطالب و نکات حمل بار' );
 ?>
-<!-- سکشن مقالات و مجله آموزشی (پس‌زمینه سفید) -->
+<!-- Blog & Articles Showcase Section (White Background) -->
 <section id="blog-section" class="blog-section" aria-labelledby="blog-section-title">
     <div class="container blog-container">
 
-        <!-- هدر سکشن همراه با دکمه آرشیو -->
+        <!-- Section Header with Archive CTA Button -->
         <div class="blog-header-wrapper">
-            <h2 id="blog-section-title" class="blog-title">تازه‌ترین مطالب و نکات حمل بار</h2>
-            <!-- دکمه هدایت به آرشیو وبلاگ (دسکتاپ) -->
+            <div class="blog-header-title-wrap">
+                <?php if ( ! empty( $blog_eyebrow ) ) : ?>
+                    <span class="badge badge--orange" style="margin-bottom: 8px; display: inline-flex;"><?php echo esc_html( $blog_eyebrow ); ?></span>
+                <?php endif; ?>
+                <h2 id="blog-section-title" class="blog-title"><?php echo esc_html( $blog_title ); ?></h2>
+            </div>
+            <!-- Desktop Archive Navigation Button -->
             <a href="<?php echo esc_url( $blog_archive_url ); ?>" class="blog-archive-btn">
                 <span>مشاهده همه مقالات</span>
                 <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -36,7 +43,7 @@ $blog_archive_url = yarbar_blog_archive_url();
             </a>
         </div>
 
-        <!-- شبکه‌بندی مقالات (۳ ستونه) -->
+        <!-- 3-Column Blog Articles Grid -->
         <div class="blog-grid">
             <?php if ( $yarbar_blog_query->have_posts() ) : ?>
                 <?php while ( $yarbar_blog_query->have_posts() ) : $yarbar_blog_query->the_post(); ?>
@@ -46,7 +53,7 @@ $blog_archive_url = yarbar_blog_archive_url();
             <?php endif; ?>
         </div>
 
-        <!-- دکمه آرشیو در حالت موبایل (نمایش فقط در صفحه کوچک) -->
+        <!-- Mobile Archive Button (shown only on small viewports) -->
         <div class="mobile-archive-wrapper">
             <a href="<?php echo esc_url( $blog_archive_url ); ?>" class="blog-archive-btn full-width">
                 <span>مشاهده همه مقالات وبلاگ</span>

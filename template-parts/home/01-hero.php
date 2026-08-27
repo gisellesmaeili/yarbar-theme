@@ -1,14 +1,14 @@
+<?php
+$default_hero_title = "یـــار \n<span class=\"hero__highlight\">\n    بار\n</span> <br>\nحمل مطمئن بار";
+$hero_title         = yarbar_option( 'hero_h1', $default_hero_title );
+?>
 <section class="hero" id="hero" data-animate-when-visible>
     <div class="hero__pattern" aria-hidden="true"></div>
 
     <div class="container hero__inner">
         <div class="hero__content">
             <h1 class="hero__title">
-                یـــار 
-                <span class="hero__highlight">
-                    بار
-                </span> <br>
-               حمل مطمئن بار
+                <?php echo wp_kses_post( $hero_title ); ?>
             </h1>
 
             <p class="hero__description">
@@ -44,12 +44,12 @@
         <div class="hero__visual">
             <div class="hero__glow" aria-hidden="true"></div>
 
-            <!-- استیج هماهنگ کامیون و لاین جاده سه‌بعدی -->
+            <!-- Synchronized truck and 3D highway perspective stage -->
             <div class="hero__stage">
                 <div class="hero__road-system" aria-hidden="true">
                     <svg class="hero__road-svg" viewBox="0 0 1486 997" preserveAspectRatio="none">
                         <defs>
-                            <!-- شیب رنگ آسفالت بزرگراه -->
+                            <!-- Highway asphalt gradient -->
                             <linearGradient id="yarbarAsphalt" x1="90%" y1="25%" x2="10%" y2="85%">
                                 <stop offset="0%" stop-color="#0A1929" stop-opacity="0" />
                                 <stop offset="25%" stop-color="#0D2238" stop-opacity="0.65" />
@@ -58,7 +58,7 @@
                                 <stop offset="100%" stop-color="#0A1929" stop-opacity="0.4" />
                             </linearGradient>
 
-                            <!-- درخشش شانه راست جاده (نارنجی یاربار) -->
+                            <!-- Right highway shoulder glow (YarBar brand orange) -->
                             <linearGradient id="yarbarRoadEdgeOrange" x1="90%" y1="20%" x2="15%" y2="85%">
                                 <stop offset="0%" stop-color="#FF6B1A" stop-opacity="0" />
                                 <stop offset="35%" stop-color="#FF6B1A" stop-opacity="0.5" />
@@ -66,7 +66,7 @@
                                 <stop offset="100%" stop-color="#FF6B1A" stop-opacity="0.3" />
                             </linearGradient>
 
-                            <!-- خط شانه چپ جاده (سفید نئونی) -->
+                            <!-- Left highway shoulder edge (neon white) -->
                             <linearGradient id="yarbarRoadEdgeWhite" x1="85%" y1="25%" x2="10%" y2="85%">
                                 <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0" />
                                 <stop offset="35%" stop-color="#E2E8F0" stop-opacity="0.35" />
@@ -74,7 +74,7 @@
                                 <stop offset="100%" stop-color="#CBD5E1" stop-opacity="0.2" />
                             </linearGradient>
 
-                            <!-- شیب خط‌چین‌های مقطع میانی جاده -->
+                            <!-- Center broken line dash gradient -->
                             <linearGradient id="yarbarCenterDash" x1="85%" y1="30%" x2="10%" y2="85%">
                                 <stop offset="0%" stop-color="#FFA043" stop-opacity="0.2" />
                                 <stop offset="20%" stop-color="#FFA043" stop-opacity="0.6" />
@@ -82,7 +82,7 @@
                                 <stop offset="100%" stop-color="#FFA043" stop-opacity="0.8" />
                             </linearGradient>
 
-                            <!-- پرتو نور چراغ‌های جلو روی سطح جاده -->
+                            <!-- Headlight projection beam onto road surface -->
                             <radialGradient id="headlightBeam" cx="30%" cy="40%" r="70%">
                                 <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.25" />
                                 <stop offset="35%" stop-color="#FFE3D1" stop-opacity="0.12" />
@@ -90,40 +90,40 @@
                                 <stop offset="100%" stop-color="#FF6B1A" stop-opacity="0" />
                             </radialGradient>
 
-                            <!-- سایه چرخ‌ها روی آسفالت -->
+                            <!-- Contact tire shadow blur filter -->
                             <filter id="roadTireBlur" x="-30%" y="-40%" width="160%" height="180%">
                                 <feGaussianBlur stdDeviation="6" />
                             </filter>
                         </defs>
 
-                        <!-- ۱. پرتو نور چراغ‌های جلو روی سطح جاده -->
+                        <!-- 1. Headlight beam projection on asphalt -->
                         <polygon class="road-headlight-projection" points="120,740 440,730 250,1320 -300,1250" fill="url(#headlightBeam)" opacity="0.9" />
 
-                        <!-- ۲. بستر آسفالت بزرگراه (Road Bed Polygon) -->
+                        <!-- 2. Road Bed Asphalt Polygon -->
                         <polygon class="road-bed" points="1150,720 1580,810 850,970 200,1320 -350,1280 -20,930" fill="url(#yarbarAsphalt)" />
 
-                        <!-- ۳. سایه‌های تماس لاستیک‌ها روی زمین (Pinpoint Tire Shadows) -->
+                        <!-- 3. Pinpoint Tire Ground Contact Shadows -->
                         <g class="road-tire-shadows">
-                            <!-- چرخ‌های سه محور عقب تریلر -->
+                            <!-- Trailer rear triple-axle wheels -->
                             <ellipse cx="1330" cy="850" rx="120" ry="14" fill="#040A12" opacity="0.85" filter="url(#roadTireBlur)" />
-                            <!-- چرخ‌های محرک دیفرانسیل وسط -->
+                            <!-- Center differential drive wheels -->
                             <ellipse cx="951" cy="907" rx="68" ry="13" fill="#040A12" opacity="0.9" filter="url(#roadTireBlur)" />
-                            <!-- چرخ جلو شاگرد (پایین‌ترین نقطه تماس) -->
+                            <!-- Front passenger contact point -->
                             <ellipse cx="653" cy="956" rx="52" ry="12" fill="#040A12" opacity="0.95" filter="url(#roadTireBlur)" />
-                            <!-- چرخ جلو راننده سمت چپ -->
+                            <!-- Front driver side wheel -->
                             <ellipse cx="222" cy="924" rx="42" ry="10" fill="#040A12" opacity="0.9" filter="url(#roadTireBlur)" />
-                            <!-- سایه عمومی شاسی و بدنه زیرین -->
+                            <!-- Chassis and underbody ambient shadow -->
                             <ellipse cx="520" cy="935" rx="320" ry="22" fill="#040A12" opacity="0.5" filter="url(#roadTireBlur)" />
                         </g>
 
-                        <!-- ۴. خطوط شانه کناره جاده (Shoulder Lines) -->
+                        <!-- 4. Highway Shoulder Lines -->
                         <path class="road-line road-line--edge-right" d="M 1580,810 C 1200,900 800,990 200,1320" stroke="url(#yarbarRoadEdgeOrange)" stroke-width="4.5" stroke-linecap="round" fill="none" />
                         <path class="road-line road-line--edge-left" d="M 1150,720 C 650,810 150,945 -350,1280" stroke="url(#yarbarRoadEdgeWhite)" stroke-width="3.5" stroke-linecap="round" fill="none" />
 
-                        <!-- ۵. خط‌چین‌های وسط جاده با پرسپکتیو و انیمیشن حرکت روان -->
+                        <!-- 5. Center Perspective Dashed Lane Lines -->
                         <path class="road-line road-line--center-dash" d="M 1360,765 C 950,870 500,980 -80,1300" stroke="url(#yarbarCenterDash)" stroke-width="6.5" stroke-linecap="round" fill="none" />
 
-                        <!-- ۶. خط سرعت داینامیک اضافی برای حس رانندگی پرسرعت -->
+                        <!-- 6. Dynamic Speed Line for motion depth -->
                         <path class="road-line road-line--speed" d="M 1450,785 C 1050,885 620,1000 50,1310" stroke="#FFA043" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6" />
                     </svg>
                 </div>

@@ -19,41 +19,50 @@ $yarbar_locations_query = new WP_Query( array(
     'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
 ) );
 
-yarbar_archive_url( 'location', '/locations/' )
+$yarbar_locations_archive_url = yarbar_archive_url( 'location', '/locations/' );
 ?>
-<!-- سکشن پوشش جغرافیایی (نقشه تعاملی + پست‌تایپ لوکیشن‌ها) -->
+<!-- Nationwide Coverage Section (Interactive Map + Location CPT) -->
 <section id="locations" class="locations-map-section" aria-labelledby="locations-title" data-animate-when-visible>
     <div class="container locations-map-container">
 
-        <!-- هدر سکشن -->
+<?php
+$coverage_eyebrow = yarbar_option( 'coverage_eyebrow', 'مناطق تحت پوشش' );
+$coverage_title   = yarbar_option( 'coverage_title', 'هرجا بار دارید، یاربار کنار شماست' );
+$coverage_desc    = yarbar_option( 'coverage_desc', 'یاربار خدمات حمل بار را در شهرها و مناطق مختلف ارائه می‌دهد. مبدأ و مقصدتان را انتخاب کنید و با خیال راحت، جابه‌جایی بار را به ما بسپارید.' );
+?>
+        <!-- Section Header -->
         <div class="locations-map-header">
-            <div class="badge badge--orange">
-                <span class="badge-dot" aria-hidden="true"></span>
-                <span>مناطق تحت پوشش</span>
-            </div>
-            <h2 id="locations-title" class="locations-title">هرجا بار دارید، یاربار کنار شماست</h2>
-            <p class="locations-subtitle">
-                یاربار خدمات حمل بار را در شهرها و مناطق مختلف ارائه می‌دهد. مبدأ و مقصدتان را انتخاب کنید و با خیال راحت، جابه‌جایی بار را به ما بسپارید.
-            </p>
+            <?php if ( ! empty( $coverage_eyebrow ) ) : ?>
+                <div class="badge badge--orange">
+                    <span class="badge-dot" aria-hidden="true"></span>
+                    <span><?php echo esc_html( $coverage_eyebrow ); ?></span>
+                </div>
+            <?php endif; ?>
+            <h2 id="locations-title" class="locations-title"><?php echo esc_html( $coverage_title ); ?></h2>
+            <?php if ( ! empty( $coverage_desc ) ) : ?>
+                <p class="locations-subtitle">
+                    <?php echo esc_html( $coverage_desc ); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
-        <!-- چیدمان Split-Screen -->
+        <!-- Split-Screen Layout -->
         <div class="locations-split-wrapper">
 
-            <!-- ستون سمت راست: نقشه وکتوری ایران و پین‌های فعال -->
+            <!-- Right Column: Interactive Vector Map & Live Pins -->
             <div class="map-column">
                 <div class="map-card-wrapper">
                     <div class="map-graphic-container">
-                        <!-- وکتور ساده‌شده و سبک نقشه ایران -->
+                        <!-- Lightweight Simplified Iran Map Vector -->
                         <svg class="iran-map-svg" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path class="map-border" d="M120,80 L200,50 L280,60 L380,100 L480,90 L540,160 L510,260 L450,320 L380,420 L280,450 L180,410 L100,320 L60,220 L70,140 Z" fill="rgba(255, 255, 255, 0.03)" stroke="rgba(229, 234, 240, 0.15)" stroke-width="2"/>
-                            <!-- خطوط شبکه‌ای گرافیکی -->
+                            <!-- Subtle Grid Lines -->
                             <path class="map-grid-line" d="M100,100 L500,400" stroke="rgba(255, 107, 26, 0.08)" stroke-width="1" stroke-dasharray="4 4"/>
                             <path class="map-grid-line" d="M100,350 L500,150" stroke="rgba(255, 107, 26, 0.08)" stroke-width="1" stroke-dasharray="4 4"/>
                         </svg>
 
-                        <!-- پین‌های موقعیت مکانی با انیمیشن پالس -->
-                        <!-- شمال -->
+                        <!-- Interactive Location Pins with Pulse Animation -->
+                        <!-- North -->
                         <div class="map-pin-item pin-north" style="top: 18%; right: 40%;" tabindex="0" role="button" aria-label="پوشش استان‌های شمال: ۴۰+ خودروی آماده">
                             <span class="pin-pulse" aria-hidden="true"></span>
                             <span class="pin-point" aria-hidden="true"></span>
@@ -63,7 +72,7 @@ yarbar_archive_url( 'location', '/locations/' )
                             </div>
                         </div>
 
-                        <!-- کرج -->
+                        <!-- Karaj & Alborz -->
                         <div class="map-pin-item pin-karaj" style="top: 27%; right: 44%;" tabindex="0" role="button" aria-label="پوشش استان البرز: ۴۵+ خودروی آماده">
                             <span class="pin-pulse" aria-hidden="true"></span>
                             <span class="pin-point" aria-hidden="true"></span>
@@ -73,7 +82,7 @@ yarbar_archive_url( 'location', '/locations/' )
                             </div>
                         </div>
 
-                        <!-- تهران -->
+                        <!-- Tehran & Suburbs -->
                         <div class="map-pin-item pin-tehran" style="top: 28%; right: 38%;" tabindex="0" role="button" aria-label="پوشش تهران و حومه: ۱۵۰+ خودروی آماده">
                             <span class="pin-pulse" aria-hidden="true"></span>
                             <span class="pin-point" aria-hidden="true"></span>
@@ -83,7 +92,7 @@ yarbar_archive_url( 'location', '/locations/' )
                             </div>
                         </div>
 
-                        <!-- تبریز -->
+                        <!-- Tabriz & Northwest -->
                         <div class="map-pin-item pin-tabriz" style="top: 16%; right: 20%;" tabindex="0" role="button" aria-label="پوشش آذربایجان و تبریز: ۳۵+ خودروی آماده">
                             <span class="pin-pulse" aria-hidden="true"></span>
                             <span class="pin-point" aria-hidden="true"></span>
@@ -93,7 +102,7 @@ yarbar_archive_url( 'location', '/locations/' )
                             </div>
                         </div>
 
-                        <!-- اصفهان -->
+                        <!-- Isfahan -->
                         <div class="map-pin-item pin-isfahan" style="top: 52%; right: 42%;" tabindex="0" role="button" aria-label="پوشش اصفهان: ۳۰+ خودروی آماده">
                             <span class="pin-pulse" aria-hidden="true"></span>
                             <span class="pin-point" aria-hidden="true"></span>
@@ -103,7 +112,7 @@ yarbar_archive_url( 'location', '/locations/' )
                             </div>
                         </div>
 
-                        <!-- شیراز -->
+                        <!-- Shiraz -->
                         <div class="map-pin-item pin-shiraz" style="top: 70%; right: 46%;" tabindex="0" role="button" aria-label="پوشش شیراز: ۲۵+ خودروی آماده">
                             <span class="pin-pulse" aria-hidden="true"></span>
                             <span class="pin-point" aria-hidden="true"></span>
@@ -126,7 +135,7 @@ yarbar_archive_url( 'location', '/locations/' )
                 </div>
             </div>
 
-            <!-- ستون سمت چپ: پست‌های پست‌تایپ Locations -->
+            <!-- Left Column: Location CPT Cards Feed -->
             <div class="locations-feed-column">
                 <div class="locations-grid">
                     <?php if ( $yarbar_locations_query->have_posts() ) : ?>
@@ -158,7 +167,7 @@ yarbar_archive_url( 'location', '/locations/' )
                     <?php endif; ?>
                 </div>
 
-                <!-- دکمه آرشیو تمامی مناطق تحت پوشش -->
+                <!-- Archive CTA for All Covered Locations -->
                 <div class="locations-cta">
                     <a href="<?php echo esc_url( $yarbar_locations_archive_url ); ?>" class="btn btn--secondary">
                         <span>نمایش تمامی مناطق تحت پوشش</span>

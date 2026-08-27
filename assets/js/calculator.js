@@ -21,14 +21,14 @@
             'intercity': 1200000
         },
         vehicles: {
-            truck:  1400000, // کامیونت مسقف
-            khavar: 1100000, // خاور روباز
-            nissan: 700000,  // نیسان بار
-            pickup: 400000   // وانت پراید/پیکان
+            truck:  1400000, // Covered box truck / Kamionet
+            khavar: 1100000, // Open-bed truck / Khavar
+            nissan: 700000,  // Nissan van pickup
+            pickup: 400000   // Small pickup / Pride/Peykan
         },
-        workerRate: 200000,   // به ازای هر کارگر
-        floorRate: 100000,    // به ازای هر طبقه
-        packagingFee: 650000  // خدمات کامل بسته‌بندی
+        workerRate: 200000,   // Per mover worker rate
+        floorRate: 100000,    // Per floor stair rate
+        packagingFee: 650000  // Complete packing service fee
     };
 
     var state = {
@@ -184,11 +184,50 @@
         } );
     }
 
-    // Recalculate CTA button
-    if ( calcBtn ) {
-        calcBtn.addEventListener( 'click', function() {
-            updatePriceDisplay( true );
+    // Reset all fields & recalculate CTA button ("Recalculate Cost")
+    function resetCalculator() {
+        // 1. Reset state
+        state.origin = '';
+        state.destination = '';
+        state.vehicle = 'truck';
+        state.workers = 3;
+        state.floors = 2;
+        state.packaging = false;
+
+        // 2. Reset UI elements
+        if ( originSelect ) {
+            originSelect.selectedIndex = 0;
+            originSelect.value = '';
+        }
+        if ( destSelect ) {
+            destSelect.selectedIndex = 0;
+            destSelect.value = '';
+        }
+
+        vehicleRadios.forEach( function( radio ) {
+            radio.checked = ( radio.value === 'truck' );
         } );
+
+        var workersEl = section.querySelector( '.step-value[data-value="workers"]' );
+        if ( workersEl ) {
+            workersEl.textContent = formatToman( 3 ) + ' نفر';
+        }
+
+        var floorsEl = section.querySelector( '.step-value[data-value="floors"]' );
+        if ( floorsEl ) {
+            floorsEl.textContent = formatToman( 2 ) + ' طبقه';
+        }
+
+        if ( packagingInput ) {
+            packagingInput.checked = false;
+        }
+
+        // 3. Update price display back to default with animation
+        updatePriceDisplay( true );
+    }
+
+    if ( calcBtn ) {
+        calcBtn.addEventListener( 'click', resetCalculator );
     }
 
     // Initial render check

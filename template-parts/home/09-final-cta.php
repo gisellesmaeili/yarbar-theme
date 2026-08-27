@@ -11,25 +11,34 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-$phone_display = yarbar_option( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
-$phone_link    = yarbar_phone_link( 'phone_primary', '۰۲۱-۹۱۰۰۰۰۰۰' );
+$phone_display = yarbar_option( 'support_phone', '۰۲۱-۹۱۰۰۰۰۰۰' );
+$phone_link    = yarbar_phone_link( 'support_phone', '۰۲۱-۹۱۰۰۰۰۰۰' );
+
+$cta_eyebrow   = yarbar_option( 'cta_eyebrow', '' );
+$cta_title     = yarbar_option( 'cta_title', 'آماده جابه‌جایی هستید؟' );
+$cta_desc      = yarbar_option( 'cta_desc', 'کافی است با ما تماس بگیرید تا مناسب‌ترین راهکار حمل را برای شما پیدا کنیم.' );
 ?>
-<!-- سکشن فراخوان نهایی تماس (Final Conversion Banner) -->
+<!-- Final Conversion Banner Section -->
 <section id="final-cta" class="final-cta-section" aria-labelledby="final-cta-title">
-    <!-- بافت تزیینی نقطه-شبکه‌ای پس‌زمینه برای هویت بصری مدرن -->
+    <!-- Decorative Dot-Grid Pattern Overlay for Modern Tech Feel -->
     <div class="cta-pattern-overlay" aria-hidden="true"></div>
 
     <div class="container final-cta-container">
 
-        <!-- متن و تایپوگرافی -->
+        <!-- Typography & Heading -->
         <div class="cta-content">
-            <h2 id="final-cta-title" class="cta-title">آماده جابه‌جایی هستید؟</h2>
-            <p class="cta-subtitle">
-                کافی است با ما تماس بگیرید تا مناسب‌ترین راهکار حمل را برای شما پیدا کنیم.
-            </p>
+            <?php if ( ! empty( $cta_eyebrow ) ) : ?>
+                <span class="badge badge--navy" style="background: rgba(10, 25, 41, 0.2); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); margin-bottom: 8px; display: inline-flex; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px;"><?php echo esc_html( $cta_eyebrow ); ?></span>
+            <?php endif; ?>
+            <h2 id="final-cta-title" class="cta-title"><?php echo esc_html( $cta_title ); ?></h2>
+            <?php if ( ! empty( $cta_desc ) ) : ?>
+                <p class="cta-subtitle">
+                    <?php echo esc_html( $cta_desc ); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
-        <!-- دکمه اقدام دایره‌ای / بیضی (CTA) -->
+        <!-- Prominent Pill CTA Button -->
         <div class="cta-action">
             <a href="<?php echo esc_url( $phone_link ); ?>" class="cta-navy-btn">
                 <div class="phone-icon-wrapper" aria-hidden="true">

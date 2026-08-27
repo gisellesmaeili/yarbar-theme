@@ -4,8 +4,96 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function yarbar_option( $key, $default = '' ) {
-    $settings = get_option( 'yarbar_business_settings', array() );
-    return $settings[ $key ] ?? $default;
+    $theme_settings = get_option( 'yarbar_theme_settings', array() );
+    if ( isset( $theme_settings[ $key ] ) && '' !== $theme_settings[ $key ] ) {
+        return $theme_settings[ $key ];
+    }
+    // Support support_phone mapping to phone_primary
+    if ( 'phone_primary' === $key && ! empty( $theme_settings['support_phone'] ) ) {
+        return $theme_settings['support_phone'];
+    }
+    if ( 'support_phone' === $key && ! empty( $theme_settings['phone_primary'] ) ) {
+        return $theme_settings['phone_primary'];
+    }
+    // Fallback to legacy business settings
+    $biz_settings = get_option( 'yarbar_business_settings', array() );
+    if ( isset( $biz_settings[ $key ] ) && '' !== $biz_settings[ $key ] ) {
+        return $biz_settings[ $key ];
+    }
+    if ( 'support_phone' === $key && ! empty( $biz_settings['phone_primary'] ) ) {
+        return $biz_settings['phone_primary'];
+    }
+    if ( 'phone_primary' === $key && ! empty( $biz_settings['phone_primary'] ) ) {
+        return $biz_settings['phone_primary'];
+    }
+    return $default;
+}
+
+/**
+ * Retrieve FAQ items structured into Column 1 and Column 2
+ * Falls back to the standard 8 questions if not yet configured.
+ *
+ * @return array
+ */
+function yarbar_get_faqs() {
+    $theme_settings = get_option( 'yarbar_theme_settings', array() );
+    if ( ! empty( $theme_settings['faqs'] ) && is_array( $theme_settings['faqs'] ) ) {
+        $faqs = $theme_settings['faqs'];
+        $col1 = array();
+        $col2 = array();
+        if ( isset( $faqs['col1'] ) && is_array( $faqs['col1'] ) ) {
+            $col1 = $faqs['col1'];
+        }
+        if ( isset( $faqs['col2'] ) && is_array( $faqs['col2'] ) ) {
+            $col2 = $faqs['col2'];
+        }
+        if ( ! empty( $col1 ) || ! empty( $col2 ) ) {
+            return array(
+                'col1' => $col1,
+                'col2' => $col2,
+            );
+        }
+    }
+
+    // Default 8 questions from 07-faq.php
+    return array(
+        'col1' => array(
+            array(
+                'q' => '۱. یاربار چه خدماتی در زمینه حمل بار ارائه می‌دهد؟',
+                'a' => 'یاربار خدمات حمل و جابه‌جایی بار را برای نیازهای مختلف ارائه می‌دهد و بسته به نوع بار، مسیر و شرایط سرویس، گزینه مناسب حمل را پیشنهاد می‌کند. هدف یاربار ارائه خدمات سریع، مطمئن و متناسب با نیاز مشتری است.',
+            ),
+            array(
+                'q' => '۲. چگونه می‌توان از یاربار درخواست سرویس حمل بار کرد؟',
+                'a' => 'برای ثبت درخواست سرویس می‌توانید با شماره تماس یاربار تماس بگیرید و اطلاعات مربوط به نوع بار، مبدأ، مقصد و زمان موردنظر را اعلام کنید. کارشناسان یاربار پس از بررسی اطلاعات، مراحل دریافت سرویس را راهنمایی می‌کنند.',
+            ),
+            array(
+                'q' => '۳. هزینه خدمات حمل بار یاربار چگونه محاسبه می‌شود؟',
+                'a' => 'هزینه حمل بار بر اساس عواملی مانند مبدأ و مقصد، نوع بار، حجم یا شرایط بار و نوع سرویس موردنیاز تعیین می‌شود. برای برآورد هزینه می‌توانید از بخش محاسبه قیمت خدمات در سایت استفاده کنید یا با یاربار تماس بگیرید.',
+            ),
+            array(
+                'q' => '۴. یاربار در چه شهرها و مناطقی خدمات ارائه می‌دهد؟',
+                'a' => 'محدوده پوشش خدمات یاربار به نوع سرویس و مسیر موردنظر بستگی دارد. برای اطلاع از امکان ارائه سرویس در شهر یا مسیر موردنظر، می‌توانید با یاربار تماس بگیرید یا محدوده خدمات را در بخش پوشش خدمات مشاهده کنید.',
+            ),
+        ),
+        'col2' => array(
+            array(
+                'q' => '۵. آیا یاربار خدمات حمل بار شهری و بین‌شهری ارائه می‌دهد؟',
+                'a' => 'بله، یاربار می‌تواند خدمات حمل بار را در مسیرهای شهری و بین‌شهری ارائه دهد. نوع سرویس بر اساس مسیر، مشخصات بار و نیاز مشتری تعیین می‌شود.',
+            ),
+            array(
+                'q' => '۶. برای دریافت قیمت حمل بار چه اطلاعاتی لازم است؟',
+                'a' => 'برای برآورد دقیق‌تر هزینه، معمولاً اطلاعاتی مانند محل مبدأ، مقصد، نوع بار و مشخصات کلی آن مورد نیاز است. ارائه اطلاعات کامل‌تر به یاربار کمک می‌کند هزینه و شرایط سرویس را دقیق‌تر بررسی کند.',
+            ),
+            array(
+                'q' => '۷. مدت زمان پاسخگویی یاربار برای ثبت درخواست چقدر است؟',
+                'a' => 'یاربار تلاش می‌کند درخواست‌های مشتریان را در سریع‌ترین زمان ممکن بررسی و پاسخگویی کند. زمان نهایی هماهنگی سرویس به نوع درخواست، مسیر و شرایط سرویس بستگی دارد.',
+            ),
+            array(
+                'q' => '۸. چرا برای حمل بار، یاربار را انتخاب کنیم؟',
+                'a' => 'یاربار با تمرکز بر سرعت پاسخگویی، ارائه خدمات مطمئن، دسترسی آسان و تجربه کاربری ساده تلاش می‌کند فرآیند درخواست حمل بار را برای مشتریان سریع‌تر و راحت‌تر کند. برای دریافت اطلاعات و هماهنگی سرویس نیز امکان تماس مستقیم با یاربار فراهم است.',
+            ),
+        ),
+    );
 }
 
 function yarbar_phone_link( $type = 'phone_primary', $fallback = '' ) {

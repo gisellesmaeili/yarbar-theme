@@ -9,20 +9,26 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
-<!-- سکشن محاسبه‌گر هزینه -->
+<!-- Interactive Cost Estimator Section -->
 <section id="calculator" class="calculator-section" aria-labelledby="calc-title">
     <div class="container calculator-container">
 
-        <!-- سربرگ سکشن -->
+<?php
+$calc_eyebrow = yarbar_option( 'calculator_eyebrow', 'محاسبه هوشمند هزینه' );
+$calc_title   = yarbar_option( 'calculator_title', 'هزینه حمل بارتان را همین حالا محاسبه کنید' );
+?>
+        <!-- Section Header -->
         <div class="calculator-header">
-            <span class="badge badge--orange">محاسبه هوشمند هزینه</span>
-            <h2 id="calc-title" class="calc-title">هزینه حمل بارتان را همین حالا محاسبه کنید</h2>
+            <?php if ( ! empty( $calc_eyebrow ) ) : ?>
+                <span class="badge badge--orange"><?php echo esc_html( $calc_eyebrow ); ?></span>
+            <?php endif; ?>
+            <h2 id="calc-title" class="calc-title"><?php echo esc_html( $calc_title ); ?></h2>
         </div>
 
-        <!-- کارت اصلی محاسبه‌گر -->
+        <!-- Main Calculator Card -->
         <div class="calc-card">
 
-            <!-- گام اول: مسیر جابه‌جایی -->
+            <!-- Step 1: Origin & Destination Route Selection -->
             <div class="calc-step">
                 <label class="step-label" for="origin">
                     <span class="step-num" aria-hidden="true">۱</span>
@@ -60,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </div>
             </div>
 
-            <!-- گام دوم: انتخاب وسیله نقلیه -->
+            <!-- Step 2: Vehicle Type Selection -->
             <div class="calc-step">
                 <span class="step-label" id="vehicle-label">
                     <span class="step-num" aria-hidden="true">۲</span>
@@ -114,7 +120,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </div>
             </div>
 
-            <!-- گام سوم: خدمات اضافه و نیرو -->
+            <!-- Step 3: Additional Services & Helpers -->
             <div class="calc-step">
                 <span class="step-label">
                     <span class="step-num" aria-hidden="true">۳</span>
@@ -122,7 +128,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </span>
 
                 <div class="options-grid">
-                    <!-- استپر تعداد کارگر -->
+                    <!-- Worker Count Stepper -->
                     <div class="option-box">
                         <span class="option-title">تعداد کارگر تخصصی</span>
                         <div class="stepper">
@@ -132,7 +138,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                     </div>
 
-                    <!-- استپر طبقات -->
+                    <!-- Floor Count Stepper -->
                     <div class="option-box">
                         <span class="option-title">تعداد طبقات (مجموع)</span>
                         <div class="stepper">
@@ -142,7 +148,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                     </div>
 
-                    <!-- سوییچ بسته‌بندی -->
+                    <!-- Professional Packaging Toggle Switch -->
                     <div class="option-box">
                         <span class="option-title">خدمات کامل بسته‌بندی</span>
                         <label class="toggle-switch" for="calc-packaging">
@@ -153,7 +159,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </div>
             </div>
 
-            <!-- نوار خروجی قیمت و دکمه‌های اکشن -->
+            <!-- Price Output Bar & Action Buttons -->
             <div class="calc-result-bar">
                 <div class="result-price-area">
                     <span class="price-label">هزینه تقریبی حمل بار :</span>
