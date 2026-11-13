@@ -82,7 +82,7 @@
         return total;
     }
 
-        var animationToken = 0;
+    var animationToken = 0;
 
     function updatePriceDisplay( animate ) {
         if ( ! priceEl ) {

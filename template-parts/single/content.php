@@ -1,9 +1,9 @@
 <?php
 /**
  * Unified Single Content Template Part
- * 
+ *
  * Shared template for standard posts, services, and locations.
- * 
+ *
  * @package YarBar
  */
 
@@ -74,9 +74,9 @@ $title          = get_the_title( $post_id );
             <?php if ( $has_thumb ) : ?>
                 <figure class="featured-image-wrapper">
                     <?php the_post_thumbnail( 'yarbar-hero', array(
-                        'class'    => 'featured-image',
-                        'loading'  => 'eager',
-                        'alt'      => esc_attr( $title ),
+                            'class'    => 'featured-image',
+                            'loading'  => 'eager',
+                            'alt'      => esc_attr( $title ),
                     ) ); ?>
                     <?php if ( get_the_post_thumbnail_caption() ) : ?>
                         <figcaption class="image-caption"><?php echo esc_html( get_the_post_thumbnail_caption() ); ?></figcaption>

@@ -1,30 +1,22 @@
 @font-face {
-    font-family: 'IRANYekanX';
-    src: url('../fonts/iranyekanx/IRANYekanXFaNum-Regular.woff2') format('woff2');
+    font-family: 'Arad';
+    src: url('../fonts/arad/Arad-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'IRANYekanX';
-    src: url('../fonts/iranyekanx/IRANYekanXFaNum-Medium.woff2') format('woff2');
+    font-family: 'Arad';
+    src: url('../fonts/arad/Arad-Medium.woff2') format('woff2');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'IRANYekanX';
-    src: url('../fonts/iranyekanx/IRANYekanXFaNum-Bold.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Kahroba';
-    src: url('../fonts/kahroba/Kahroba-Bold.woff2') format('woff2');
+    font-family: 'Arad';
+    src: url('../fonts/arad/Arad-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;

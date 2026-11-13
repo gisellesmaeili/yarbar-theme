@@ -1,9 +1,9 @@
 <?php
 /**
  * Unified Archive & Search Content Template Part
- * 
+ *
  * Shared template for Blog Archive, Category Pages, Service Archive, Location Archive, and Search Results.
- * 
+ *
  * @package YarBar
  */
 

@@ -1,10 +1,10 @@
 <?php
 /**
  * Site Header Template Part
- * 
+ *
  * Luxury, modern glassmorphic header with center navigation,
  * ringing phone CTA, mobile drawer, and bottom mobile call bar.
- * 
+ *
  * @package YarBar
  */
 
@@ -22,41 +22,41 @@ $locations_archive_url = yarbar_archive_url( 'location', '/locations/' );
 $blog_archive_url      = yarbar_blog_archive_url();
 
 $nav_items = array(
-    array(
-        'label' => 'صفحه اصلی',
-        'href'  => $is_home ? '#hero' : home_url( '/#hero' ),
-        'id'    => 'hero',
-    ),
-    array(
-        'label' => 'درباره یاربار',
-        'href'  => $is_home ? '#about' : home_url( '/#about' ),
-        'id'    => 'about',
-    ),
-    array(
-        'label' => 'خدمات باربری',
-        'href'  => $services_archive_url,
-        'id'    => 'services',
-    ),
-    array(
-        'label' => 'محاسبه هزینه',
-        'href'  => $is_home ? '#calculator' : home_url( '/#calculator' ),
-        'id'    => 'calculator',
-    ),
-    array(
-        'label' => 'مناطق تحت پوشش',
-        'href'  => $locations_archive_url,
-        'id'    => 'locations',
-    ),
-    array(
-        'label' => 'سوالات متداول',
-        'href'  => $is_home ? '#faq' : home_url( '/#faq' ),
-        'id'    => 'faq',
-    ),
-    array(
-        'label' => 'مقالات',
-        'href'  => $blog_archive_url,
-        'id'    => 'blog-section',
-    ),
+        array(
+                'label' => 'صفحه اصلی',
+                'href'  => $is_home ? '#hero' : home_url( '/#hero' ),
+                'id'    => 'hero',
+        ),
+        array(
+                'label' => 'درباره یاربار',
+                'href'  => $is_home ? '#about' : home_url( '/#about' ),
+                'id'    => 'about',
+        ),
+        array(
+                'label' => 'خدمات باربری',
+                'href'  => $services_archive_url,
+                'id'    => 'services',
+        ),
+        array(
+                'label' => 'محاسبه هزینه',
+                'href'  => $is_home ? '#calculator' : home_url( '/#calculator' ),
+                'id'    => 'calculator',
+        ),
+        array(
+                'label' => 'مناطق تحت پوشش',
+                'href'  => $locations_archive_url,
+                'id'    => 'locations',
+        ),
+        array(
+                'label' => 'سوالات متداول',
+                'href'  => $is_home ? '#faq' : home_url( '/#faq' ),
+                'id'    => 'faq',
+        ),
+        array(
+                'label' => 'مقالات',
+                'href'  => $blog_archive_url,
+                'id'    => 'blog-section',
+        ),
 );
 ?>
 

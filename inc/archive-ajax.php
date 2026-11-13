@@ -1,7 +1,7 @@
 <?php
 /**
  * Archive Query Adjustments & AJAX Filtering / Pagination
- * 
+ *
  * @package YarBar
  */
 

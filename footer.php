@@ -35,11 +35,11 @@ if ( $uncat_obj && ! in_array( $uncat_obj->term_id, $exclude_cats, true ) ) {
 }
 
 $footer_categories = get_categories( array(
-    'orderby'    => 'count',
-    'order'      => 'DESC',
-    'number'     => 5,
-    'hide_empty' => false,
-    'exclude'    => $exclude_cats,
+        'orderby'    => 'count',
+        'order'      => 'DESC',
+        'number'     => 5,
+        'hide_empty' => false,
+        'exclude'    => $exclude_cats,
 ) );
 ?>
 <!-- Main Site Footer (Footer & SEO Links) -->
@@ -76,7 +76,7 @@ $footer_categories = get_categories( array(
 
             <!-- Column 2: Quick Links -->
             <div class="footer-col">
-                <h4 class="footer-heading">لینک‌های سریع</h4>
+                <h3 class="footer-heading">لینک‌های سریع</h3>
                 <ul class="footer-links">
                     <li>
                         <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
@@ -115,7 +115,7 @@ $footer_categories = get_categories( array(
 
             <!-- Column 3: Post Categories -->
             <div class="footer-col">
-                <h4 class="footer-heading">دسته‌بندی نوشته‌ها</h4>
+                <h3 class="footer-heading">دسته‌بندی نوشته‌ها</h3>
                 <ul class="footer-links">
                     <?php if ( ! empty( $footer_categories ) ) : ?>
                         <?php foreach ( $footer_categories as $fcat ) : ?>
@@ -143,7 +143,7 @@ $footer_categories = get_categories( array(
 
             <!-- Column 4: Location & Contact Box -->
             <div class="footer-col col-contact">
-                <h4 class="footer-heading">ارتباط با مرکز تماس</h4>
+                <h3 class="footer-heading">ارتباط با مرکز تماس</h3>
 
                 <!-- Prominent Phone Call Box -->
                 <a href="<?php echo esc_url( $phone_link ); ?>" class="phone-box">
@@ -200,7 +200,7 @@ $footer_categories = get_categories( array(
 
         <!-- Copyright & Credits Bar -->
         <div class="footer-bottom">
-            <span>طراحی شده با ♡ - <a href="https://vardi.ir" target="_blank" rel="nofollow noopener">آژانس تبلیغاتی وردی</a></span>
+            <span><a href="https://github.com/gisellesmaeili" target="_blank" rel="nofollow noopener">Designed and Developed by Qazal Esmaeili</a></span>
         </div>
 
     </div>

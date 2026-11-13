@@ -1,0 +1,36 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "YarBar Theme Demo",
+    "author": "gisellesmaeili",
+    "description": "Live demo of the YarBar WordPress theme (Persian / RTL) with sample content."
+  },
+  "landingPage": "/",
+  "preferredVersions": { "php": "8.2", "wp": "latest" },
+  "login": true,
+  "steps": [
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "git:directory",
+        "url": "https://github.com/gisellesmaeili/yarbar-theme",
+        "ref": "main",
+        "refType": "branch"
+      },
+      "options": { "activate": true }
+    },
+    { "step": "setSiteLanguage", "language": "fa_IR" },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "blogname": "یاربار",
+        "blogdescription": "نمونه آزمایشی قالب وردپرس یاربار",
+        "permalink_structure": "/%postname%/"
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once '/wordpress/wp-load.php'; foreach ( array( 'باربری شهری', 'باربری بین شهری', 'بسته بندی و جابه جایی' ) as $t ) { wp_insert_post( array( 'post_type' => 'service', 'post_title' => $t, 'post_content' => 'این یک متن نمونه برای نمایش ظاهر قالب است.', 'post_status' => 'publish' ) ); } foreach ( array( 'تهران', 'کرج', 'اصفهان' ) as $t ) { wp_insert_post( array( 'post_type' => 'location', 'post_title' => $t, 'post_content' => 'این یک متن نمونه برای نمایش ظاهر قالب است.', 'post_status' => 'publish' ) ); } foreach ( array( 'راهنمای بسته بندی لوازم منزل', 'چک لیست اسباب کشی', 'چطور هزینه باربری را کم کنیم' ) as $t ) { wp_insert_post( array( 'post_type' => 'post', 'post_title' => $t, 'post_content' => 'این یک مقاله نمونه برای نمایش بخش وبلاگ است.', 'post_status' => 'publish' ) ); } $home = wp_insert_post( array( 'post_type' => 'page', 'post_title' => 'خانه', 'post_status' => 'publish' ) ); $blog = wp_insert_post( array( 'post_type' => 'page', 'post_title' => 'وبلاگ', 'post_status' => 'publish' ) ); update_option( 'show_on_front', 'page' ); update_option( 'page_on_front', $home ); update_option( 'page_for_posts', $blog ); flush_rewrite_rules();"
+    }
+  ]
+}

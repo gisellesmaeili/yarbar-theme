@@ -1,6 +1,6 @@
 /**
  * Archive & Search Interactions (AJAX Filtering, Sorting, Pagination)
- * 
+ *
  * @package YarBar
  */
 ( function() {
@@ -96,35 +96,35 @@
             method: 'POST',
             body: formData
         } )
-        .then( function( res ) { return res.json(); } )
-        .then( function( res ) {
-            state.isLoading = false;
-            container.classList.remove( 'is-loading' );
+            .then( function( res ) { return res.json(); } )
+            .then( function( res ) {
+                state.isLoading = false;
+                container.classList.remove( 'is-loading' );
 
-            if ( res.success && res.data ) {
-                if ( grid ) {
-                    grid.innerHTML = res.data.html;
-                }
-                if ( paginationWrapper ) {
-                    paginationWrapper.innerHTML = res.data.pagination;
-                }
-                if ( countElement && res.data.count_text ) {
-                    countElement.textContent = res.data.count_text;
-                }
+                if ( res.success && res.data ) {
+                    if ( grid ) {
+                        grid.innerHTML = res.data.html;
+                    }
+                    if ( paginationWrapper ) {
+                        paginationWrapper.innerHTML = res.data.pagination;
+                    }
+                    if ( countElement && res.data.count_text ) {
+                        countElement.textContent = res.data.count_text;
+                    }
 
-                if ( scrollToTop && smoothScroll ) {
-                    var mainSection = document.getElementById( 'archive-main-container' );
-                    if ( mainSection ) {
-                        var offset = mainSection.getBoundingClientRect().top + window.pageYOffset - 100;
-                        window.scrollTo( { top: offset, behavior: 'smooth' } );
+                    if ( scrollToTop && smoothScroll ) {
+                        var mainSection = document.getElementById( 'archive-main-container' );
+                        if ( mainSection ) {
+                            var offset = mainSection.getBoundingClientRect().top + window.pageYOffset - 100;
+                            window.scrollTo( { top: offset, behavior: 'smooth' } );
+                        }
                     }
                 }
-            }
-        } )
-        .catch( function( err ) {
-            state.isLoading = false;
-            container.classList.remove( 'is-loading' );
-            console.error( 'AJAX archive filter error:', err );
-        } );
+            } )
+            .catch( function( err ) {
+                state.isLoading = false;
+                container.classList.remove( 'is-loading' );
+                console.error( 'AJAX archive filter error:', err );
+            } );
     }
 } )();

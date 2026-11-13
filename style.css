@@ -1,9 +1,14 @@
 /*
 Theme Name: YarBar
-Theme URI:
+Theme URI: https://github.com/gisellesmaeili/yarbar-theme
 Author: Qazal Esmaeili
 Author URI: https://www.linkedin.com/in/qazal-esmaeili-developer
-Description: Custom SEO-first theme for YarBar moving and logistics services.
-Version: 1.0.39
+Description: A custom Persian (RTL) WordPress theme for a logistics and moving company: services and coverage areas, a cost calculator, an admin settings panel and AJAX-filtered archives. / قالب اختصاصی وبسایت یاربار
+Version: 1.1.0
+Requires at least: 6.0
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: yarbar
+Tags: rtl-language-support, translation-ready
 */

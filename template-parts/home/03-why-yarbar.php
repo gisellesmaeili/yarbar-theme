@@ -1,7 +1,7 @@
 <?php
 /**
  * Personal Branding & Trust Statement Section Template Part
- * 
+ *
  * @package YarBar
  */
 
@@ -31,68 +31,68 @@ $about_tag     = yarbar_validate_heading_tag( yarbar_option( 'about_tag', 'h2' )
             <?php endif; ?>
 
             <<?php echo $about_tag; ?> id="trust-title" class="trust-title">
-                <?php echo wp_kses_post( $about_title ); ?>
-            </<?php echo $about_tag; ?>>
+            <?php echo wp_kses_post( $about_title ); ?>
+        </<?php echo $about_tag; ?>>
 
-            <?php if ( ! empty( $about_desc ) ) : ?>
-                <div class="trust-text">
-                    <?php echo wp_kses_post( wpautop( $about_desc ) ); ?>
-                </div>
-            <?php endif; ?>
+        <?php if ( ! empty( $about_desc ) ) : ?>
+            <div class="trust-text">
+                <?php echo wp_kses_post( wpautop( $about_desc ) ); ?>
+            </div>
+        <?php endif; ?>
 
-            <!-- 3 Key Statistics Metric Cards -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-number">+۱۲,۰۰۰</span>
-                    <span class="stat-label">سفارش موفق حمل بار</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">+۵٬۰۰۰</span>
-                    <span class="stat-label">راننده و ناوگان فعال</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">+۳۵۰</span>
-                    <span class="stat-label">شهر تحت پوشش</span>
-                </div>
+        <!-- 3 Key Statistics Metric Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">+۱۲,۰۰۰</span>
+                <span class="stat-label">سفارش موفق حمل بار</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">+۵٬۰۰۰</span>
+                <span class="stat-label">راننده و ناوگان فعال</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">+۳۵۰</span>
+                <span class="stat-label">شهر تحت پوشش</span>
             </div>
         </div>
+    </div>
 
-        <!-- Left Column: Guarantee Card & Founder Signature -->
-        <div class="trust-card-wrapper">
-            <div class="guarantee-card">
+    <!-- Left Column: Guarantee Card & Founder Signature -->
+    <div class="trust-card-wrapper">
+        <div class="guarantee-card">
 
-                <div class="card-header-seal">
-                    <div class="seal-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                        </svg>
-                    </div>
-                    <span class="seal-text">تعهد ما به شما</span>
+            <div class="card-header-seal">
+                <div class="seal-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                    </svg>
                 </div>
-
-                <blockquote class="guarantee-quote">
-                    «در یاربار، مسئولیت ما فقط رساندن بار از مبدأ به مقصد نیست؛ اعتماد شماست که برای ما اهمیت دارد. تلاش می‌کنیم هر بار، با انتخاب درست خودرو، هماهنگی دقیق و پیگیری مستمر، با اطمینان خاطر جابه‌جا شود. این تعهدی است که از طرف یاربار، شخصاً پای آن می‌ایستم.»
-                </blockquote>
-
-                <div class="signature-block">
-                    <div class="author-info">
-                        <h4 class="author-name">رضا شاکری</h4>
-                        <span class="author-title">موسس و مدیرعامل مجموعه یاربار</span>
-                    </div>
-                    <!-- Symbolic Digital Signature SVG -->
-                    <div class="signature-svg" aria-label="امضای رضا شاکری">
-                        <svg viewBox="0 0 150 50" fill="none" stroke="#FF6B1A" aria-hidden="true">
-                            <path d="M10 35 C30 10, 40 45, 60 15 C75 5, 85 40, 110 20 C125 10, 130 35, 140 25" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-                        </svg>
-                    </div>
-                </div>
-
-                <div class="card-stamp" aria-hidden="true">
-                    <span>تضمین قیمت و کیفیت</span>
-                </div>
-
+                <span class="seal-text">تعهد ما به شما</span>
             </div>
+
+            <blockquote class="guarantee-quote">
+                «در یاربار، مسئولیت ما فقط رساندن بار از مبدأ به مقصد نیست؛ اعتماد شماست که برای ما اهمیت دارد. تلاش می‌کنیم هر بار، با انتخاب درست خودرو، هماهنگی دقیق و پیگیری مستمر، با اطمینان خاطر جابه‌جا شود. این تعهدی است که از طرف یاربار، شخصاً پای آن می‌ایستم.»
+            </blockquote>
+
+            <div class="signature-block">
+                <div class="author-info">
+                    <strong class="author-name">رضا شاکری</strong>
+                    <span class="author-title">موسس و مدیرعامل مجموعه یاربار</span>
+                </div>
+                <!-- Symbolic Digital Signature SVG -->
+                <div class="signature-svg" role="img" aria-label="<?php esc_attr_e( 'امضای رضا شاکری', 'yarbar' ); ?>">
+                    <svg viewBox="0 0 150 50" fill="none" stroke="#FF6B1A" aria-hidden="true">
+                        <path d="M10 35 C30 10, 40 45, 60 15 C75 5, 85 40, 110 20 C125 10, 130 35, 140 25" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="card-stamp" aria-hidden="true">
+                <span>تضمین قیمت و کیفیت</span>
+            </div>
+
         </div>
+    </div>
 
     </div>
 </section>

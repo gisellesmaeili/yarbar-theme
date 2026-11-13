@@ -300,24 +300,24 @@
                     temp.className = 'yarbar-faq-item';
                     temp.innerHTML =
                         '<div class="yarbar-faq-item-top">' +
-                            '<span class="yarbar-faq-handle">' +
-                                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>' +
-                                'جابه‌جایی' +
-                            '</span>' +
-                            '<div class="yarbar-faq-actions">' +
-                                '<button type="button" class="yarbar-btn-switch-col" data-target-col="' + ( colKey === 'col1' ? 'col2' : 'col1' ) + '">⇄ انتقال به ' + ( colKey === 'col1' ? 'ستون ۲' : 'ستون ۱' ) + '</button>' +
-                                '<button type="button" class="yarbar-btn-delete-faq" title="حذف سوال">' +
-                                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18m-2 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/></svg>' +
-                                '</button>' +
-                            '</div>' +
+                        '<span class="yarbar-faq-handle">' +
+                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>' +
+                        'جابه‌جایی' +
+                        '</span>' +
+                        '<div class="yarbar-faq-actions">' +
+                        '<button type="button" class="yarbar-btn-switch-col" data-target-col="' + ( colKey === 'col1' ? 'col2' : 'col1' ) + '">⇄ انتقال به ' + ( colKey === 'col1' ? 'ستون ۲' : 'ستون ۱' ) + '</button>' +
+                        '<button type="button" class="yarbar-btn-delete-faq" title="حذف سوال">' +
+                        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18m-2 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6"/></svg>' +
+                        '</button>' +
+                        '</div>' +
                         '</div>' +
                         '<div class="yarbar-form-group">' +
-                            '<label class="yarbar-label">عنوان سوال:</label>' +
-                            '<input type="text" class="yarbar-input faq-q-input" placeholder="متن سوال را وارد کنید...">' +
+                        '<label class="yarbar-label">عنوان سوال:</label>' +
+                        '<input type="text" class="yarbar-input faq-q-input" placeholder="متن سوال را وارد کنید...">' +
                         '</div>' +
                         '<div class="yarbar-form-group">' +
-                            '<label class="yarbar-label">پاسخ سوال:</label>' +
-                            '<textarea class="yarbar-textarea faq-a-input" rows="3" placeholder="پاسخ کامل سوال را بنویسید..."></textarea>' +
+                        '<label class="yarbar-label">پاسخ سوال:</label>' +
+                        '<textarea class="yarbar-textarea faq-a-input" rows="3" placeholder="پاسخ کامل سوال را بنویسید..."></textarea>' +
                         '</div>';
 
                     list.appendChild( temp );
@@ -445,29 +445,29 @@
                 body: formData,
                 credentials: 'same-origin'
             } )
-            .then( function( res ) {
-                return res.json();
-            } )
-            .then( function( data ) {
-                saveBtns.forEach( function( btn ) {
-                    btn.disabled = false;
-                    btn.classList.remove( 'is-loading' );
-                } );
+                .then( function( res ) {
+                    return res.json();
+                } )
+                .then( function( data ) {
+                    saveBtns.forEach( function( btn ) {
+                        btn.disabled = false;
+                        btn.classList.remove( 'is-loading' );
+                    } );
 
-                if ( data && data.success ) {
-                    showToast( data.data.message || 'تنظیمات با موفقیت ذخیره شد.', true );
-                } else {
-                    var msg = ( data && data.data && data.data.message ) ? data.data.message : 'خطایی در هنگام ذخیره تنظیمات رخ داد.';
-                    showToast( msg, false );
-                }
-            } )
-            .catch( function( err ) {
-                saveBtns.forEach( function( btn ) {
-                    btn.disabled = false;
-                    btn.classList.remove( 'is-loading' );
+                    if ( data && data.success ) {
+                        showToast( data.data.message || 'تنظیمات با موفقیت ذخیره شد.', true );
+                    } else {
+                        var msg = ( data && data.data && data.data.message ) ? data.data.message : 'خطایی در هنگام ذخیره تنظیمات رخ داد.';
+                        showToast( msg, false );
+                    }
+                } )
+                .catch( function( err ) {
+                    saveBtns.forEach( function( btn ) {
+                        btn.disabled = false;
+                        btn.classList.remove( 'is-loading' );
+                    } );
+                    showToast( 'خطای ارتباط با سرور رخ داد.', false );
                 } );
-                showToast( 'خطای ارتباط با سرور رخ داد.', false );
-            } );
         }
 
         saveBtns.forEach( function( btn ) {

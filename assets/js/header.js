@@ -1,6 +1,6 @@
 /**
  * Header JavaScript for YarBar
- * 
+ *
  * - Glassmorphism shrink on scroll
  * - Active section tracking with minimal line indicator
  * - Smooth scroll for on-page anchors

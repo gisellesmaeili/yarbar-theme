@@ -27,7 +27,7 @@
 
 .yarbar-admin-wrap {
     direction: rtl;
-    font-family: 'IRANYekanX', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: 'Arad', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     margin: 20px 20px 40px 0;
     max-width: 1200px;
     color: var(--yb-admin-text-main);
@@ -88,10 +88,10 @@
 }
 
 .yarbar-header-title {
-    font-family: 'IRANYekanX', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: 'Arad', sans-serif !important;
     font-size: 24px;
     font-weight: 700;
-    margin: 0 0 6px 0;
+    margin: 0 0 12px 0;
     color: #FFFFFF;
 }
 
@@ -147,7 +147,9 @@
 }
 
 @keyframes yarbar-spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Tabs Navigation */
@@ -218,8 +220,15 @@
 }
 
 @keyframes yarbar-fade-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Cards & Section Boxes */
@@ -248,7 +257,7 @@
 }
 
 .yarbar-card-title {
-    font-family: 'IRANYekanX', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: 'Arad', sans-serif !important;
     font-size: 16px;
     font-weight: 700;
     color: var(--yb-admin-midnight);
@@ -371,6 +380,7 @@
 }
 
 .yarbar-tag-select {
+    min-height: auto !important;
     font-size: 12px !important;
     font-weight: 800 !important;
     color: var(--yb-admin-midnight) !important;
@@ -544,6 +554,7 @@
 }
 
 .yarbar-faq-col-title {
+    font-family: 'Arad', sans-serif !important;
     font-size: 15px;
     font-weight: 700;
     color: var(--yb-admin-midnight);
@@ -575,9 +586,19 @@
 }
 
 @keyframes yarbar-shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(4px); }
-    75% { transform: translateX(-4px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(4px);
+    }
+
+    75% {
+        transform: translateX(-4px);
+    }
 }
 
 .yarbar-faq-items-list {

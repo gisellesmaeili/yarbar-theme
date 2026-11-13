@@ -2,6 +2,11 @@
    YarBar - Archive, Category & Search Stylesheet (archive.css)
    Loaded conditionally only on archive/blog/search views via
    is_archive() || is_home() || is_search()
+   Contains styles for:
+   1. Dark Hero Section with Search Form
+   2. Filter Bar (Category Tabs & Sorting Dropdown)
+   3. AJAX Grid Container & Empty Callout
+   4. Accessible Pagination Component
    ========================================================================== */
 
 .archive-page {
@@ -20,51 +25,6 @@
     position: relative;
 }
 
-/* Breadcrumbs in Hero Sections */
-.breadcrumbs-nav {
-    margin-bottom: 32px;
-}
-
-.breadcrumbs,
-.rank-math-breadcrumb {
-    font-size: 13.5px;
-    color: var(--color-muted);
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-
-.breadcrumbs a,
-.rank-math-breadcrumb a {
-    color: #CBD5E1;
-    text-decoration: none;
-    transition: color 0.25s ease;
-}
-
-.breadcrumbs a:hover,
-.rank-math-breadcrumb a:hover {
-    color: var(--color-orange);
-}
-
-.breadcrumbs span,
-.rank-math-breadcrumb .last {
-    color: var(--color-orange);
-    font-weight: 700;
-}
-
-.breadcrumbs .separator,
-.rank-math-breadcrumb .separator {
-    color: #64748B;
-    margin: 0 2px;
-}
-
-.post-count {
-    font-size: 13px;
-    color: #94A3B8;
-}
-
 .archive-hero-header {
     max-width: 800px;
 }
@@ -78,7 +38,7 @@
 }
 
 .archive-subtitle {
-    color: #94A3B8;
+    color: var(--color-slate-light);
     font-size: 16.5px;
     line-height: 1.8;
     margin: 0 0 32px 0;
@@ -103,22 +63,22 @@
     transform: translateY(-50%);
     width: 20px;
     height: 20px;
-    color: #64748B;
+    color: var(--color-slate-muted);
     pointer-events: none;
 }
 
 .search-input-wrapper input {
     width: 100%;
     height: 50px;
-    background-color: #0F2337;
-    border: 1.5px solid #1E293B;
-    border-radius: 12px;
+    background-color: var(--color-slate-bg);
+    border: 1.5px solid var(--color-slate-border);
+    border-radius: var(--radius-lg);
     padding: 0 48px 0 16px;
     color: var(--color-white);
     font-family: var(--font-body);
     font-size: 14.5px;
     outline: none;
-    transition: border-color 0.3s ease;
+    transition: border-color var(--transition-smooth);
     box-sizing: border-box;
 }
 
@@ -132,12 +92,12 @@
     background-color: var(--color-orange);
     color: var(--color-white);
     border: none;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     font-weight: 700;
     font-size: 14.5px;
     font-family: var(--font-body);
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color var(--transition-smooth), transform var(--transition-fast);
     white-space: nowrap;
     display: inline-flex;
     align-items: center;
@@ -150,7 +110,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. Main Archive Content Section
+   2. Main Archive Content Section & Filter Bar
    -------------------------------------------------------------------------- */
 .archive-content-section {
     width: 100%;
@@ -165,7 +125,7 @@
     margin-bottom: 40px;
     background-color: var(--color-white);
     padding: 12px 20px;
-    border-radius: 16px;
+    border-radius: var(--radius-2xl);
     border: 1px solid var(--color-gray);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
     gap: 16px;
@@ -186,21 +146,21 @@
 
 .category-tab {
     padding: 8px 18px;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     color: var(--color-text);
     background: transparent;
     border: none;
-    font-family: var(--font-body);
+    font-family: var(--font-body), sans-serif;
     font-size: 14px;
     font-weight: 500;
     white-space: nowrap;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all var(--transition-base);
 }
 
 .category-tab:hover {
     color: var(--color-orange);
-    background-color: rgba(255, 107, 26, 0.08);
+    background-color: var(--color-orange-light);
 }
 
 .category-tab.active {
@@ -223,7 +183,7 @@
 
 .sort-select {
     border: 1px solid var(--color-gray);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     padding: 8px 12px;
     font-size: 13.5px;
     color: var(--color-midnight);
@@ -231,7 +191,7 @@
     outline: none;
     background-color: var(--color-white);
     cursor: pointer;
-    transition: border-color 0.25s ease;
+    transition: border-color var(--transition-base);
 }
 
 .sort-select:focus {
@@ -243,7 +203,7 @@
    -------------------------------------------------------------------------- */
 .archive-grid-container {
     position: relative;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--transition-smooth);
 }
 
 .archive-grid-container.is-loading {
@@ -258,7 +218,7 @@
     color: var(--color-muted);
     font-size: 16px;
     background-color: var(--color-white);
-    border-radius: 16px;
+    border-radius: var(--radius-2xl);
     border: 1px dashed var(--color-gray);
 }
 
@@ -279,14 +239,14 @@
     min-width: 42px;
     height: 42px;
     padding: 0 14px;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     background-color: var(--color-white);
     border: 1px solid var(--color-gray);
     color: var(--color-midnight);
     text-decoration: none;
     font-size: 14px;
     font-weight: 700;
-    transition: all 0.25s ease;
+    transition: all var(--transition-base);
     cursor: pointer;
 }
 

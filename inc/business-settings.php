@@ -15,23 +15,23 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function yarbar_register_theme_settings_page() {
     add_menu_page(
-        __( 'تنظیمات یاربار', 'yarbar' ),
-        __( 'تنظیمات یاربار', 'yarbar' ),
-        'manage_options',
-        'yarbar-settings',
-        'yarbar_render_theme_settings_page',
-        'dashicons-car',
-        59
+            __( 'تنظیمات یاربار', 'yarbar' ),
+            __( 'تنظیمات یاربار', 'yarbar' ),
+            'manage_options',
+            'yarbar-settings',
+            'yarbar_render_theme_settings_page',
+            'dashicons-feedback',
+            59
     );
 
     // Keep alias for backwards compatibility if needed
     add_submenu_page(
-        null,
-        __( 'تنظیمات یاربار', 'yarbar' ),
-        __( 'تنظیمات یاربار', 'yarbar' ),
-        'manage_options',
-        'yarbar-business-settings',
-        'yarbar_render_theme_settings_page'
+            null,
+            __( 'تنظیمات یاربار', 'yarbar' ),
+            __( 'تنظیمات یاربار', 'yarbar' ),
+            'manage_options',
+            'yarbar-business-settings',
+            'yarbar_render_theme_settings_page'
     );
 }
 add_action( 'admin_menu', 'yarbar_register_theme_settings_page' );
@@ -47,27 +47,27 @@ function yarbar_admin_enqueue_assets( $hook ) {
     $theme_ver = wp_get_theme()->get( 'Version' );
 
     wp_enqueue_style(
-        'yarbar-admin-settings',
-        get_template_directory_uri() . '/assets/css/admin-settings.css',
-        array(),
-        $theme_ver
+            'yarbar-admin-settings',
+            get_template_directory_uri() . '/assets/css/admin-settings.css',
+            array(),
+            $theme_ver
     );
 
     wp_enqueue_script(
-        'yarbar-admin-settings',
-        get_template_directory_uri() . '/assets/js/admin-settings.js',
-        array(),
-        $theme_ver,
-        true
+            'yarbar-admin-settings',
+            get_template_directory_uri() . '/assets/js/admin-settings.js',
+            array(),
+            $theme_ver,
+            true
     );
 
     wp_localize_script(
-        'yarbar-admin-settings',
-        'yarbarAdminData',
-        array(
-            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-            'nonce'   => wp_create_nonce( 'yarbar_settings_nonce' ),
-        )
+            'yarbar-admin-settings',
+            'yarbarAdminData',
+            array(
+                    'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+                    'nonce'   => wp_create_nonce( 'yarbar_settings_nonce' ),
+            )
     );
 }
 add_action( 'admin_enqueue_scripts', 'yarbar_admin_enqueue_assets' );
@@ -143,7 +143,7 @@ function yarbar_ajax_save_settings() {
         wp_send_json_error( array( 'message' => 'شما مجوز کافی برای تغییر تنظیمات را ندارید.' ) );
     }
 
-    $post_data = isset( $_POST['settings'] ) && is_array( $_POST['settings'] ) ? $_POST['settings'] : array();
+    $post_data = isset( $_POST['settings'] ) && is_array( $_POST['settings'] ) ? wp_unslash( $_POST['settings'] ) : array();
 
     // 1. Column item count validation (Min 1, Max 10 per column)
     $faqs_col1 = isset( $post_data['faqs']['col1'] ) && is_array( $post_data['faqs']['col1'] ) ? $post_data['faqs']['col1'] : array();
@@ -154,13 +154,13 @@ function yarbar_ajax_save_settings() {
 
     if ( $col1_count < 1 || $col1_count > 10 ) {
         wp_send_json_error( array(
-            'message' => sprintf( 'خطا: ستون اول باید بین ۱ تا ۱۰ سوال داشته باشد. (تعداد فعلی: %d)', $col1_count )
+                'message' => sprintf( 'خطا: ستون اول باید بین ۱ تا ۱۰ سوال داشته باشد. (تعداد فعلی: %d)', $col1_count )
         ) );
     }
 
     if ( $col2_count < 1 || $col2_count > 10 ) {
         wp_send_json_error( array(
-            'message' => sprintf( 'خطا: ستون دوم باید بین ۱ تا ۱۰ سوال داشته باشد. (تعداد فعلی: %d)', $col2_count )
+                'message' => sprintf( 'خطا: ستون دوم باید بین ۱ تا ۱۰ سوال داشته باشد. (تعداد فعلی: %d)', $col2_count )
         ) );
     }
 
@@ -195,19 +195,17 @@ function yarbar_ajax_save_settings() {
     $sanitized['faq_desc']           = wp_kses_post( $post_data['faq_desc'] ?? '' );
     $sanitized['faq_tag']            = yarbar_validate_heading_tag( $post_data['faq_tag'] ?? 'h2', 'h2' );
 
-    $sanitized['blog_eyebrow']       = wp_kses_post( $post_data['blog_eyebrow'] ?? '' );
     $sanitized['blog_title']         = wp_kses_post( $post_data['blog_title'] ?? '' );
     $sanitized['blog_tag']           = yarbar_validate_heading_tag( $post_data['blog_tag'] ?? 'h2', 'h2' );
 
-    $sanitized['cta_eyebrow']        = wp_kses_post( $post_data['cta_eyebrow'] ?? '' );
     $sanitized['cta_title']          = wp_kses_post( $post_data['cta_title'] ?? '' );
     $sanitized['cta_desc']           = wp_kses_post( $post_data['cta_desc'] ?? '' );
     $sanitized['cta_tag']            = yarbar_validate_heading_tag( $post_data['cta_tag'] ?? 'h2', 'h2' );
 
     // Tab 2: FAQs
     $sanitized['faqs'] = array(
-        'col1' => array(),
-        'col2' => array(),
+            'col1' => array(),
+            'col2' => array(),
     );
 
     foreach ( $faqs_col1 as $item ) {
@@ -255,7 +253,7 @@ function yarbar_ajax_save_settings() {
     update_option( 'yarbar_business_settings', $legacy );
 
     wp_send_json_success( array(
-        'message' => 'تنظیمات یاربار با موفقیت ذخیره شد.',
+            'message' => 'تنظیمات یاربار با موفقیت ذخیره شد.',
     ) );
 }
 add_action( 'wp_ajax_yarbar_save_settings', 'yarbar_ajax_save_settings' );
@@ -297,11 +295,9 @@ function yarbar_render_theme_settings_page() {
     $faq_desc    = $settings['faq_desc'] ?? 'پاسخ رایج‌ترین سؤالات درباره نحوه ثبت درخواست، انتخاب خودرو، هزینه حمل و خدمات یاربار را در این بخش ببینید.';
     $faq_tag     = yarbar_validate_heading_tag( $settings['faq_tag'] ?? 'h2', 'h2' );
 
-    $blog_eyebrow = $settings['blog_eyebrow'] ?? 'وبلاگ و مقالات آموزشی';
     $blog_title   = $settings['blog_title'] ?? 'تازه‌ترین مطالب و نکات حمل بار';
     $blog_tag     = yarbar_validate_heading_tag( $settings['blog_tag'] ?? 'h2', 'h2' );
 
-    $cta_eyebrow = $settings['cta_eyebrow'] ?? 'شروع همکاری با یاربار';
     $cta_title   = $settings['cta_title'] ?? 'آماده جابه‌جایی هستید؟';
     $cta_desc    = $settings['cta_desc'] ?? 'کافی است با ما تماس بگیرید تا مناسب‌ترین راهکار حمل را برای شما پیدا کنیم.';
     $cta_tag     = yarbar_validate_heading_tag( $settings['cta_tag'] ?? 'h2', 'h2' );
@@ -372,16 +368,16 @@ function yarbar_render_theme_settings_page() {
                 </div>
                 <?php
                 yarbar_render_editor_field(
-                    'hero_h1',
-                    'تیتر اصلی هیرو (hero__title):',
-                    $hero_h1,
-                    array(
-                        'is_textarea' => true,
-                        'tag_name'    => 'hero_tag',
-                        'tag_value'   => $hero_tag,
-                        'sub_label'   => 'امکان انتخاب تگ HTML و ویرایش در حالت ظاهری یا کد',
-                        'help_text'   => 'این تیتر در صفحه اصلی داخل المان hero__title نمایش داده می‌شود.',
-                    )
+                        'hero_h1',
+                        'تیتر اصلی هیرو (hero__title):',
+                        $hero_h1,
+                        array(
+                                'is_textarea' => true,
+                                'tag_name'    => 'hero_tag',
+                                'tag_value'   => $hero_tag,
+                                'sub_label'   => 'امکان انتخاب تگ HTML و ویرایش در حالت ظاهری یا کد',
+                                'help_text'   => 'این تیتر در صفحه اصلی داخل المان hero__title نمایش داده می‌شود.',
+                        )
                 );
                 ?>
             </div>
@@ -397,8 +393,8 @@ function yarbar_render_theme_settings_page() {
                 <?php
                 yarbar_render_editor_field( 'about_eyebrow', 'نشان بالای تیتر (Eyebrow):', $about_eyebrow );
                 yarbar_render_editor_field( 'about_title', 'عنوان اصلی (Title):', $about_title, array(
-                    'tag_name'  => 'about_tag',
-                    'tag_value' => $about_tag,
+                        'tag_name'  => 'about_tag',
+                        'tag_value' => $about_tag,
                 ) );
                 yarbar_render_editor_field( 'about_desc', 'توضیحات (Description):', $about_desc, array( 'is_textarea' => true ) );
                 ?>
@@ -415,8 +411,8 @@ function yarbar_render_theme_settings_page() {
                 <?php
                 yarbar_render_editor_field( 'services_eyebrow', 'نشان بالای تیتر (Eyebrow):', $services_eyebrow );
                 yarbar_render_editor_field( 'services_title', 'عنوان اصلی (Title):', $services_title, array(
-                    'tag_name'  => 'services_tag',
-                    'tag_value' => $services_tag,
+                        'tag_name'  => 'services_tag',
+                        'tag_value' => $services_tag,
                 ) );
                 yarbar_render_editor_field( 'services_desc', 'توضیحات (Description):', $services_desc, array( 'is_textarea' => true ) );
                 ?>
@@ -433,8 +429,8 @@ function yarbar_render_theme_settings_page() {
                 <?php
                 yarbar_render_editor_field( 'calculator_eyebrow', 'نشان بالای تیتر (Eyebrow):', $calc_eyebrow );
                 yarbar_render_editor_field( 'calculator_title', 'عنوان اصلی (Title):', $calc_title, array(
-                    'tag_name'  => 'calculator_tag',
-                    'tag_value' => $calc_tag,
+                        'tag_name'  => 'calculator_tag',
+                        'tag_value' => $calc_tag,
                 ) );
                 ?>
             </div>
@@ -450,8 +446,8 @@ function yarbar_render_theme_settings_page() {
                 <?php
                 yarbar_render_editor_field( 'coverage_eyebrow', 'نشان بالای تیتر (Eyebrow):', $coverage_eyebrow );
                 yarbar_render_editor_field( 'coverage_title', 'عنوان اصلی (Title):', $coverage_title, array(
-                    'tag_name'  => 'coverage_tag',
-                    'tag_value' => $coverage_tag,
+                        'tag_name'  => 'coverage_tag',
+                        'tag_value' => $coverage_tag,
                 ) );
                 yarbar_render_editor_field( 'coverage_desc', 'توضیحات (Description):', $coverage_desc, array( 'is_textarea' => true ) );
                 ?>
@@ -468,8 +464,8 @@ function yarbar_render_theme_settings_page() {
                 <?php
                 yarbar_render_editor_field( 'faq_eyebrow', 'نشان بالای تیتر (Eyebrow):', $faq_eyebrow );
                 yarbar_render_editor_field( 'faq_title', 'عنوان اصلی (Title):', $faq_title, array(
-                    'tag_name'  => 'faq_tag',
-                    'tag_value' => $faq_tag,
+                        'tag_name'  => 'faq_tag',
+                        'tag_value' => $faq_tag,
                 ) );
                 yarbar_render_editor_field( 'faq_desc', 'توضیحات (Description):', $faq_desc, array( 'is_textarea' => true ) );
                 ?>
@@ -484,10 +480,9 @@ function yarbar_render_theme_settings_page() {
                     <span class="yarbar-card-badge">بخش ششم</span>
                 </div>
                 <?php
-                yarbar_render_editor_field( 'blog_eyebrow', 'نشان بالای تیتر (Eyebrow):', $blog_eyebrow );
                 yarbar_render_editor_field( 'blog_title', 'عنوان اصلی (Title):', $blog_title, array(
-                    'tag_name'  => 'blog_tag',
-                    'tag_value' => $blog_tag,
+                        'tag_name'  => 'blog_tag',
+                        'tag_value' => $blog_tag,
                 ) );
                 ?>
             </div>
@@ -501,10 +496,9 @@ function yarbar_render_theme_settings_page() {
                     <span class="yarbar-card-badge">بخش پایانی</span>
                 </div>
                 <?php
-                yarbar_render_editor_field( 'cta_eyebrow', 'نشان بالای تیتر (Eyebrow):', $cta_eyebrow );
                 yarbar_render_editor_field( 'cta_title', 'عنوان اصلی (Title):', $cta_title, array(
-                    'tag_name'  => 'cta_tag',
-                    'tag_value' => $cta_tag,
+                        'tag_name'  => 'cta_tag',
+                        'tag_value' => $cta_tag,
                 ) );
                 yarbar_render_editor_field( 'cta_desc', 'توضیحات (Description):', $cta_desc, array( 'is_textarea' => true ) );
                 ?>
