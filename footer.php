@@ -196,7 +196,7 @@ $map_link_url = 'https://www.google.com/maps/search/?api=1&query=' . rawurlencod
 
         <!-- بخش حقوق و کپی‌رایت -->
         <div class="footer-bottom">
-            <span>طراحی شده با ♡ - <a href="https://vardi.ir" target="_blank" rel="nofollow noopener">آژانس تبلیغاتی وردی</a></span>
+            <span><a href="https://github.com/gisellesmaeili" target="_blank" rel="nofollow noopener">Designed and Developed by Qazal Esmaeili</a></span>
         </div>
 
     </div>
